@@ -13,13 +13,21 @@
     <link rel="mask-icon" href="./Resurse/ico/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="./Stil/stil.css" type="text/css">
+    <script src="https://kit.fontawesome.com/7517924a69.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <header>
       <a id="inceput"></a>
       <h1>For the Gamers</h1>
-      <nav>
+      <figure>
+        <picture>
+            <source media="(min-width:1300px)" srcset="./Resurse/Logo/Logo2.png">
+            <source media="(min-width:700px)" srcset="./Resurse/Logo/Logo3.png">
+            <img src="./Resurse/Logo/Logo4.png" alt="Controller">
+        </picture>
+      </figure>
+      <nav class="meniu">
         <ul>
           <li><a href="toate.html">Toate jocurile</a></li>
           <li><a href="contul_meu.html">Contul meu</a></li>
@@ -38,21 +46,24 @@
         </ul>
       </nav>
     </header>
-    <main>
-      <section>
+    <main id="main-container">
+      <section class="sectiune1 inceput">
         <h2>Bine ai venit!</h2>
         <p>În cadrul acestui site vei găsi numeroase jocuri pe gustul tău, dacă ești fan acțiune și ai chef de un <i>FPS</i>, vrei să gândești strategic jucând un <i>RTS</i> sau vrei să te relaxezi cu un joc <i>casual</i>? Atunci ai venit unde trebuie</p>
         <p>Mai jos este prezentată o <b>selecție de jocuri</b> acompaniată de o descriere și o recenzie</p>
         <p><strong lang="en">Disclaimer!</strong> Recenzia reprezintă strict o <strong>opinie personală!<br>Aces site nu este afiliat cu nicio companie sau joc video și nu dețin drepturi de copyright pentru niciunul dintre jocurile prezentate!</strong> </p>
-        <figure>
-          <picture>
-              <source media="(min-width:1300px)" srcset="./Resurse/Logo/Logo2.png">
-              <source media="(min-width:700px)" srcset="./Resurse/Logo/Logo3.png">
-              <img src="./Resurse/Logo/Logo4.png" alt="Controller">
-          </picture>
-        </figure>
+        <!-- <i class="fa-solid fa-gamepad" style="color: blueviolet;font-size: 100px;"></i> -->
       </section>
-      <section>
+      <div class="calendar">
+        calendar
+      </div>
+      <div class="tabel">
+        tabel
+      </div>
+      <div class="ads">
+        ads
+      </div>
+      <section class="content">
         <a id="Best"><h2>Cele mai bune jocuri open-source!</h2></a>
         <details>
           <summary>De ce open source?</summary>
@@ -127,6 +138,9 @@
           </li>
         </ul>
       </section>
+      <div class="inf_site">info despre site</div>
+      <div class="user_online">utilizatori online</div>
+      <div class="inf_user">info despre useri</div>
     </main>
     <footer>
       <a href="#inceput">Acasa</a>

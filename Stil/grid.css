@@ -1,0 +1,72 @@
+#main-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas: 'inceput inceput inceput' 'calendar tabel ads' 'content content content' 'despre-site utilizatori-online despre-user';
+}
+
+.inceput {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: inceput;
+  background-color: #86c232;
+}
+
+.calendar {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: calendar;
+  background-color: #61982f;
+  border: 5px solid red;
+}
+
+.tabel {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: tabel;
+  background-color: #86c232;
+}
+
+.ads {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: ads;
+  background-color: #61982f;
+}
+
+.content {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: content;
+}
+
+.inf_site {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  grid-area: despre-site;
+  background-color: #86c232;
+  width: 200px;
+  height: 100px;
+}
+
+.inf_user {
+  -ms-grid-row: 4;
+  -ms-grid-column: 3;
+  grid-area: despre-user;
+  background-color: #61982f;
+  width: 200px;
+  height: 100px;
+}
+
+.user_online {
+  -ms-grid-row: 4;
+  -ms-grid-column: 2;
+  grid-area: utilizatori-online;
+  background-color: #86c232;
+  width: 200px;
+  height: 100px;
+}
+/*# sourceMappingURL=grid.css.map */
