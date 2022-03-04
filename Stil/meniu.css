@@ -1,0 +1,27 @@
+.meniu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.meniu li {
+  float: left;
+}
+
+.meniu li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.meniu li a:hover {
+  background-color: #111;
+}
+
+.meniu li li {
+  float: none;
+}
+/*# sourceMappingURL=meniu.css.map */
