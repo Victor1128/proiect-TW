@@ -1,60 +1,73 @@
 @import "./animatii.scss";
-#acasa{
-  cursor: pointer;
-  ul{
-    display: none;
-  }
-  &:hover{
-    ul{
-      li{
-        background-color: #111;
-      }
-      display: block;
-      @include deschidere_meniu();
+@import "./variabile.css";
+.meniu ul.ul_meniu ul{
+  display: none;
+  position: absolute ;
+  background-color: $menu_color;
+  width: 200px;
+  li{
+    text-align: center;
+    width: 150px;
+    a{
+      text-align: center;
     }
   }
+  // padding: 5px;
 }
-nav{
-  z-index: 10;
-  top: 0;
-  position: sticky;
+.meniu{
   width: 100%;
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        // background-color: #333;
-      }
-      
-      li {
-        float: left;
-        
-        a {
-          // margin: 4px;
-          //   border: 4px solid red;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            &:hover{
-                background-color: #111;
-            }
-          }
-          li{
-            float: none;
-            ul{
-              display: none;
-            }
-            &:hover{
-              ul{
-                display: block;
-                @include deschidere_meniu();
-              }
-            }
-            
-            
+  height: 37px;
+  padding: 0;
+  margin: 0;
+  background-color: $menu_color;
+  // z-index: 10;
+  position: sticky;
+  top: 0;
+  ul{
+    li{
+      float: left;
+      width: 200px;
+      height: 37px;
+      position: relative;
+      text-align: center;
+      list-style-type: none;
+      a{
+        height: 37px;
+        text-decoration: none;
+        color: white;
+        display: block;
+        font-weight: bold;
+        &:hover{
+          background-color: black;
         }
       }
+    }
+    #acasa{
+      cursor: default;
+    }
+
+  }
+}
+ul.ul_meniu>li:hover>ul{
+  width: 200px;
+  padding: 0px;
+  li{
+    text-align: center;
+    width: 200px;
+  }
+  display: block;
+  @include deschidere_meniu();
+}
+.submeniu{
+  .sageata{
+    float:left;
+    margin-left: 3px;
+    display: none;
+  }
+}
+.submeniu>li:hover{
+  i{
+    display: block;
+    animation: sagetica .5s linear both;
+  }
 }

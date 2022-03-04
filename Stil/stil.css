@@ -1,3 +1,4 @@
+@import url(c:\Users\Asu\Documents\!Facultate\anul1\sem2\TW\proiect\Stil\variabile.css);
 @-webkit-keyframes meniu {
   0% {
     opacity: 0;
@@ -10,7 +11,6 @@
             transform: scaleY(1);
   }
 }
-
 @keyframes meniu {
   0% {
     opacity: 0;
@@ -21,6 +21,28 @@
     opacity: 1;
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
+  }
+}
+
+@-webkit-keyframes sagetica {
+  0% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  100% {
+    -webkit-transform: translatex(30px);
+            transform: translatex(30px);
+  }
+}
+
+@keyframes sagetica {
+  0% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  100% {
+    -webkit-transform: translatex(30px);
+            transform: translatex(30px);
   }
 }
 
@@ -120,71 +142,94 @@
   }
 }
 
-#acasa {
-  cursor: pointer;
+@keyframes sagetica {
+  0% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  100% {
+    -webkit-transform: translatex(30px);
+            transform: translatex(30px);
+  }
 }
 
-#acasa ul {
+.meniu ul.ul_meniu ul {
   display: none;
+  position: absolute;
+  background-color: #3D418F;
+  width: 200px;
 }
 
-#acasa:hover ul {
-  display: block;
-  -webkit-animation: meniu .4s linear forwards;
-          animation: meniu .4s linear forwards;
-  -webkit-transform-origin: 50% 0;
-          transform-origin: 50% 0;
+.meniu ul.ul_meniu ul li {
+  text-align: center;
+  width: 150px;
 }
 
-#acasa:hover ul li {
-  background-color: #111;
+.meniu ul.ul_meniu ul li a {
+  text-align: center;
 }
 
-nav {
-  z-index: 10;
-  top: 0;
+.meniu {
+  width: 100%;
+  height: 37px;
+  padding: 0;
+  margin: 0;
+  background-color: #3D418F;
   position: -webkit-sticky;
   position: sticky;
-  width: 100%;
+  top: 0;
 }
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-nav li {
+.meniu ul li {
   float: left;
-}
-
-nav li a {
-  display: block;
-  color: white;
+  width: 200px;
+  height: 37px;
+  position: relative;
   text-align: center;
-  padding: 14px 16px;
+  list-style-type: none;
+}
+
+.meniu ul li a {
+  height: 37px;
   text-decoration: none;
+  color: white;
+  display: block;
+  font-weight: bold;
 }
 
-nav li a:hover {
-  background-color: #111;
+.meniu ul li a:hover {
+  background-color: black;
 }
 
-nav li li {
-  float: none;
+.meniu ul #acasa {
+  cursor: default;
 }
 
-nav li li ul {
+ul.ul_meniu > li:hover > ul {
+  width: 200px;
+  padding: 0px;
+  display: block;
+  -webkit-animation: meniu .25s linear forwards;
+          animation: meniu .25s linear forwards;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+}
+
+ul.ul_meniu > li:hover > ul li {
+  text-align: center;
+  width: 200px;
+}
+
+.submeniu .sageata {
+  float: left;
+  margin-left: 3px;
   display: none;
 }
 
-nav li li:hover ul {
+.submeniu > li:hover i {
   display: block;
-  -webkit-animation: meniu .4s linear forwards;
-          animation: meniu .4s linear forwards;
-  -webkit-transform-origin: 50% 0;
-          transform-origin: 50% 0;
+  -webkit-animation: sagetica .5s linear both;
+          animation: sagetica .5s linear both;
 }
 
 body {

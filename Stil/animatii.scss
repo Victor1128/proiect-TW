@@ -8,8 +8,16 @@
         transform:scaleY(1);
     }
 }
+@keyframes sagetica{
+    0%{
+        transform: translateX(-20px);
+    }
+    100%{
+        transform: translatex(30px);
+    }
+}
 
 @mixin deschidere_meniu {
-    animation: meniu .4s linear forwards;
+    animation: meniu .25s linear forwards;
     transform-origin: 50% 0;
 }

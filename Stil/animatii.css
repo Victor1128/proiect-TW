@@ -10,6 +10,7 @@
             transform: scaleY(1);
   }
 }
+
 @keyframes meniu {
   0% {
     opacity: 0;
@@ -20,6 +21,28 @@
     opacity: 1;
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
+  }
+}
+
+@-webkit-keyframes sagetica {
+  0% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  100% {
+    -webkit-transform: translatex(30px);
+            transform: translatex(30px);
+  }
+}
+
+@keyframes sagetica {
+  0% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  100% {
+    -webkit-transform: translatex(30px);
+            transform: translatex(30px);
   }
 }
 /*# sourceMappingURL=animatii.css.map */
