@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,UAAU,CAAV,KAAU;EACN,EAAE;IACE,SAAS,EAAE,SAAS;;EAExB,IAAI;IACA,SAAS,EAAE,SAAS",
+    "mappings": "AAAA,UAAU,CAAV,KAAU;EACN,EAAE;IACE,OAAO,EAAE,CAAC;IACV,SAAS,EAAC,SAAS;;EAEvB,IAAI;IACA,OAAO,EAAE,CAAC;IACV,SAAS,EAAC,SAAS",
     "sources": [
         "animatii.scss"
     ],

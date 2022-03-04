@@ -1,9 +1,11 @@
 @-webkit-keyframes meniu {
   0% {
+    opacity: 0;
     -webkit-transform: scaleY(0);
             transform: scaleY(0);
   }
   100% {
+    opacity: 1;
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
   }
@@ -11,10 +13,12 @@
 
 @keyframes meniu {
   0% {
+    opacity: 0;
     -webkit-transform: scaleY(0);
             transform: scaleY(0);
   }
   100% {
+    opacity: 1;
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
   }
@@ -103,18 +107,59 @@
   }
 }
 
-.meniu ul {
+@keyframes meniu {
+  0% {
+    opacity: 0;
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+}
+
+#acasa {
+  cursor: pointer;
+}
+
+#acasa ul {
+  display: none;
+}
+
+#acasa:hover ul {
+  display: block;
+  -webkit-animation: meniu .4s linear forwards;
+          animation: meniu .4s linear forwards;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+}
+
+#acasa:hover ul li {
+  background-color: #111;
+}
+
+nav {
+  z-index: 10;
+  top: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+}
+
+nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-.meniu li {
+nav li {
   float: left;
 }
 
-.meniu li a {
+nav li a {
   display: block;
   color: white;
   text-align: center;
@@ -122,12 +167,24 @@
   text-decoration: none;
 }
 
-.meniu li a:hover {
+nav li a:hover {
   background-color: #111;
 }
 
-.meniu li li {
+nav li li {
   float: none;
+}
+
+nav li li ul {
+  display: none;
+}
+
+nav li li:hover ul {
+  display: block;
+  -webkit-animation: meniu .4s linear forwards;
+          animation: meniu .4s linear forwards;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
 }
 
 body {
