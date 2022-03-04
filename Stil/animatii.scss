@@ -8,15 +8,38 @@
         transform:scaleY(1);
     }
 }
-@keyframes sagetica{
-    0%{
-        transform: translateX(-20px);
+@keyframes sagetica_in{
+    from{
+        transform: translateX(-40px);
     }
-    100%{
-        transform: translatex(30px);
+    to{
+        transform: translateX(30px);
     }
 }
-
+@keyframes sagetica_out{
+    from{
+        transform: translateX(30px); 
+    }
+    to{
+        transform: translateX(-40px);
+    }
+}
+@keyframes sagetica2_in{
+    from{
+        transform: translateX(-40px);
+    }
+    to{
+        transform: translateX(50px);
+    }
+}
+@keyframes sagetica2_out {
+    from{
+        transform: translateX(50px);
+    }
+    to{
+        transform: translateX(-40px);
+    }
+}
 @mixin deschidere_meniu {
     animation: meniu .25s linear forwards;
     transform-origin: 50% 0;

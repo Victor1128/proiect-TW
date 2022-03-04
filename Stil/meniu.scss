@@ -1,73 +1,249 @@
 @import "./animatii.scss";
 @import "./variabile.css";
-.meniu ul.ul_meniu ul{
-  display: none;
-  position: absolute ;
-  background-color: $menu_color;
-  width: 200px;
-  li{
-    text-align: center;
-    width: 150px;
-    a{
-      text-align: center;
-    }
+@media screen and (min-width:550px) {
+  #acasa{
+    display: none;
+    // a{
+    //   display: none;
+    // }
   }
-  // padding: 5px;
-}
-.meniu{
-  width: 100%;
-  height: 37px;
-  padding: 0;
-  margin: 0;
-  background-color: $menu_color;
-  // z-index: 10;
-  position: sticky;
-  top: 0;
-  ul{
+  #doar_casa{
+    display: block;
+    // a{
+    //   display: block;
+    // }
+  }
+  .meniu ul.ul_meniu ul{
+    display: none;
+    position: absolute ;
+    background-color: $menu_color;
+    width: 200px;
     li{
-      float: left;
-      width: 200px;
-      height: 37px;
-      position: relative;
       text-align: center;
-      list-style-type: none;
+      width: 150px;
       a{
-        height: 37px;
-        text-decoration: none;
-        color: white;
-        display: block;
-        font-weight: bold;
-        &:hover{
-          background-color: black;
-        }
+        text-align: center;
       }
     }
-    #acasa{
-      cursor: default;
-    }
+    // padding: 5px;
+  }
+  .meniu{
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: $menu_color;
+    // z-index: 10;
+    position: sticky;
+    top: 0;
+    ul{
+      li{
+        float: left;
+        width: 200px;
+        height: 37px;
+        position: relative;
+        text-align: center;
+        list-style-type: none;
+        a{
+          height: 37px;
+          line-height: 37px;
+          text-decoration: none;
+          color: white;
+          display: block;
+          font-weight: bold;
+          transition: box-shadow 0.3s ease-in-out;
+          &:hover{
+            // background-color: black;
+            box-shadow: inset 6px 6px 10px 1px $gri_deschis, inset -6px -6px 10px 1px $gri_deschis;
+          }
+        }
+      }
+      #acasa{
+        a{
+          cursor: default;
+        }
+        cursor: default;
+      }
 
+    }
   }
-}
-ul.ul_meniu>li:hover>ul{
-  width: 200px;
-  padding: 0px;
-  li{
-    text-align: center;
+  ul.ul_meniu>li:hover>ul{
     width: 200px;
-  }
-  display: block;
-  @include deschidere_meniu();
-}
-.submeniu{
-  .sageata{
-    float:left;
-    margin-left: 3px;
-    display: none;
-  }
-}
-.submeniu>li:hover{
-  i{
+    padding: 0px;
+    li{
+      text-align: center;
+      width: 200px;
+    }
     display: block;
-    animation: sagetica .5s linear both;
+    @include deschidere_meniu();
+  }
+  .submeniu{
+    li{
+      // border: 4px solid red;
+      overflow: hidden;
+    }
+    display:inline;
+    align-items: flex-start;
+    .sageata{
+      float:left;
+      margin-left: 0px;
+      margin-top: 10px;
+      // display: none;
+      transform: translateX(-40px);
+      transition: all .5s linear;
+    }
+  }
+  .submeniu>li:hover{
+    .s1{
+      transform: translateX(33px);
+    }
+    .s2{
+      transform:translateX(54px);
+    }
   }
 }
+@media screen and (min-width:800px) {
+  #doar_casa{
+    display: none;
+    // a{
+    //   display: none;
+    // }
+  }
+  #acasa{
+    display: block;
+  }
+  .meniu ul.ul_meniu ul{
+    display: none;
+    position: absolute ;
+    background-color: $menu_color;
+    width: 200px;
+    li{
+      text-align: center;
+      width: 150px;
+      a{
+        text-align: center;
+      }
+    }
+    // padding: 5px;
+  }
+  .meniu{
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: $menu_color;
+    // z-index: 10;
+    position: sticky;
+    top: 0;
+    ul{
+      li{
+        float: left;
+        width: 200px;
+        height: 37px;
+        position: relative;
+        text-align: center;
+        list-style-type: none;
+        a{
+          height: 37px;
+          line-height: 37px;
+          text-decoration: none;
+          color: white;
+          display: block;
+          font-weight: bold;
+          transition: box-shadow 0.3s ease-in-out;
+          &:hover{
+            // background-color: black;
+            box-shadow: inset 6px 6px 10px 1px $gri_deschis, inset -6px -6px 10px 1px $gri_deschis;
+          }
+        }
+      }
+      #acasa{
+        a{
+          cursor: default;
+        }
+        cursor: default;
+      }
+
+    }
+  }
+  ul.ul_meniu>li:hover>ul{
+    width: 200px;
+    padding: 0px;
+    li{
+      text-align: center;
+      width: 200px;
+    }
+    display: block;
+    @include deschidere_meniu();
+  }
+  .submeniu{
+    li{
+      // border: 4px solid red;
+      overflow: hidden;
+    }
+    display:inline;
+    align-items: flex-start;
+    .sageata{
+      float:left;
+      margin-left: 0px;
+      margin-top: 10px;
+      // display: none;
+      transform: translateX(-40px);
+      transition: all .5s linear;
+    }
+  }
+  .submeniu>li:hover{
+    .s1{
+      transform: translateX(33px);
+    }
+    .s2{
+      transform:translateX(54px);
+    }
+  }
+}
+// .submeniu>li:hover{
+//   .s1{
+//     display: block;
+//     animation: sagetica .5s linear both;
+//   }
+//   .s2{
+//     display: block;
+//     animation: sagetica2 .5s linear both;
+//   }
+// }
+// .submeniu>li::before{
+//   .sageata{
+//     content: "";
+//     position:absolute;
+//     transform: translateX(-60px);
+//     transition: all .5s linear;
+//   }
+// }
+// .submeniu>li:hover{
+//   .sageata{
+//     transform: translateX(40px);
+//     transition: all .5s linear;
+//   }
+// }
+// .submeniu>li:hover{
+//   .s1{
+//     display: block;
+//     animation: sagetica_in .5s linear both;
+//     $cnt:1;
+//   }
+//   .s2{
+//     display: block;
+//     animation: sagetica2_in .5s linear both;
+//     $cnt:1;
+//   }
+// }
+// .submeniu>li{
+//   .s1{
+//       animation: sagetica_out .5s linear both;
+//       display: block;
+//   }
+//   .s2{
+//     display: block;
+//     animation: sagetica2_out .5s linear both;
+//   }
+// }

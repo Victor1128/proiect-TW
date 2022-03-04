@@ -12,6 +12,14 @@ body{
     color: #f6f8f7;
     font-size: .85em;
 }
+summary{
+    cursor: pointer;
+}
+main{
+    *{
+        padding: 5px;
+    }
+}
 @media(min-width:550px){
     body{
         font-size: 1em;
