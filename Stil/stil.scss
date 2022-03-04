@@ -7,6 +7,10 @@
 //         animation: meniu 1s ease-in-out both;
 //     }
 // }
+h1{
+    align-items: center;
+    text-align: center;
+}
 body{
     background-color: $negru;
     color: #f6f8f7;
@@ -20,12 +24,12 @@ main{
         padding: 5px;
     }
 }
-@media(min-width:550px){
+@media(min-width:680px){
     body{
         font-size: 1em;
     }
 }
-@media (min-width: 1000px){
+@media (min-width: 1008px){
     body{
         font-size: 1.3em;
     }

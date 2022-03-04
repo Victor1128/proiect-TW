@@ -252,11 +252,130 @@
   }
 }
 
-@media screen and (min-width: 550px) {
+.meniu {
+  display: none;
+}
+
+#hamburger {
+  font-size: 2em;
+  padding: 7px;
+  top: 0;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+@media screen and (min-width: 680px) {
+  #hamburger {
+    display: none;
+  }
+  .meniu {
+    display: block;
+  }
   #acasa {
     display: none;
   }
   #doar_casa {
+    display: block;
+  }
+  .meniu ul.ul_meniu ul {
+    display: none;
+    position: absolute;
+    background-color: #3D418F;
+    width: 200px;
+  }
+  .meniu ul.ul_meniu ul li {
+    text-align: center;
+    width: 150px;
+  }
+  .meniu ul.ul_meniu ul li a {
+    text-align: center;
+  }
+  .meniu {
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: #3D418F;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  .meniu ul li {
+    float: left;
+    width: 200px;
+    height: 37px;
+    position: relative;
+    text-align: center;
+    list-style-type: none;
+  }
+  .meniu ul li a {
+    height: 37px;
+    line-height: 37px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
+  }
+  .meniu ul li a:hover {
+    -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+            box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+  }
+  .meniu ul #doar_casa {
+    cursor: default;
+  }
+  .meniu ul #doar_casa a {
+    cursor: default;
+  }
+  ul.ul_meniu > li:hover > ul {
+    width: 200px;
+    padding: 0px;
+    display: block;
+    -webkit-animation: meniu .25s linear forwards;
+            animation: meniu .25s linear forwards;
+    -webkit-transform-origin: 50% 0;
+            transform-origin: 50% 0;
+  }
+  ul.ul_meniu > li:hover > ul li {
+    text-align: center;
+    width: 200px;
+  }
+  .submeniu {
+    display: inline;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .submeniu li {
+    overflow: hidden;
+  }
+  .submeniu .sageata {
+    float: left;
+    margin-left: 0px;
+    margin-top: 10px;
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+  }
+  .submeniu > li:hover .s1 {
+    -webkit-transform: translateX(33px);
+            transform: translateX(33px);
+  }
+  .submeniu > li:hover .s2 {
+    -webkit-transform: translateX(54px);
+            transform: translateX(54px);
+  }
+}
+
+@media screen and (min-width: 1008px) {
+  #doar_casa {
+    display: none;
+  }
+  #acasa {
     display: block;
   }
   .meniu ul.ul_meniu ul {
@@ -353,105 +472,11 @@
   }
 }
 
-@media screen and (min-width: 800px) {
-  #doar_casa {
-    display: none;
-  }
-  #acasa {
-    display: block;
-  }
-  .meniu ul.ul_meniu ul {
-    display: none;
-    position: absolute;
-    background-color: #3D418F;
-    width: 200px;
-  }
-  .meniu ul.ul_meniu ul li {
-    text-align: center;
-    width: 150px;
-  }
-  .meniu ul.ul_meniu ul li a {
-    text-align: center;
-  }
-  .meniu {
-    width: 100%;
-    height: 37px;
-    padding: 0;
-    margin: 0;
-    background-color: #3D418F;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-  }
-  .meniu ul li {
-    float: left;
-    width: 200px;
-    height: 37px;
-    position: relative;
-    text-align: center;
-    list-style-type: none;
-  }
-  .meniu ul li a {
-    height: 37px;
-    line-height: 37px;
-    text-decoration: none;
-    color: white;
-    display: block;
-    font-weight: bold;
-    -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
-    transition: -webkit-box-shadow 0.3s ease-in-out;
-    transition: box-shadow 0.3s ease-in-out;
-    transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
-  }
-  .meniu ul li a:hover {
-    -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
-            box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
-  }
-  .meniu ul #acasa {
-    cursor: default;
-  }
-  .meniu ul #acasa a {
-    cursor: default;
-  }
-  ul.ul_meniu > li:hover > ul {
-    width: 200px;
-    padding: 0px;
-    display: block;
-    -webkit-animation: meniu .25s linear forwards;
-            animation: meniu .25s linear forwards;
-    -webkit-transform-origin: 50% 0;
-            transform-origin: 50% 0;
-  }
-  ul.ul_meniu > li:hover > ul li {
-    text-align: center;
-    width: 200px;
-  }
-  .submeniu {
-    display: inline;
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
-  }
-  .submeniu li {
-    overflow: hidden;
-  }
-  .submeniu .sageata {
-    float: left;
-    margin-left: 0px;
-    margin-top: 10px;
-    -webkit-transform: translateX(-40px);
-            transform: translateX(-40px);
-    -webkit-transition: all .5s linear;
-    transition: all .5s linear;
-  }
-  .submeniu > li:hover .s1 {
-    -webkit-transform: translateX(33px);
-            transform: translateX(33px);
-  }
-  .submeniu > li:hover .s2 {
-    -webkit-transform: translateX(54px);
-            transform: translateX(54px);
-  }
+h1 {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
 }
 
 body {
@@ -468,13 +493,13 @@ main * {
   padding: 5px;
 }
 
-@media (min-width: 550px) {
+@media (min-width: 680px) {
   body {
     font-size: 1em;
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1008px) {
   body {
     font-size: 1.3em;
   }

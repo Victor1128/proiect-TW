@@ -1,6 +1,33 @@
 @import "./animatii.scss";
 @import "./variabile.css";
-@media screen and (min-width:550px) {
+.meniu{
+  display: none;
+}
+#hamburger{
+  font-size: 2em;
+  padding: 7px;
+  top: 0;
+  position: sticky;
+  // &:checked{
+  //   .meniu{
+  //     display: block;
+  //   }
+  // }
+}
+// #hamburger:visited{
+//   .meniu{
+//     display: block;
+
+//   }
+// }
+
+@media screen and (min-width:680px) {
+  #hamburger{
+    display: none;
+  }
+  .meniu{
+    display: block;
+  }
   #acasa{
     display: none;
     // a{
@@ -58,7 +85,7 @@
           }
         }
       }
-      #acasa{
+      #doar_casa{
         a{
           cursor: default;
         }
@@ -102,7 +129,7 @@
     }
   }
 }
-@media screen and (min-width:800px) {
+@media screen and (min-width:1008px) {
   #doar_casa{
     display: none;
     // a{
