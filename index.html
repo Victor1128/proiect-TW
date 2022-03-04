@@ -55,13 +55,17 @@
         <!-- <i class="fa-solid fa-gamepad" style="color: blueviolet;font-size: 100px;"></i> -->
       </section>
       <div class="calendar">
-        calendar
+        <h2>Calendar</h2>
+       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
       </div>
       <div class="tabel">
-        tabel
+        <h2>Tabel</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
+
       </div>
       <div class="ads">
-        ads
+        <h2>Reclame</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
       </div>
       <section class="content">
         <a id="Best"><h2>Cele mai bune jocuri open-source!</h2></a>
@@ -88,7 +92,9 @@
                 <br>
                 <a href="https://www.youtube.com/embed/NEPhPQJxc7k" target="trailer1">Gameplay</a>
                 <br>
-                <iframe name="trailer1" width="560" height="315" src="https://www.youtube.com/embed/OioSaUJQ-5A"  title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="iframe-container">
+                  <iframe name="trailer1" src="https://www.youtube.com/embed/OioSaUJQ-5A"  title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>  
                 <br>
                 <a href="https://play0ad.com/" target="_blank">Site-ul oficial al jocului 0 A.D.</a> <br>
                 <a href="./Resurse/Download/0ad-0.0.25b-alpha-win32.exe.torrent" download>
@@ -110,12 +116,14 @@
               </section>
               <a target="trailer2" href="https://www.youtube.com/embed/c9tOgAewqmk">Trailer</a> <br>
               <a href="https://www.youtube.com/embed/fxMJ1bWdtzs" target="trailer2">Gameplay</a> <br>
-              <iframe name="trailer2" width="560" height="315" src="https://www.youtube.com/embed/c9tOgAewqmk" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <br>
+              <div class="iframe-container">
+                <iframe name="trailer2" width="560" height="315" src="https://www.youtube.com/embed/c9tOgAewqmk" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+                <br>
               <a href="http://red.planetarena.org/" target="_blank">Site-ul oficial al jocului</a>
               <a href="https://store.steampowered.com/app/629540/Alien_Arena_Warriors_Of_Mars/" target="_blank" >Pagina de Steam a jocului</a>
           </li>
-          <li> <h3 id="stk">Super Tux Kart</h3>
+          <li class="STK"> <h3 id="stk">Super Tux Kart</h3>
             <figure>
               <picture>
                 <img src="Resurse\images\stk.png" alt="stk-picture">
@@ -132,15 +140,28 @@
             </section>
             <a href="https://www.youtube.com/embed/Lm1TFDBiIIg" target="trailer3">Trailer</a> <br>
             <a href="https://www.youtube.com/embed/s1rNOABsWtI" target="trailer3">Gameplay</a> <br>
-            <iframe name="trailer3" width="560" height="315" src="https://www.youtube.com/embed/Lm1TFDBiIIg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="iframe-container">
+              <iframe name="trailer3" width="560" height="315" src="https://www.youtube.com/embed/Lm1TFDBiIIg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
             <br>
             <a href="https://supertuxkart.net/Main_Page" target="_blank">Site-ul oficial al jocului</a> <br>
           </li>
         </ul>
       </section>
-      <div class="inf_site">info despre site</div>
-      <div class="user_online">utilizatori online</div>
-      <div class="inf_user">info despre useri</div>
+      <div class="inf_site">
+        <h2>Informații despre site</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
+
+      </div>
+      <div class="user_online">
+        <h2>Utilizatori Online</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
+
+      </div>
+      <div class="inf_user">
+        <h2>Informații despre utilizatori</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
+      </div>
     </main>
     <footer>
       <a href="#inceput">Acasa</a>
@@ -154,10 +175,11 @@
         </a>
         <a href="https://goo.gl/maps/BRvMsxbjCGYFJ5ex9" target="_blank">
           <img src="./Resurse/images/location-1132648_1280.png" alt="Adreasa" width="60" height="60">
+        </a>
         <a href="tel:071111111">
           <img src="./Resurse/images/smartphone-1132677_1280.png" alt="phone" height="60" width="60">
         </a>
-        </a> <br>
+         <br>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1424.4197874655854!2d26.100864746943653!3d44.43645288228579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff472f47f047%3A0x493984726f0235f9!2sFacultatea%20de%20Matematic%C4%83%20%C8%99i%20Informatic%C4%83%20-%20Universitatea%20din%20Bucure%C8%99ti!5e0!3m2!1sro!2sro!4v1645629659912!5m2!1sro!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </address>
       <small>Copyright &copy; Badulescu Victor-Stefan <time datetime="2022-02-23">23 februarie 2022</time></small>

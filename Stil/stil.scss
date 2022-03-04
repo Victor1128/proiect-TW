@@ -1,6 +1,7 @@
 @import "./animatii";
 @import "./grid";
 @import "./variabile";
+@import "./meniu";
 // .meniu{
 //     li:hover{
 //         animation: meniu 1s ease-in-out both;
@@ -9,4 +10,49 @@
 body{
     background-color: $negru;
     color: #f6f8f7;
+    font-size: .85em;
+}
+@media(min-width:550px){
+    body{
+        font-size: 1em;
+    }
+}
+@media (min-width: 1000px){
+    body{
+        font-size: 1.3em;
+    }
+}
+#main-container{
+    padding: 7px;
+}
+// .iframe-container{
+//     height:315px;
+//     max-width:560px;
+//     border: 5px solid red;
+// }
+iframe{
+    width: 560px;
+    height: 315px;
+    @media screen and (max-width: 650px) {
+            max-width: 100% ;
+            width: auto ;
+            height: auto ;
+    }
+}
+li>figure{
+    max-width: 560px;
+    picture{
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+.iframe-container{
+    max-width: 560px;
+    height: 315px;
+    iframe{
+        width: 100%;
+        height: 100%;
+    }
 }

@@ -1,8 +1,10 @@
 #main-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto;
+  grid-row-gap: .3rem;
+  grid-column-gap: .2rem;
       grid-template-areas: 'inceput inceput inceput' 'calendar tabel ads' 'content content content' 'despre-site utilizatori-online despre-user';
 }
 
@@ -19,7 +21,6 @@
   -ms-grid-column: 1;
   grid-area: calendar;
   background-color: #61982f;
-  border: 5px solid red;
 }
 
 .tabel {
@@ -48,8 +49,6 @@
   -ms-grid-column: 1;
   grid-area: despre-site;
   background-color: #86c232;
-  width: 200px;
-  height: 100px;
 }
 
 .inf_user {
@@ -57,8 +56,6 @@
   -ms-grid-column: 3;
   grid-area: despre-user;
   background-color: #61982f;
-  width: 200px;
-  height: 100px;
 }
 
 .user_online {
@@ -66,7 +63,21 @@
   -ms-grid-column: 2;
   grid-area: utilizatori-online;
   background-color: #86c232;
-  width: 200px;
-  height: 100px;
+}
+
+@media (max-width: 800px) {
+  #main-container {
+    -ms-grid-columns: auto auto;
+        grid-template-columns: auto auto;
+        grid-template-areas: 'inceput inceput' 'calendar tabel'   'ads ads' 'content content' 'despre-site despre-site' 'utilizatori-online despre-user';
+  }
+}
+
+@media (max-width: 550px) {
+  #main-container {
+    -ms-grid-columns: auto;
+        grid-template-columns: auto;
+        grid-template-areas: 'inceput' 'calendar' 'tabel' 'ads' 'content' 'despre-site' 'utilizatori-online' 'despre-user';
+  }
 }
 /*# sourceMappingURL=grid.css.map */

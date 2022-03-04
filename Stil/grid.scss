@@ -1,7 +1,9 @@
 @import "./variabile";
 #main-container{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: .3rem; 
+    grid-column-gap: .2rem;
     grid-template-areas: 
         'inceput inceput inceput'
         'calendar tabel ads'
@@ -17,7 +19,7 @@
     background-color: $verde_inchis;
     // width: 200px;
     // height: 100px;
-    border: 5px solid red;
+    // border: 5px solid red;
 }
 .tabel{
     grid-area: tabel;
@@ -37,19 +39,48 @@
 .inf_site{
     grid-area: despre-site;
     background-color: $verde_deschis;
-    width: 200px;
-    height: 100px;
+    // width: 200px;
+    // height: 100px;
 }
 .inf_user{
     grid-area: despre-user;
     background-color: $verde_inchis;
-    width: 200px;
-    height: 100px;
+    // width: 200px;
+    // height: 100px;
 }
 .user_online{
     grid-area: utilizatori-online;
     background-color: $verde_deschis;
-    width: 200px;
-    height: 100px;
+    // width: 200px;
+    // height: 100px;
+} 
+
+
+
+@media (max-width:800px){
+    #main-container{
+        grid-template-columns: auto auto;
+        grid-template-areas:   
+            'inceput inceput'
+            'calendar tabel'  
+            'ads ads'
+            'content content'
+            'despre-site despre-site'
+            'utilizatori-online despre-user'; 
+    }
 }
 
+@media (max-width:550px){
+    #main-container{
+        grid-template-columns: auto;
+        grid-template-areas: 
+            'inceput'
+            'calendar'
+            'tabel'
+            'ads'
+            'content'
+            'despre-site'
+            'utilizatori-online'
+            'despre-user';
+    }
+} 
