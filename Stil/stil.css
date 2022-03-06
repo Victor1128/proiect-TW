@@ -680,24 +680,18 @@ li > figure picture img {
 }
 
 .iframe-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  border: 3px solid red;
   max-width: 560px;
   height: 315px;
-}
-
-.iframe-container a {
-  text-decoration: none;
-  color: white;
-  border: 4px solid #61982f;
 }
 
 .iframe-container iframe {
   width: 100%;
   height: 100%;
-  -webkit-box-ordinal-group: 0;
-      -ms-flex-order: -1;
-          order: -1;
+}
+
+.links {
+  float: right;
+  border: 4px solid blue;
 }
 /*# sourceMappingURL=stil.css.map */

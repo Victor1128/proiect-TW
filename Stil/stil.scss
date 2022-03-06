@@ -66,19 +66,17 @@ li>figure{
     }
 }
 .iframe-container{
-    display: flex;
+    border: 3px solid red;
     max-width: 560px;
     height: 315px;
-    a{
-        text-decoration: none;
-        color: white;
-        border: 4px solid $verde_inchis;
-    }
     iframe{
         width: 100%;
         height: 100%;
-        order: -1;
     }
+}
+.links{
+    float:right;
+    border: 4px solid blue;
 }
 
 
