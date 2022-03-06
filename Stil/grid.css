@@ -65,7 +65,7 @@
   background-color: #86c232;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1007px) {
   #main-container {
     -ms-grid-columns: auto auto;
         grid-template-columns: auto auto;
@@ -73,7 +73,7 @@
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 679px) {
   #main-container {
     -ms-grid-columns: auto;
         grid-template-columns: auto;

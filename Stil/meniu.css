@@ -24,68 +24,415 @@
   }
 }
 
-.meniu ul.ul_meniu ul {
+@-webkit-keyframes sagetica_in {
+  from {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+  to {
+    -webkit-transform: translateX(30px);
+            transform: translateX(30px);
+  }
+}
+
+@keyframes sagetica_in {
+  from {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+  to {
+    -webkit-transform: translateX(30px);
+            transform: translateX(30px);
+  }
+}
+
+@-webkit-keyframes sagetica_out {
+  from {
+    -webkit-transform: translateX(30px);
+            transform: translateX(30px);
+  }
+  to {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+}
+
+@keyframes sagetica_out {
+  from {
+    -webkit-transform: translateX(30px);
+            transform: translateX(30px);
+  }
+  to {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+}
+
+@-webkit-keyframes sagetica2_in {
+  from {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+  to {
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+  }
+}
+
+@keyframes sagetica2_in {
+  from {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+  to {
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+  }
+}
+
+@-webkit-keyframes sagetica2_out {
+  from {
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+  }
+  to {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+}
+
+@keyframes sagetica2_out {
+  from {
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+  }
+  to {
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+  }
+}
+
+@-webkit-keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@-webkit-keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
+
+@keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
+
+input {
   display: none;
-  position: absolute;
-  background-color: #566875;
-  width: 200px;
 }
 
-.meniu ul.ul_meniu ul li {
-  text-align: center;
-  width: 150px;
+@media screen and (max-width: 679px) {
+  .meniu {
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: #3D418F;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  .meniu ul.ul_meniu {
+    display: none;
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    background-color: #3D418F;
+  }
+  .meniu ul.ul_meniu #acasa {
+    display: none;
+  }
+  .meniu ul.ul_meniu .sageata {
+    display: none;
+  }
+  .meniu ul.ul_meniu #doar_casa ul {
+    display: none;
+  }
+  .meniu ul.ul_meniu #doar_casa:hover ul {
+    display: block;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-animation: displ_submeniu_ham .5s linear forwards;
+            animation: displ_submeniu_ham .5s linear forwards;
+  }
+  .meniu ul.ul_meniu li {
+    line-height: 37px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    list-style-type: none;
+  }
+  .meniu ul.ul_meniu li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
+  }
+  .meniu ul.ul_meniu li a:hover {
+    -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+            box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+  }
+  #menu-click:checked ~ .meniu > ul.ul_meniu {
+    display: block;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-animation: display_meniu_ham .7s linear forwards;
+            animation: display_meniu_ham .7s linear forwards;
+  }
+  #hamburger {
+    font-size: 2em;
+  }
 }
 
-.meniu ul.ul_meniu ul li a {
-  text-align: center;
+@media screen and (min-width: 680px) {
+  #hamburger {
+    display: none;
+  }
+  .meniu {
+    display: block;
+  }
+  #acasa {
+    display: none;
+  }
+  #doar_casa {
+    display: block;
+  }
+  .meniu ul.ul_meniu ul {
+    display: none;
+    position: absolute;
+    background-color: #3D418F;
+    width: 200px;
+  }
+  .meniu ul.ul_meniu ul li {
+    text-align: center;
+    width: 150px;
+  }
+  .meniu ul.ul_meniu ul li a {
+    text-align: center;
+  }
+  .meniu {
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: #3D418F;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  .meniu ul li {
+    float: left;
+    width: 200px;
+    height: 37px;
+    position: relative;
+    text-align: center;
+    list-style-type: none;
+  }
+  .meniu ul li a {
+    height: 37px;
+    line-height: 37px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
+  }
+  .meniu ul li a:hover {
+    -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+            box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+  }
+  .meniu ul #doar_casa {
+    cursor: default;
+  }
+  .meniu ul #doar_casa a {
+    cursor: default;
+  }
+  ul.ul_meniu > li:hover > ul {
+    width: 200px;
+    padding: 0px;
+    display: block;
+    -webkit-animation: meniu .25s linear forwards;
+            animation: meniu .25s linear forwards;
+    -webkit-transform-origin: 50% 0;
+            transform-origin: 50% 0;
+  }
+  ul.ul_meniu > li:hover > ul li {
+    text-align: center;
+    width: 200px;
+  }
+  .submeniu {
+    display: inline;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .submeniu li {
+    overflow: hidden;
+  }
+  .submeniu .sageata {
+    float: left;
+    margin-left: 0px;
+    margin-top: 10px;
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+  }
+  .submeniu > li:hover .s1 {
+    -webkit-transform: translateX(33px);
+            transform: translateX(33px);
+  }
+  .submeniu > li:hover .s2 {
+    -webkit-transform: translateX(54px);
+            transform: translateX(54px);
+  }
 }
 
-.meniu {
-  width: 100%;
-  height: 37px;
-  padding: 0;
-  margin: 0;
-  background-color: #566875;
-  z-index: 10;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
-.meniu ul li {
-  float: left;
-  width: 200px;
-  height: 37px;
-  position: relative;
-  text-align: center;
-  list-style-type: none;
-}
-
-.meniu ul li a {
-  height: 37px;
-  text-decoration: none;
-  color: white;
-  display: block;
-  font-weight: bold;
-}
-
-.meniu ul li a:hover {
-  background-color: black;
-}
-
-.meniu ul #acasa {
-  cursor: default;
-}
-
-ul.ul_meniu > li:hover > ul {
-  display: block;
-  -webkit-animation: meniu .4s linear forwards;
-          animation: meniu .4s linear forwards;
-  -webkit-transform-origin: 50% 0;
-          transform-origin: 50% 0;
-}
-
-ul.ul_meniu > li:hover > ul li {
-  text-align: center;
+@media screen and (min-width: 1008px) {
+  #doar_casa {
+    display: none;
+  }
+  #acasa {
+    display: block;
+  }
+  .meniu ul.ul_meniu ul {
+    display: none;
+    position: absolute;
+    background-color: #3D418F;
+    width: 200px;
+  }
+  .meniu ul.ul_meniu ul li {
+    text-align: center;
+    width: 150px;
+  }
+  .meniu ul.ul_meniu ul li a {
+    text-align: center;
+  }
+  .meniu {
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: #3D418F;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  .meniu ul li {
+    float: left;
+    width: 200px;
+    height: 37px;
+    position: relative;
+    text-align: center;
+    list-style-type: none;
+  }
+  .meniu ul li a {
+    height: 37px;
+    line-height: 37px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
+  }
+  .meniu ul li a:hover {
+    -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+            box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+  }
+  .meniu ul #acasa {
+    cursor: default;
+  }
+  .meniu ul #acasa a {
+    cursor: default;
+  }
+  ul.ul_meniu > li:hover > ul {
+    width: 200px;
+    padding: 0px;
+    display: block;
+    -webkit-animation: meniu .25s linear forwards;
+            animation: meniu .25s linear forwards;
+    -webkit-transform-origin: 50% 0;
+            transform-origin: 50% 0;
+  }
+  ul.ul_meniu > li:hover > ul li {
+    text-align: center;
+    width: 200px;
+  }
+  .submeniu {
+    display: inline;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .submeniu li {
+    overflow: hidden;
+  }
+  .submeniu .sageata {
+    float: left;
+    margin-left: 0px;
+    margin-top: 10px;
+    -webkit-transform: translateX(-40px);
+            transform: translateX(-40px);
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+  }
+  .submeniu > li:hover .s1 {
+    -webkit-transform: translateX(33px);
+            transform: translateX(33px);
+  }
+  .submeniu > li:hover .s2 {
+    -webkit-transform: translateX(54px);
+            transform: translateX(54px);
+  }
 }
 /*# sourceMappingURL=meniu.css.map */

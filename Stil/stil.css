@@ -1,4 +1,3 @@
-@import url(c:\Users\Asu\Documents\!Facultate\anul1\sem2\TW\proiect\Stil\variabile.css);
 @-webkit-keyframes meniu {
   0% {
     opacity: 0;
@@ -11,6 +10,7 @@
             transform: scaleY(1);
   }
 }
+
 @keyframes meniu {
   0% {
     opacity: 0;
@@ -112,6 +112,50 @@
   }
 }
 
+@-webkit-keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@-webkit-keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
+
+@keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
+
 #main-container {
   display: -ms-grid;
   display: grid;
@@ -179,7 +223,7 @@
   background-color: #86c232;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1007px) {
   #main-container {
     -ms-grid-columns: auto auto;
         grid-template-columns: auto auto;
@@ -187,7 +231,7 @@
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 679px) {
   #main-container {
     -ms-grid-columns: auto;
         grid-template-columns: auto;
@@ -252,16 +296,98 @@
   }
 }
 
-.meniu {
+@keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
+
+input {
   display: none;
 }
 
-#hamburger {
-  font-size: 2em;
-  padding: 7px;
-  top: 0;
-  position: -webkit-sticky;
-  position: sticky;
+@media screen and (max-width: 679px) {
+  .meniu {
+    width: 100%;
+    height: 37px;
+    padding: 0;
+    margin: 0;
+    background-color: #3D418F;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  .meniu ul.ul_meniu {
+    display: none;
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    background-color: #3D418F;
+  }
+  .meniu ul.ul_meniu #acasa {
+    display: none;
+  }
+  .meniu ul.ul_meniu .sageata {
+    display: none;
+  }
+  .meniu ul.ul_meniu #doar_casa ul {
+    display: none;
+  }
+  .meniu ul.ul_meniu #doar_casa:hover ul {
+    display: block;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-animation: displ_submeniu_ham .5s linear forwards;
+            animation: displ_submeniu_ham .5s linear forwards;
+  }
+  .meniu ul.ul_meniu li {
+    line-height: 37px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    list-style-type: none;
+  }
+  .meniu ul.ul_meniu li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
+  }
+  .meniu ul.ul_meniu li a:hover {
+    -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+            box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
+  }
+  #menu-click:checked ~ .meniu > ul.ul_meniu {
+    display: block;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-animation: display_meniu_ham .7s linear forwards;
+            animation: display_meniu_ham .7s linear forwards;
+  }
+  #hamburger {
+    font-size: 2em;
+  }
 }
 
 @media screen and (min-width: 680px) {
@@ -483,6 +609,8 @@ body {
   background-color: #222629;
   color: #f6f8f7;
   font-size: .85em;
+  padding: 0;
+  margin: 0;
 }
 
 summary {
@@ -507,6 +635,7 @@ main * {
 
 #main-container {
   padding: 7px;
+  margin: 5px;
 }
 
 iframe {

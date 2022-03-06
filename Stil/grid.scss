@@ -57,7 +57,7 @@
 
 
 
-@media (max-width:800px){
+@media (max-width:1007px){
     #main-container{
         grid-template-columns: auto auto;
         grid-template-areas:   
@@ -70,7 +70,7 @@
     }
 }
 
-@media (max-width:550px){
+@media (max-width:679px){
     #main-container{
         grid-template-columns: auto;
         grid-template-areas: 

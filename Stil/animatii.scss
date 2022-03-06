@@ -40,6 +40,22 @@
         transform: translateX(-40px);
     }
 }
+@keyframes display_meniu_ham{
+    0%{
+        transform: scale(0%);
+    }
+    100%{
+        transform: scale(100%);
+    }
+}
+@keyframes displ_submeniu_ham {
+    0%{
+        transform: scaleY(0);
+    }
+    100%{
+        transform: scaleY(100%);
+    }
+}
 @mixin deschidere_meniu {
     animation: meniu .25s linear forwards;
     transform-origin: 50% 0;

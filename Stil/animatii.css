@@ -111,4 +111,48 @@
             transform: translateX(-40px);
   }
 }
+
+@-webkit-keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@keyframes display_meniu_ham {
+  0% {
+    -webkit-transform: scale(0%);
+            transform: scale(0%);
+  }
+  100% {
+    -webkit-transform: scale(100%);
+            transform: scale(100%);
+  }
+}
+
+@-webkit-keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
+
+@keyframes displ_submeniu_ham {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+  100% {
+    -webkit-transform: scaleY(100%);
+            transform: scaleY(100%);
+  }
+}
 /*# sourceMappingURL=animatii.css.map */
