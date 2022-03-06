@@ -187,6 +187,19 @@ input {
   .meniu ul.ul_meniu #doar_casa ul {
     display: none;
   }
+  .meniu ul.ul_meniu #toate ul {
+    display: none;
+  }
+  .meniu ul.ul_meniu #toate:hover ul {
+    display: block;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-animation: displ_submeniu_ham .5s linear forwards;
+            animation: displ_submeniu_ham .5s linear forwards;
+  }
+  .meniu ul.ul_meniu #doar_casa > a {
+    cursor: default;
+  }
   .meniu ul.ul_meniu #doar_casa:hover ul {
     display: block;
     -webkit-transform-origin: 0 0;
@@ -202,7 +215,7 @@ input {
     text-align: center;
     list-style-type: none;
   }
-  .meniu ul.ul_meniu li a {
+  .meniu ul.ul_meniu li a, .meniu ul.ul_meniu li div {
     text-decoration: none;
     color: white;
     display: block;
@@ -212,7 +225,7 @@ input {
     transition: box-shadow 0.3s ease-in-out;
     transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
   }
-  .meniu ul.ul_meniu li a:hover {
+  .meniu ul.ul_meniu li a:hover, .meniu ul.ul_meniu li div:hover {
     -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
             box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
   }
@@ -272,7 +285,7 @@ input {
     text-align: center;
     list-style-type: none;
   }
-  .meniu ul li a {
+  .meniu ul li a, .meniu ul li div {
     height: 37px;
     line-height: 37px;
     text-decoration: none;
@@ -284,7 +297,7 @@ input {
     transition: box-shadow 0.3s ease-in-out;
     transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
   }
-  .meniu ul li a:hover {
+  .meniu ul li a:hover, .meniu ul li div:hover {
     -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
             box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
   }
@@ -316,7 +329,10 @@ input {
   .submeniu li {
     overflow: hidden;
   }
-  .submeniu .sageata {
+  #toate li {
+    overflow: hidden;
+  }
+  .sageata {
     float: left;
     margin-left: 0px;
     margin-top: 10px;
@@ -325,11 +341,11 @@ input {
     -webkit-transition: all .5s linear;
     transition: all .5s linear;
   }
-  .submeniu > li:hover .s1 {
+  .submeniu > li:hover .s1, #toate > ul > li:hover .s1 {
     -webkit-transform: translateX(33px);
             transform: translateX(33px);
   }
-  .submeniu > li:hover .s2 {
+  .submeniu > li:hover .s2, #toate > ul > li:hover .s2 {
     -webkit-transform: translateX(54px);
             transform: translateX(54px);
   }
@@ -341,6 +357,7 @@ input {
   }
   #acasa {
     display: block;
+    cursor: default;
   }
   .meniu ul.ul_meniu ul {
     display: none;
@@ -373,7 +390,7 @@ input {
     text-align: center;
     list-style-type: none;
   }
-  .meniu ul li a {
+  .meniu ul li a, .meniu ul li div {
     height: 37px;
     line-height: 37px;
     text-decoration: none;
@@ -385,15 +402,9 @@ input {
     transition: box-shadow 0.3s ease-in-out;
     transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
   }
-  .meniu ul li a:hover {
+  .meniu ul li a:hover, .meniu ul li div:hover {
     -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
             box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
-  }
-  .meniu ul #acasa {
-    cursor: default;
-  }
-  .meniu ul #acasa a {
-    cursor: default;
   }
   ul.ul_meniu > li:hover > ul {
     width: 200px;
@@ -417,7 +428,10 @@ input {
   .submeniu li {
     overflow: hidden;
   }
-  .submeniu .sageata {
+  #toate > ul > li {
+    overflow: hidden;
+  }
+  .sageata {
     float: left;
     margin-left: 0px;
     margin-top: 10px;
@@ -426,11 +440,11 @@ input {
     -webkit-transition: all .5s linear;
     transition: all .5s linear;
   }
-  .submeniu > li:hover .s1 {
+  .submeniu > li:hover .s1, #toate > ul > li:hover .s1 {
     -webkit-transform: translateX(33px);
             transform: translateX(33px);
   }
-  .submeniu > li:hover .s2 {
+  .submeniu > li:hover .s2, #toate > ul > li:hover .s2 {
     -webkit-transform: translateX(54px);
             transform: translateX(54px);
   }

@@ -30,6 +30,21 @@ input{
           display: none;
         }
       }
+      #toate{
+        ul{
+          display: none;
+        }
+      }
+      #toate:hover{
+        ul{
+          display: block;
+          transform-origin: 0 0;
+          animation: displ_submeniu_ham .5s linear forwards;
+        }
+      }
+      #doar_casa>a{
+        cursor: default;
+      }
       #doar_casa:hover{
         ul{
           display: block;
@@ -46,7 +61,7 @@ input{
         text-align: center;
         // position: absolute;
         list-style-type:none;
-        a{
+        a, div{
           text-decoration: none;
           color: white;
           display: block;
@@ -130,7 +145,7 @@ input{
         position: relative;
         text-align: center;
         list-style-type: none;
-        a{
+        a, div{
           height: 37px;
           line-height: 37px;
           text-decoration: none;
@@ -170,16 +185,22 @@ input{
     }
     display:inline;
     align-items: flex-start;
-    .sageata{
-      float:left;
-      margin-left: 0px;
-      margin-top: 10px;
-      // display: none;
-      transform: translateX(-40px);
-      transition: all .5s linear;
+    
+  }
+  #toate{
+    li{
+      overflow: hidden;
     }
   }
-  .submeniu>li:hover{
+  .sageata{
+    float:left;
+    margin-left: 0px;
+    margin-top: 10px;
+    // display: none;
+    transform: translateX(-40px);
+    transition: all .5s linear;
+  }
+  .submeniu>li:hover, #toate>ul>li:hover{
     .s1{
       transform: translateX(33px);
     }
@@ -197,6 +218,7 @@ input{
   }
   #acasa{
     display: block;
+    cursor: default;
   }
   .meniu ul.ul_meniu ul{
     display: none;
@@ -229,7 +251,7 @@ input{
         position: relative;
         text-align: center;
         list-style-type: none;
-        a{
+        a, div{
           height: 37px;
           line-height: 37px;
           text-decoration: none;
@@ -243,13 +265,6 @@ input{
           }
         }
       }
-      #acasa{
-        a{
-          cursor: default;
-        }
-        cursor: default;
-      }
-
     }
   }
   ul.ul_meniu>li:hover>ul{
@@ -269,16 +284,20 @@ input{
     }
     display:inline;
     align-items: flex-start;
-    .sageata{
-      float:left;
-      margin-left: 0px;
-      margin-top: 10px;
-      // display: none;
-      transform: translateX(-40px);
-      transition: all .5s linear;
-    }
+   
   }
-  .submeniu>li:hover{
+  #toate>ul>li{
+    overflow:hidden;
+  }
+  .sageata{
+    float:left;
+    margin-left: 0px;
+    margin-top: 10px;
+    // display: none;
+    transform: translateX(-40px);
+    transition: all .5s linear;
+  }
+  .submeniu>li:hover, #toate>ul>li:hover{
     .s1{
       transform: translateX(33px);
     }
