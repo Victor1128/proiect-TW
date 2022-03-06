@@ -160,6 +160,10 @@ input {
   display: none;
 }
 
+#toate > div {
+  cursor: default;
+}
+
 @media screen and (max-width: 679px) {
   .meniu {
     width: 100%;
