@@ -124,15 +124,25 @@ li>figure{
     display: flex;
     /* align-items: center;
     justify-content: center; */
-    width: 50px;
-    height: 50px;
+    width: 3vw;
+    height: 3vw;
+    opacity: .5;
     transform: rotate(45deg);
-    border: 5px solid black;
+    border: 3px solid $gri_deschis;
     padding:0;
     margin: 0;
     position: fixed;
     bottom: 20px;
     right: 20px;
+    transition: background-color .7s;
+    transition: opacity .7s;
+    &:hover{
+        opacity: 1;
+        background-color: $verde_deschis;
+        .triunghi{
+            border-bottom-color: $negru;
+        }
+    }
 }
 .triunghi{
    transform: rotate(-45deg);
@@ -140,15 +150,16 @@ li>figure{
    padding: 0;
    width: 0px;
    height: 0px;
-   border-bottom: 30px solid red;
+   border-bottom: 1.8vw solid $verde_deschis;
    margin: auto;
    /* padding: 10px; */
-   margin-top: 8px;
-   margin-right: 12px;
-   border-left: 15px solid transparent;
-   border-right: 15px solid transparent;
+   margin-top: 0.48vw;
+   margin-right: 0.72vw;
+   border-left: 0.9vw solid transparent;
+   border-right: 0.9vw solid transparent;
    background-color: transparent;
-   border-bottom-left-radius: 15px;
-   border-bottom-right-radius: 15px;
+   border-bottom-left-radius: 0.9vw;
+   border-bottom-right-radius: 0.9vw;
+   transition: border-bottom-color .7s;
 }
 
