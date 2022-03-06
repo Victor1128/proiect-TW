@@ -333,6 +333,7 @@ input {
     padding: 0;
     margin: 0;
     background-color: #3D418F;
+    z-index: 10;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -439,6 +440,7 @@ input {
     padding: 0;
     margin: 0;
     background-color: #3D418F;
+    z-index: 10;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -544,6 +546,7 @@ input {
     padding: 0;
     margin: 0;
     background-color: #3D418F;
+    z-index: 10;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -607,12 +610,12 @@ input {
     transition: all .5s linear;
   }
   .submeniu > li:hover .s1, #toate > ul > li:hover .s1 {
-    -webkit-transform: translateX(33px);
-            transform: translateX(33px);
+    -webkit-transform: translateX(28px);
+            transform: translateX(28px);
   }
   .submeniu > li:hover .s2, #toate > ul > li:hover .s2 {
-    -webkit-transform: translateX(54px);
-            transform: translateX(54px);
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
   }
 }
 
@@ -623,9 +626,14 @@ h1 {
   text-align: center;
 }
 
+.sectiune1 {
+  font-family: 'Raleway', sans-serif;
+}
+
 body {
   background-color: #222629;
   color: #f6f8f7;
+  font-family: 'Raleway', sans-serif;
   font-size: .85em;
   padding: 0;
   margin: 0;
@@ -797,6 +805,10 @@ li > figure picture img {
   border-bottom-color: #222629;
 }
 
+.fa-phone {
+  font-size: .8em;
+}
+
 .triunghi {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
@@ -816,5 +828,16 @@ li > figure picture img {
   border-bottom-right-radius: 0.9vw;
   -webkit-transition: border-bottom-color .7s;
   transition: border-bottom-color .7s;
+}
+
+.harta {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.container-harta {
+  max-width: 600px;
+  height: 450px;
 }
 /*# sourceMappingURL=stil.css.map */
