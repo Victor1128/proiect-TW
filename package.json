@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3"
+  },
+  "name": "proiect",
+  "description": "🔗 [Drive curs](https://drive.google.com/drive/u/0/folders/1h059-AbXRFfmXbPUemzj2OrOHeWU3w_E)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Victor1128/proiect-TW.git"
+  },
+  "author": "victor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Victor1128/proiect-TW/issues"
+  },
+  "homepage": "https://github.com/Victor1128/proiect-TW#readme",
+  "keywords": [
+    "asd",
+    "asd"
+  ]
+}
