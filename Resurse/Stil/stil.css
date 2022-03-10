@@ -840,4 +840,15 @@ li > figure picture img {
   max-width: 600px;
   height: 450px;
 }
+
+#tabel {
+  border: 5px solid #222629;
+  background-color: blue;
+  padding: 0;
+}
+
+#tabel td {
+  border: 5px solid #222629;
+  margin: 0;
+}
 /*# sourceMappingURL=stil.css.map */

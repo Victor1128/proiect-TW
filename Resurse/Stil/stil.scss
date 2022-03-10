@@ -178,4 +178,12 @@ li>figure{
     max-width: 600px;
     height: 450px;
 }
-
+#tabel{
+    border: 5px solid $negru;
+    background-color: blue;
+    padding: 0;
+    td{
+        border: 5px solid $negru;
+        margin: 0;
+    }
+}
