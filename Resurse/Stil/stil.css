@@ -842,13 +842,39 @@ li > figure picture img {
 }
 
 #tabel {
-  border: 5px solid #222629;
-  background-color: blue;
+  background-color: #86c232;
   padding: 0;
 }
 
-#tabel td {
-  border: 5px solid #222629;
-  margin: 0;
+#tabel #tabel_tabel {
+  border-collapse: collapse;
+  width: 100%;
+  border: inset 8px solid black;
+}
+
+#tabel td, #tabel th, #tabel tr {
+  border-left: 1px solid #222629;
+  text-align: center;
+  padding: 8px;
+}
+
+#tabel thead tr:nth-child(odd) {
+  border-top: 1px solid #6b6e70;
+  border-bottom: 1px solid #222629;
+}
+
+#tabel tbody tr:nth-child(odd) {
+  border-top: 1px solid #222629;
+  border-bottom: 1px solid #6b6e70;
+}
+
+#tabel tbody tr:nth-child(even) {
+  border-top: 1px solid #6b6e70;
+  border-bottom: 1px solid #222629;
+}
+
+#tabel tfoot tr:nth-child(odd) {
+  border-top: 1px solid #222629;
+  border-bottom: 1px solid #6b6e70;
 }
 /*# sourceMappingURL=stil.css.map */

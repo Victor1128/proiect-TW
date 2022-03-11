@@ -179,11 +179,38 @@ li>figure{
     height: 450px;
 }
 #tabel{
-    border: 5px solid $negru;
-    background-color: blue;
+    background-color: $verde_deschis;
     padding: 0;
-    td{
-        border: 5px solid $negru;
-        margin: 0;
+    #tabel_tabel{
+        border-collapse: collapse;
+        width: 100%;
+        border: inset 8px solid black;
+    }
+    td, th, tr{
+        border-left: 1px solid $negru;
+        text-align: center;
+        padding: 8px;
+    }
+    thead{
+        tr:nth-child(odd){
+            border-top: 1px solid $gri_deschis;
+            border-bottom: 1px solid $negru;
+        }
+    }
+    tbody{
+        tr:nth-child(odd){
+            border-top: 1px solid $negru;
+            border-bottom: 1px solid $gri_deschis;
+        }
+        tr:nth-child(even){
+            border-top: 1px solid $gri_deschis;
+            border-bottom: 1px solid $negru;
+        }
+    }
+    tfoot{
+        tr:nth-child(odd){
+            border-top: 1px solid $negru;
+            border-bottom: 1px solid $gri_deschis;
+        }
     }
 }
