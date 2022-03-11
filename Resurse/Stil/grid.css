@@ -20,21 +20,18 @@
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: calendar;
-  background-color: #61982f;
 }
 
 .tabel {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: tabel;
-  background-color: #86c232;
 }
 
 .ads {
   -ms-grid-row: 2;
   -ms-grid-column: 3;
   grid-area: ads;
-  background-color: #61982f;
 }
 
 .content {
