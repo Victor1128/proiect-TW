@@ -248,3 +248,15 @@ li>figure{
 #banner{
     text-align: center;
 }
+hr{
+    padding: 1px;
+    background-clip:padding-box;
+    background-color: $verde_inchis;
+    border-left: 30px solid $verde_inchis;
+    border-right: 30px solid $verde_inchis;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+#banner_print{
+    display: none;
+}

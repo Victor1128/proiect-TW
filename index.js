@@ -18,19 +18,19 @@ app.get("/*.ejs", function(req, res){
     res.status(403).render("pagini/403");
 })
 
-app.get("/ceva", function(req, res, next){
-    res.write("<p style='color:pink'>Salut-1</p>");
-    console.log("1");
-    next();
-    //res.end();
-})
-app.get("/ceva", function(req, res, next){
-    res.write("Salut-2");
-   
+app.get("/ip", function(req, res, next){
+    var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+   res.write(ip);
     console.log("2");
     next();
 })
-
+app.get("/*#info_user", function(req, res, next){
+    var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+    res.write("Salut-2");
+   res.write(ip);
+    console.log("2");
+    next();
+})
 
 app.get("/*", function(req, res){
     res.render("pagini"+req.url, function(err, rezRender){

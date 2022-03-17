@@ -556,7 +556,7 @@ input {
     text-align: center;
     list-style-type: none;
   }
-  .meniu ul li a, .meniu ul li div {
+  .meniu ul li div, .meniu ul li a {
     height: 37px;
     line-height: 37px;
     text-decoration: none;
@@ -568,7 +568,7 @@ input {
     transition: box-shadow 0.3s ease-in-out;
     transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
   }
-  .meniu ul li a:hover, .meniu ul li div:hover {
+  .meniu ul li div:hover, .meniu ul li a:hover {
     -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
             box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
   }
@@ -904,5 +904,19 @@ li > figure picture img {
 
 #banner {
   text-align: center;
+}
+
+hr {
+  padding: 1px;
+  background-clip: padding-box;
+  background-color: #61982f;
+  border-left: 30px solid #61982f;
+  border-right: 30px solid #61982f;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+#banner_print {
+  display: none;
 }
 /*# sourceMappingURL=stil.css.map */

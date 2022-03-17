@@ -397,7 +397,7 @@ input {
     text-align: center;
     list-style-type: none;
   }
-  .meniu ul li a, .meniu ul li div {
+  .meniu ul li div, .meniu ul li a {
     height: 37px;
     line-height: 37px;
     text-decoration: none;
@@ -409,7 +409,7 @@ input {
     transition: box-shadow 0.3s ease-in-out;
     transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out;
   }
-  .meniu ul li a:hover, .meniu ul li div:hover {
+  .meniu ul li div:hover, .meniu ul li a:hover {
     -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
             box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
   }

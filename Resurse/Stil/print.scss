@@ -21,6 +21,9 @@ figure{
     display: none;
 }
 #banner{
+    display: none;
+}
+#banner_print{
     display: block;
     text-align: right;
     picture{
@@ -76,4 +79,14 @@ footer{
 @page:right{
     margin-left: 1cm;
     margin-right: 2cm;
+}
+#tabel_tabel{
+    caption-side: bottom;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1mm solid black;
+    padding:10px ;
+}
+hr{
+    display: none;
 }

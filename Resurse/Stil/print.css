@@ -27,11 +27,15 @@ figure {
 }
 
 #banner {
+  display: none;
+}
+
+#banner_print {
   display: block;
   text-align: right;
 }
 
-#banner picture img {
+#banner_print picture img {
   width: 50%;
   border: 5px double black;
 }
@@ -80,5 +84,17 @@ footer {
 @page :right {
   margin-left: 1cm;
   margin-right: 2cm;
+}
+
+#tabel_tabel {
+  caption-side: bottom;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1mm solid black;
+  padding: 10px;
+}
+
+hr {
+  display: none;
 }
 /*# sourceMappingURL=print.css.map */
