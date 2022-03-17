@@ -1,12 +1,84 @@
 body {
   background-color: red;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+body main {
+  margin: 0;
+  padding: 0;
 }
 
 video {
   display: none;
 }
 
-iframe {
+.fb_mare {
   display: none;
+}
+
+figure {
+  display: none;
+}
+
+.img_download {
+  display: none;
+}
+
+#banner {
+  display: block;
+  text-align: right;
+}
+
+#banner picture img {
+  width: 50%;
+  border: 5px double black;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.container_sageata {
+  display: none;
+}
+
+.meniu {
+  page-break-after: always;
+}
+
+footer {
+  page-break-before: always;
+}
+
+.container-harta {
+  display: none;
+}
+
+.watermark {
+  display: block;
+  width: 60%;
+  height: 10%;
+  position: fixed;
+  top: 50%;
+  left: 20%;
+  text-align: center;
+}
+
+.watermark P {
+  font-size: xx-large;
+  opacity: .3;
+}
+
+@page :left {
+  margin-left: 2cm;
+  margin-right: 1cm;
+}
+
+@page :right {
+  margin-left: 1cm;
+  margin-right: 2cm;
 }
 /*# sourceMappingURL=print.css.map */

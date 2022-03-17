@@ -1,9 +1,79 @@
 body{
     background-color: red;
+    color: black;
+    margin: 0;
+    padding: 0;
+    main{
+        margin: 0;
+        padding: 0;
+    }
 }
 video{
     display: none;
 }
-iframe{
+.fb_mare{
     display: none;
+}
+figure{
+    display: none;
+}
+.img_download{
+    display: none;
+}
+#banner{
+    display: block;
+    text-align: right;
+    picture{
+        
+        img{
+            width: 50%;
+            border: 5px double black;
+        }
+    }
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.container_sageata{
+    display: none;
+}
+.meniu{
+    page-break-after: always;
+}
+footer{
+    page-break-before: always;
+}
+.container-harta{
+    display: none;
+}
+.watermark{
+    display: block;
+    width: 60%;
+    height: 10%;
+    // border: 5px solid black;
+    position: fixed;
+    top: 50%;
+    left: 20%;
+    text-align: center;
+    P{
+        font-size:xx-large;
+        opacity: .3;
+    }
+    // svg{
+    //     width: 1000px;
+    //     height: 1000px;
+    //     // text{
+    //     //     font-size: 50px;
+    //     // }
+    // }
+    // background-image: url(Resurse/Vector/watermark.svg);
+}
+@page:left{
+    margin-left: 2cm;
+    margin-right: 1cm;
+}
+@page:right{
+    margin-left: 1cm;
+    margin-right: 2cm;
 }

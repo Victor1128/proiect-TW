@@ -839,6 +839,10 @@ li > figure picture img {
   height: 450px;
 }
 
+.watermark {
+  display: none;
+}
+
 .video_container {
   width: inherit;
   position: relative;
