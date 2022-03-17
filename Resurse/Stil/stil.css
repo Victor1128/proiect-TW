@@ -771,6 +771,7 @@ li > figure picture img {
 }
 
 .container_sageata {
+  z-index: 11;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -839,12 +840,13 @@ li > figure picture img {
 }
 
 .video_container {
-  max-width: 500px;
-  border: 5px solid black;
+  width: inherit;
+  position: relative;
+  text-align: center;
 }
 
 .video_container video {
-  width: 100%;
+  width: 40%;
 }
 
 #tabel {
@@ -875,11 +877,6 @@ li > figure picture img {
   padding: 8px;
 }
 
-#tabel thead tr:nth-child(odd) {
-  border-top: 1px solid red;
-  border-bottom: 1px solid blue;
-}
-
 #tabel tbody tr:nth-child(odd) {
   border-top: 1px solid blue;
   border-bottom: 1px solid red;
@@ -888,11 +885,6 @@ li > figure picture img {
 #tabel tbody tr:nth-child(even) {
   border-top: 1px solid red;
   border-bottom: 1px solid blue;
-}
-
-#tabel tfoot tr:nth-child(odd) {
-  border-top: 1px solid blue;
-  border-bottom: 1px solid red;
 }
 
 #tabel tr {
@@ -904,5 +896,9 @@ li > figure picture img {
   outline: 7px solid rgba(134, 194, 50, 0.7);
   -webkit-transition: all .5s;
   transition: all .5s;
+}
+
+#banner {
+  text-align: center;
 }
 /*# sourceMappingURL=stil.css.map */

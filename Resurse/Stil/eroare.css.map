@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EACV,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;EACnB,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,KAAK;EACb,QAAQ,EAAE,QAAQ;CAarB;;AAnBD,AAeI,cAfU,CAeV,GAAG,CAAA;EACC,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;CAChB",
+    "sources": [
+        "eroare.scss"
+    ],
+    "names": [],
+    "file": "eroare.css"
+}

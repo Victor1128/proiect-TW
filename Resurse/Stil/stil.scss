@@ -125,6 +125,7 @@ li>figure{
     }
 }
 .container_sageata{
+    z-index: 11;
     display: flex;
     /* align-items: center;
     justify-content: center; */
@@ -179,10 +180,13 @@ li>figure{
     height: 450px;
 }
 .video_container{
-    max-width: 500px;
-    border: 5px solid black;
+    
+    width: inherit;
+    position: relative;
+    text-align: center;
+    // border: 5px solid black;
    video{
-       width: 100%;
+       width: 40%;
    }
 }
 #tabel{
@@ -207,12 +211,12 @@ li>figure{
         text-align: center;
         padding: 8px;
     }
-    thead{
-        tr:nth-child(odd){
-            border-top: 1px solid $cul_tabel_1;
-            border-bottom: 1px solid $cul_tabel_2; 
-        }
-    }
+    // thead{
+        // tr:nth-child(odd){
+        //     border-top: 1px solid $cul_tabel_1;
+        //     border-bottom: 1px solid $cul_tabel_2; 
+        // }
+    // }
     tbody{
         tr:nth-child(odd){
             border-top: 1px solid $cul_tabel_2;
@@ -223,12 +227,12 @@ li>figure{
             border-bottom: 1px solid $cul_tabel_2;
         }
     }
-    tfoot{
-        tr:nth-child(odd){
-            border-top: 1px solid $cul_tabel_2;
-            border-bottom: 1px solid $cul_tabel_1;
-        }
-    }
+    // tfoot{
+    //     tr:nth-child(odd){
+    //         border-top: 1px solid $cul_tabel_2;
+    //         border-bottom: 1px solid $cul_tabel_1;
+    //     }
+    // }
     tr{
         z-index: 9;
         outline: 7px solid rgba($color: $verde_deschis , $alpha: 0);
@@ -237,4 +241,7 @@ li>figure{
         outline: 7px solid rgba($color: $verde_deschis , $alpha: .7);
         transition: all .5s;
     }
+}
+#banner{
+    text-align: center;
 }
