@@ -77,7 +77,7 @@ creeazaImagini();
 
 
 function creeazaErori(){
-    let buf=fs.readFileSync(__dirname+"/Resurse/json/erori.json").toString('utf-8');
+    let buf=fs.readFileSync(__dirname+"/Resurse/json/erori.json").toString("utf8");
     obErori=JSON.parse(buf); //global
 }
 
@@ -89,10 +89,10 @@ function randeazaEroare(res, identificator, titlu, text, imagine){
     });
     titlu=titlu || (eroare && eroare.titlu) || "N-avem chiar niciun titlu de eroare";
     text=text||(eroare&&eroare.text);
-    imagine=imagine||(eroare && (obErori.cale_baza+eroare.imagine));
+    imagine=imagine||(eroare && (obErori.cale_baza+"/"+eroare.imagine))||"Resurse/images/erori/interzis.png";
     if(eroare && eroare.status)
-        res.status(eroare.identificator).render("pagini/eroare_generala.ejs", {titlu:titlu, text:text, imagine:imagine});
-    else res.render("pagini/eroare_generala.ejs", {titlu:titlu, text:text, imagine:imagine});
+        res.status(eroare.identificator).render("pagini/eroare_generala", {titlu:titlu, text:text, imagine:imagine});
+    else res.render("pagini/eroare_generala", {titlu:titlu, text:text, imagine:imagine});
 }
 
 app.listen(8080);
