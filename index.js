@@ -2,6 +2,10 @@ const express= require("express");
 const fs=require("fs");
 const { dirname } = require("path");
 const sharp=require("sharp");
+const {Client}=require("pg");
+
+var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
+client.connect();
 app= express();
 
 app.set("view engine","ejs");
@@ -12,7 +16,11 @@ console.log("Director proiect:",__dirname);
 
 app.get(["/", "/index", "/home", "/acasa"], function(req, res){
     //res.sendFile(__dirname+"/index1.html");
-    res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
+    client.query("select * from test", function(err,rez){
+        if(!err)
+        res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini, produse:rez.rows});
+    })
+    // res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
 })
 
 app.get("/eroare", function(req, res){
