@@ -1,0 +1,118 @@
+#galerie_statica{
+    display: block;
+    img{
+        width: 100%;
+        padding: 0;
+    }
+    figure{
+        padding: 0;
+        margin: 0;
+        transition: all 1.25s linear;
+        &:hover{
+
+            transform: scale(130%) translateY(-19px);
+            figcaption{
+                color: $verde_deschis;
+                background-color: $menu_color;
+            }
+        }
+    }
+    figcaption{
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        transition: color 1s, background-color 1.25s linear;
+    }
+    padding: 0;
+    margin: 10px;
+}
+
+@media (min-width:680px){
+    #galerie_statica{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        img{
+            width: 100%;
+            padding: 0;
+        }
+        figure{
+            padding: 0;
+            margin: 0;
+        }
+        figcaption{
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        grid-gap: 5px;
+        padding: 0;
+        margin: 10px;
+    }
+   
+}
+
+
+@media (min-width:1007px){
+    #galerie_statica{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 5px;
+        padding: 0;
+        margin: 10px;
+        figure:nth-child(6){
+            grid-area: 2/4/3/5;
+        }
+        // @for $i from 1 to 5{
+        //     figure:nth-child(#{$i}+6){
+        //         grid-area:3/(#{$i})/4/(#{$i}+1);
+        //     }
+        // }
+        
+        img{
+            width: 100%;
+            padding: 0;
+        }
+        figure{
+            padding: 0;
+            margin: 0;
+        }
+        figcaption{
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    #galerie_statica figure:nth-child(6) {
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 4;
+        -ms-grid-column-span: 1;
+        grid-area: 2/4/3/5;
+      }
+      #galerie_statica figure:nth-child(7) {
+        -ms-grid-row: 3;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 1;
+        grid-area: 3/1/4/2;
+      }
+      #galerie_statica figure:nth-child(8) {
+        -ms-grid-row: 3;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 2;
+        grid-area: 3/2/4/3;
+      }
+      #galerie_statica figure:nth-child(9) {
+        -ms-grid-row: 3;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 3;
+        grid-area: 3/3/4/4;
+      }
+      #galerie_statica figure:nth-child(10) {
+        -ms-grid-row: 3;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 4;
+        grid-area: 3/4/4/5;
+      }
+}
+
+

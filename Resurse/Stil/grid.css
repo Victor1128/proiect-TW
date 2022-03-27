@@ -5,13 +5,13 @@
       grid-template-columns: auto auto auto;
   grid-row-gap: .3rem;
   grid-column-gap: .2rem;
-      grid-template-areas: 'inceput inceput inceput' 'calendar tabel ads' 'content content content' 'despre-site utilizatori-online despre-user';
+      grid-template-areas: 'inceput inceput inceput inceput' 'calendar tabel tabel ads' 'content content content content' 'despre-site despre-site utilizatori-online despre-user';
 }
 
 .inceput {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
+  -ms-grid-column-span: 4;
   grid-area: inceput;
   background-color: #86c232;
 }
@@ -25,39 +25,41 @@
 .tabel {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
   grid-area: tabel;
 }
 
 .ads {
   -ms-grid-row: 2;
-  -ms-grid-column: 3;
+  -ms-grid-column: 4;
   grid-area: ads;
 }
 
 .content {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
+  -ms-grid-column-span: 4;
   grid-area: content;
 }
 
 .inf_site {
   -ms-grid-row: 4;
   -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
   grid-area: despre-site;
   background-color: #86c232;
 }
 
 .inf_user {
   -ms-grid-row: 4;
-  -ms-grid-column: 3;
+  -ms-grid-column: 4;
   grid-area: despre-user;
   background-color: #61982f;
 }
 
 .user_online {
   -ms-grid-row: 4;
-  -ms-grid-column: 2;
+  -ms-grid-column: 3;
   grid-area: utilizatori-online;
   background-color: #86c232;
 }

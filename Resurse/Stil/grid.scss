@@ -5,10 +5,10 @@
     grid-row-gap: .3rem; 
     grid-column-gap: .2rem;
     grid-template-areas: 
-        'inceput inceput inceput'
-        'calendar tabel ads'
-        'content content content'
-        'despre-site utilizatori-online despre-user';
+        'inceput inceput inceput inceput'
+        'calendar tabel tabel ads'
+        'content content content content'
+        'despre-site despre-site utilizatori-online despre-user';
 }
 .inceput{
     grid-area: inceput;

@@ -20,6 +20,48 @@
         <p>În cadrul acestui site vei găsi numeroase jocuri pe gustul tău, dacă ești fan acțiune și ai chef de un <i>FPS</i>, vrei să gândești strategic jucând un <i>RTS</i> sau vrei să te relaxezi cu un joc <i>casual</i>? Atunci ai venit unde trebuie</p>
         <p>Mai jos este prezentată o <b>selecție de jocuri</b> acompaniată de o descriere și o recenzie</p>
         <p><strong lang="en">Disclaimer!</strong> Recenzia reprezintă strict o <strong>opinie personală!<br>Aces site nu este afiliat cu nicio companie sau joc video și nu dețin drepturi de autor pentru niciunul dintre jocurile prezentate!</strong> </p>
+        <div id="galerie_statica">
+        <%  k=97; 
+          for(let imag of locals.imagini) {
+
+            d=new Date();
+            oraCurenta=d.getHours();
+            minutCurent=d.getMinutes();
+            [start, final]=imag.timp.split("-");
+            [oraStart, minutStart]=start.split(":");
+            [oraFinal, minutFinal]=final.split(":");
+            oraStart=parseInt(oraStart);
+            oraFinal=parseInt(oraFinal);
+            minutStart=parseInt(minutStart);
+            minutFinal=parseInt(minutFinal);
+            checkStart=0;
+            checkFinal=0;
+            check=0;
+            if(oraStart<oraFinal || (oraStart==oraFinal && minutStart<minutFinal)){
+              if(oraCurenta>oraStart || (oraCurenta==oraStart && minutCurent>=minutStart)) {checkStart=1;}
+              if(oraCurenta<oraFinal || (oraCurenta == oraFinal && minutCurent<minutFinal)) {checkFinal=1;}
+              check=checkStart&&checkFinal;
+            }
+            else{
+              checkStart=1;
+              checkFinal=1;
+              if(oraCurenta>oraFinal || (oraCurenta==oraFinall && minutCurent>=minutFinal)) {checkFinal=0;}
+              if(oraCurenta<oraStart || (oraCurenta == oraStart && minutCurent<minutStart)) {checkStart=0;}
+              check=checkStart||checkFinal;
+            }
+            if(check && k<107){
+            %>
+          <figure>
+            <picture>
+              <source srcset="<%-imag.mic%>" media="(max-width:679px)"/>
+              <source srcset="<%-imag.mediu%>" media="(max-width:1009px)"/>
+              <img src="<%- imag.mare %>" alt="imagine-galerie">
+            </picture>
+            <figcaption><%-String.fromCharCode(k)%>) <%-imag.descriere%></figcaption>
+          </figure>
+          
+       <% k++}} %>
+        </div>
         <div class="video_container">
           <video controls preload="auto" poster="./Resurse/images/game-console-gc266ed001_1920.jpg">
             <source src="./Resurse/video/Production_Switcher_in_Idle_Mode.mp4" type="video/mp4">
@@ -177,7 +219,7 @@
       <div class="inf_user">
         <a id="info_user">
         <h2>Informații despre utilizatori</h2>
-          <p>IP-ul tău este: <%= ip %></p>
+          <p>IP-ul tău este <%= ip %></p>
       </div>
     </main>
     <hr>

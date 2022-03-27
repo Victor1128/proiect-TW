@@ -1,0 +1,95 @@
+{
+	"cale_galerie":"Resurse/images/galerie",
+	"imagini": [
+		{
+			"cale_imagine":"briose-frisca.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Brioșe"
+		},
+		{
+			"cale_imagine":"clatite.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Clătite cu dulceață"
+		},
+		{
+			"cale_imagine":"gogosi.png",
+            "titlu":"",
+            "timp":"20:00-3:00",
+			"descriere":"Gogoși glazurate"
+		},
+		{
+			"cale_imagine":"tort-scortisoara.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Tort cu scorțisoară"
+		},
+		{
+			"cale_imagine":"prajitura-ciocolata.png",
+            "titlu":"",
+            "timp":"18:00-12:00",
+			"descriere":"Prăjitură cu ciocolată"
+		},
+		{
+			"cale_imagine":"tarta-afine.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Tartă cu afine"
+		},
+		{
+			"cale_imagine":"tort-trandafiri.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Tort special"
+		},
+        {
+			"cale_imagine":"prajitura-ciocolata.png",
+            "titlu":"",
+            "timp":"18:00-12:00",
+			"descriere":"Prăjitură cu ciocolată"
+		},
+        {
+			"cale_imagine":"prajitura-ciocolata.png",
+            "titlu":"",
+            "timp":"18:00-12:00",
+			"descriere":"Prăjitură cu ciocolată"
+		},
+        {
+			"cale_imagine":"prajitura-ciocolata.png",
+            "titlu":"",
+            "timp":"18:00-12:00",
+			"descriere":"Prăjitură cu ciocolată"
+		},
+        {
+			"cale_imagine":"briose-frisca.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Brioșe"
+		},
+        {
+			"cale_imagine":"briose-frisca.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Brioșe"
+		},
+        {
+			"cale_imagine":"briose-frisca.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Brioșe"
+		},
+        {
+			"cale_imagine":"briose-frisca.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Brioșe"
+		},
+        {
+			"cale_imagine":"briose-frisca.png",
+            "titlu":"",
+            "timp":"18:00-22:00",
+			"descriere":"Brioșe"
+		}
+	]
+}

@@ -2,6 +2,7 @@
 @import "./grid";
 @import "./variabile";
 @import "./meniu";
+@import "./galerie-statica";
 // .meniu{
 //     li:hover{
 //         animation: meniu 1s ease-in-out both;
@@ -13,12 +14,13 @@ h1{
 }
 .sectiune1{
     font-family: 'Raleway', sans-serif;
+    padding: 10px;
 }
 body{
     background-color: $negru;
     color: #f6f8f7;
     font-family: 'Raleway', sans-serif;
-    font-size: .85em;
+    font-size: .6em;
     padding: 0;
     margin: 0;
 }
@@ -27,18 +29,18 @@ summary{
 }
 main{
     *{
-        padding: 5px;
+        // padding: 5px;
         // margin: 5px;
     }
 }
 @media(min-width:680px){
     body{
-        font-size: 1em;
+        font-size: .75em;
     }
 }
 @media (min-width: 1008px){
     body{
-        font-size: 1.3em;
+        font-size: .9em;
     }
 }
 #main-container{
