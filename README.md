@@ -1,3 +1,4 @@
-# Proiect-TW
-🔗 [Drive curs](https://drive.google.com/drive/u/0/folders/1h059-AbXRFfmXbPUemzj2OrOHeWU3w_E) <br  />
-🔗 [Documentatie Express](https://expressjs.com/en/api.html)
+# Proiect-Tehnici Web
+
+This project represents my first (soon to be) complete website. <br  />
+In addition to the required tasks, I try to make it look like a real, well-done website.
