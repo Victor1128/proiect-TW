@@ -4,13 +4,13 @@
 		{
 			"cale_imagine":"briose-frisca.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Brioșe"
 		},
 		{
 			"cale_imagine":"clatite.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Clătite cu dulceață"
 		},
 		{
@@ -22,7 +22,7 @@
 		{
 			"cale_imagine":"tort-scortisoara.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Tort cu scorțisoară"
 		},
 		{
@@ -34,13 +34,13 @@
 		{
 			"cale_imagine":"tarta-afine.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Tartă cu afine"
 		},
 		{
 			"cale_imagine":"tort-trandafiri.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Tort special"
 		},
         {
@@ -64,31 +64,31 @@
         {
 			"cale_imagine":"briose-frisca.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Brioșe"
 		},
         {
 			"cale_imagine":"briose-frisca.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Brioșe"
 		},
         {
 			"cale_imagine":"briose-frisca.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Brioșe"
 		},
         {
 			"cale_imagine":"briose-frisca.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Brioșe"
 		},
         {
 			"cale_imagine":"briose-frisca.png",
             "titlu":"",
-            "timp":"18:00-22:00",
+            "timp":"18:00-23:00",
 			"descriere":"Brioșe"
 		}
 	]

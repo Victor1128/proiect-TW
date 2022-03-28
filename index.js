@@ -16,12 +16,27 @@ console.log("Director proiect:",__dirname);
 
 app.get(["/", "/index", "/home", "/acasa"], function(req, res){
     //res.sendFile(__dirname+"/index1.html");
-    client.query("select * from test", function(err,rez){
-        if(!err)
-        res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini, produse:rez.rows});
-    })
-    // res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
+    // client.query("select * from test", function(err,rez){
+    //     if(!err)
+        // res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
+    // })
+    res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
 })
+
+app.get("/produse", function(req, res){
+    client.query("select * from jocuri", function(err, rezQuerry){
+        console.log("Am ajuns aici "+rezQuerry);
+        res.render("pagini/produse", {produse:rezQuerry.rows});
+    })
+})
+
+app.get("/produs/:id", function(req, res){
+    client.query(`select * from jocuri where id= ${req.params.id}`, function(err, rezQuerry){
+        console.log("Am ajuns aici 2"+rezQuerry);
+        res.render("pagini/produs", {prod:rezQuerry.rows[0]});
+    })
+})
+
 
 app.get("/eroare", function(req, res){
     randeazaEroare(res,1, "Titlu schimbat");
