@@ -1,3 +1,4 @@
+@import "./variabile";
 #galerie_statica{
     display: block;
     img{
@@ -59,11 +60,11 @@
         grid-gap: 5px;
         padding: 0;
         margin: 10px;
-        figure:nth-child(6){
+        a:nth-child(6){
             grid-area: 2/4/3/5;
         }
         // @for $i from 1 to 5{
-        //     figure:nth-child(#{$i}+6){
+        //    a:nth-child(#{$i}+6){
         //         grid-area:3/(#{$i})/4/(#{$i}+1);
         //     }
         // }
@@ -82,32 +83,32 @@
             margin: 0;
         }
     }
-    #galerie_statica figure:nth-child(6) {
+    #galerie_statica a:nth-child(6) {
         -ms-grid-row: 2;
         -ms-grid-row-span: 1;
         -ms-grid-column: 4;
         -ms-grid-column-span: 1;
         grid-area: 2/4/3/5;
       }
-      #galerie_statica figure:nth-child(7) {
+      #galerie_statica a:nth-child(7) {
         -ms-grid-row: 3;
         -ms-grid-row-span: 1;
         -ms-grid-column: 1;
         grid-area: 3/1/4/2;
       }
-      #galerie_statica figure:nth-child(8) {
+      #galerie_statica a:nth-child(8) {
         -ms-grid-row: 3;
         -ms-grid-row-span: 1;
         -ms-grid-column: 2;
         grid-area: 3/2/4/3;
       }
-      #galerie_statica figure:nth-child(9) {
+      #galerie_statica a:nth-child(9) {
         -ms-grid-row: 3;
         -ms-grid-row-span: 1;
         -ms-grid-column: 3;
         grid-area: 3/3/4/4;
       }
-      #galerie_statica figure:nth-child(10) {
+      #galerie_statica a:nth-child(10) {
         -ms-grid-row: 3;
         -ms-grid-row-span: 1;
         -ms-grid-column: 4;
