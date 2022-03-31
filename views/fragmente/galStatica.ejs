@@ -1,0 +1,42 @@
+<div id="galerie_statica">
+    <%  k=97; 
+      for(let imag of locals.imagini) {
+
+        d=new Date();
+        oraCurenta=d.getHours();
+        minutCurent=d.getMinutes();
+        [start, final]=imag.timp.split("-");
+        [oraStart, minutStart]=start.split(":");
+        [oraFinal, minutFinal]=final.split(":");
+        oraStart=parseInt(oraStart);
+        oraFinal=parseInt(oraFinal);
+        minutStart=parseInt(minutStart);
+        minutFinal=parseInt(minutFinal);
+        checkStart=0;
+        checkFinal=0;
+        check=0;
+        if(oraStart<oraFinal || (oraStart==oraFinal && minutStart<minutFinal)){
+          if(oraCurenta>oraStart || (oraCurenta==oraStart && minutCurent>=minutStart)) {checkStart=1;}
+          if(oraCurenta<oraFinal || (oraCurenta == oraFinal && minutCurent<minutFinal)) {checkFinal=1;}
+          check=checkStart&&checkFinal;
+        }
+        else{
+          checkStart=1;
+          checkFinal=1;
+          if(oraCurenta>oraFinal || (oraCurenta==oraFinal && minutCurent>=minutFinal)) {checkFinal=0;}
+          if(oraCurenta<oraStart || (oraCurenta == oraStart && minutCurent<minutStart)) {checkStart=0;}
+          check=checkStart||checkFinal;
+        }
+        if(check && k<107){
+        %>
+      <a href="/galerie"><figure>
+        <picture>
+          <source srcset="<%-imag.mic%>" media="(max-width:679px)"/>
+          <source srcset="<%-imag.mediu%>" media="(max-width:1009px)"/>
+          <img src="<%- imag.mare %>" alt="imagine-galerie">
+        </picture>
+        <figcaption><%-String.fromCharCode(k)%>) <%-imag.descriere%></figcaption>
+      </figure></a>
+      
+   <% k++}} %>
+    </div>

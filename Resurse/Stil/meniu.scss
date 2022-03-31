@@ -45,9 +45,6 @@ input{
           animation: displ_submeniu_ham .5s linear forwards;
         }
       }
-      #doar_casa>a{
-        cursor: default;
-      }
       #doar_casa:hover{
         ul{
           display: block;
@@ -162,13 +159,6 @@ input{
           }
         }
       }
-      #doar_casa{
-        a{
-          cursor: default;
-        }
-        cursor: default;
-      }
-
     }
   }
   ul.ul_meniu>li:hover>ul{

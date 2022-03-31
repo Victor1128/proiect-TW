@@ -202,9 +202,6 @@ input {
     -webkit-animation: displ_submeniu_ham .5s linear forwards;
             animation: displ_submeniu_ham .5s linear forwards;
   }
-  .meniu ul.ul_meniu #doar_casa > a {
-    cursor: default;
-  }
   .meniu ul.ul_meniu #doar_casa:hover ul {
     display: block;
     -webkit-transform-origin: 0 0;
@@ -306,12 +303,6 @@ input {
   .meniu ul li a:hover, .meniu ul li div:hover {
     -webkit-box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
             box-shadow: inset 6px 6px 10px 1px #6b6e70, inset -6px -6px 10px 1px #6b6e70;
-  }
-  .meniu ul #doar_casa {
-    cursor: default;
-  }
-  .meniu ul #doar_casa a {
-    cursor: default;
   }
   ul.ul_meniu > li:hover > ul {
     width: 200px;

@@ -38,6 +38,9 @@ app.get("/produs/:id", function(req, res){
     })
 })
 
+app.get("/galerie", function(req, res){
+    res.render("pagini/galStatica", {imagini:obImagini.imagini});
+})
 
 app.get("/eroare", function(req, res){
     randeazaEroare(res,1, "Titlu schimbat");
