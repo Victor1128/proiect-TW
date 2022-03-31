@@ -48,7 +48,7 @@
             else{
               checkStart=1;
               checkFinal=1;
-              if(oraCurenta>oraFinal || (oraCurenta==oraFinall && minutCurent>=minutFinal)) {checkFinal=0;}
+              if(oraCurenta>oraFinal || (oraCurenta==oraFinal && minutCurent>=minutFinal)) {checkFinal=0;}
               if(oraCurenta<oraStart || (oraCurenta == oraStart && minutCurent<minutStart)) {checkStart=0;}
               check=checkStart||checkFinal;
             }

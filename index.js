@@ -31,6 +31,7 @@ app.get("/produse", function(req, res){
 })
 
 app.get("/produs/:id", function(req, res){
+    console.log("PRODUS:", req.url);
     client.query(`select * from jocuri where id= ${req.params.id}`, function(err, rezQuerry){
         console.log("Am ajuns aici 2"+rezQuerry);
         res.render("pagini/produs", {prod:rezQuerry.rows[0]});

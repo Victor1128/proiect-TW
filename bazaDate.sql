@@ -21,11 +21,23 @@ CREATE TABLE IF NOT EXISTS jocuri (
 );
 
 INSERT into jocuri (nume,descriere,pret, scor,tip_joc, producator, categorie, caracteristici,pt_copii, imagine) VALUES 
-('Fifa', 'Joc despre fotbal!', 60 , 73, 'sport', 'EA Sports', 'populare', '{"single", "multi", "inapp"}', True, 'fifa.jpg'),
+('Fifa', 'Joc despre fotbal!', 60 , 73, 'sport', 'EA Sports', 'populare', '{"single", "multi"}', True, 'fifa.jpg'),
 
-('Counter Strike Global Offensive', 'Joc shooter!', 0 , 83, 'shooter','Valve' ,'ieftine', '{"multi","inapp"}', False, 'cs.jpg'),
+('Counter Strike Global Offensive', 'Joc shooter!', 0 , 83, 'shooter','Valve' ,'ieftine', '{"multi"}', False, 'cs.jpg'),
 
 ('Civilization VI', 'Joc de strategie!', 60 , 88,'RTS', 'Fireaxis', '{"single","multi","dlc"}', True,'civ.jpg'),
+
+('GTA V', 'Nu ii trebuie descriere :)!', 15, 96, 'shooter', 'Rockstar Games','populare', '{"single", "multi", "story"}', False, 'gta.jpg'),
+
+('Rainbow Six Siege', 'Joc shooter mai tactic decat CS!', 20, 79,'populare' , 'Ubisoft','shooter', {'multi'}, False, 'rss.jpg'),
+
+('Assassin''s Creed Odyssey', 'Joc RPG in Grecia Antica!', 60, 86,'populare' , 'Ubisoft','RPG','{"story", "single"}', False, 'ac.jpg'),
+
+('God of War', 'Joc RPG premiat!', 50, 94, 'premiate',  'SCE Santa Monica','RPG', '{"single", "story"}', False, 'gow.jpg'),
+
+('It takes two', 'Joc co-op pentru intreaga familie', 40, 88, 'premiate',  'Hazelight','casual', '{"multi", "puzzle"}', True, 'itt.jpg');
+
+
 
 -- ('Dulcelind cu fructe', 'Rețetă proprie, cu conținut sănătos (dacă ignorați tonele de zahăr) de fruncte proaspete', 10 , 250, 620, 'cofetarie', 'aniversara', '{"frisca","zahar","faina","zmeura","lapte","mure","capsuni"}', False,'dulcelind.jpg'),
 
