@@ -12,6 +12,17 @@ app.set("view engine","ejs");
 
 app.use("/Resurse", express.static(__dirname+"/Resurse"))
 
+app.use("/*", function(req, res, next){
+   client.query("select * from unnest(enum_range(null::categ_jocuri))", function(err, rezMeniu){
+        console.log(rezMeniu.rows);
+        res.locals.optiuniMeniu = rezMeniu.rows;
+        next();
+    });
+    
+
+})
+
+
 console.log("Director proiect:",__dirname);
 
 app.get(["/", "/index", "/home", "/acasa"], function(req, res){
@@ -24,11 +35,16 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
 })
 
 app.get("/produse", function(req, res){
-    client.query("select * from jocuri", function(err, rezQuerry){
-        console.log("Am ajuns aici "+rezQuerry);
-        res.render("pagini/produse", {produse:rezQuerry.rows});
-    })
-})
+    var cond_where = req.query.categorie ? ` categorie= '${req.query.categorie}'` : " 1=1"
+
+    client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezCateg){
+        client.query("select * from jocuri where"+cond_where, function(err, rezQuerry){
+            console.log("Am ajuns aici "+rezQuerry);
+            res.render("pagini/produse", {produse:rezQuerry.rows, optiuni:rezCateg.rows});
+        });
+    });
+        
+});
 
 app.get("/produs/:id", function(req, res){
     console.log("PRODUS:", req.url);
