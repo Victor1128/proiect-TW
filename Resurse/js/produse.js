@@ -39,7 +39,7 @@ window.onload=function(){
             let conditieFinala = cond1&cond2&cond3&cond4;
 
             if(conditieFinala){
-                art.style.display="block";
+                art.style.display="grid";
             }
 
         }

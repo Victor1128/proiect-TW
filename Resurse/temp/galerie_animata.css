@@ -1,0 +1,129 @@
+#galerie_animata {
+  border: 5px solid transparent;
+  border-image: url("/Resurse/images/metal.jpg") 10% round;
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  padding: 0;
+  margin: 10px;
+}
+#galerie_animata:hover .figDr {
+  animation-play-state: paused;
+}
+#galerie_animata:hover .figSt {
+  animation-play-state: paused;
+}
+#galerie_animata img {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+#galerie_animata .imgDr {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+#galerie_animata .imgSt {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+#galerie_animata figure {
+  position: absolute;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+#galerie_animata .figSt {
+  animation: animatieGalerieSt 18s linear infinite;
+}
+#galerie_animata .figDr {
+  animation: animatieGalerieDr 18s linear infinite;
+}
+
+@keyframes animatieGalerieSt {
+  0% {
+    transform: translateX(0px);
+    z-index: 10;
+  }
+  16.6666656667% {
+    z-index: 10;
+  }
+  16.6666666667% {
+    transform: translateX(-150px);
+    z-index: -10;
+  }
+  83.3333323333% {
+    z-index: -10;
+    transform: translateX(-150px);
+  }
+  83.3333333333% {
+    transform: translateX(0px);
+    z-index: 0;
+  }
+}
+@keyframes animatieGalerieDr {
+  0% {
+    transform: translateX(0px);
+    z-index: 10;
+  }
+  16.6666656667% {
+    z-index: 10;
+  }
+  16.6666666667% {
+    transform: translateX(150px);
+    z-index: -10;
+  }
+  83.3333323333% {
+    z-index: -10;
+    transform: translateX(150px);
+  }
+  83.3333333333% {
+    transform: translateX(0px);
+    z-index: 0;
+  }
+}
+#galerie_animata .figSt:nth-of-type(12) {
+  animation-delay: 0s;
+}
+
+#galerie_animata .figDr:nth-of-type(11) {
+  animation-delay: 0s;
+}
+
+#galerie_animata .figSt:nth-of-type(10) {
+  animation-delay: 3s;
+}
+
+#galerie_animata .figDr:nth-of-type(9) {
+  animation-delay: 3s;
+}
+
+#galerie_animata .figSt:nth-of-type(8) {
+  animation-delay: 6s;
+}
+
+#galerie_animata .figDr:nth-of-type(7) {
+  animation-delay: 6s;
+}
+
+#galerie_animata .figSt:nth-of-type(6) {
+  animation-delay: 9s;
+}
+
+#galerie_animata .figDr:nth-of-type(5) {
+  animation-delay: 9s;
+}
+
+#galerie_animata .figSt:nth-of-type(4) {
+  animation-delay: 12s;
+}
+
+#galerie_animata .figDr:nth-of-type(3) {
+  animation-delay: 12s;
+}
+
+#galerie_animata .figSt:nth-of-type(2) {
+  animation-delay: 15s;
+}
+
+#galerie_animata .figDr:nth-of-type(1) {
+  animation-delay: 15s;
+}

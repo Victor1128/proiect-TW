@@ -1,0 +1,99 @@
+$nrimag: 3 !default;
+$finAnim: calc(1/$nrimag);
+#galerie_animata{
+	border: 5px solid transparent;
+	border-image: url("/Resurse/images/metal.jpg") 10% round ;
+	position: relative;
+	overflow: hidden;
+	width: 300px;
+	height: 300px;
+	padding: 0;
+	&:hover {
+		.figDr{
+			animation-play-state: paused;
+		}
+		.figSt{
+			animation-play-state: paused;
+		}
+	  }
+	img{
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.imgDr{
+		clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+	}
+	.imgSt{
+		clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+	}
+	figure{
+		position: absolute;
+		width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+	.figSt{
+		animation: animatieGalerieSt #{3 * $nrimag}s linear infinite; 
+	}
+	.figDr{
+		animation: animatieGalerieDr #{3 * $nrimag}s linear infinite;
+	}
+    margin: 10px;
+}
+
+@keyframes animatieGalerieSt{
+	0%{
+		transform: translateX(0px);
+		z-index: 10;
+	}
+	#{($finAnim - 0.00000001) * 100%}{
+		z-index: 10;
+	}
+	#{$finAnim * 100%}{
+		transform: translateX(-150px);
+		z-index: -10;
+	}
+	#{($finAnim * ($nrimag - 1) - 0.00000001) * 100%}{
+		z-index: -10;
+		transform: translateX(-150px);
+	}
+	#{$finAnim * ($nrimag - 1) * 100%}{
+		transform: translateX(0px);
+		z-index: 0;
+	}
+}
+
+@keyframes animatieGalerieDr{
+	0%{
+		transform: translateX(0px);
+		z-index: 10;
+	}
+	#{($finAnim - 0.00000001) * 100%}{
+		z-index: 10;
+	}
+	#{$finAnim * 100%}{
+		transform: translateX(150px);
+		z-index: -10;
+	}
+	#{($finAnim * ($nrimag - 1) - 0.00000001) * 100%}{
+		z-index: -10;
+		transform: translateX(150px);
+	}
+	#{$finAnim * ($nrimag - 1) * 100%}{
+		transform: translateX(0px);
+		z-index: 0;
+	}
+}
+
+$index:1;
+
+@while $index < ($nrimag * 2) {
+	#galerie_animata .figSt:nth-of-type(#{$nrimag * 2 - $index + 1}){
+		animation-delay: #{3 * ($index - 1) / 2}s;
+	}
+	#galerie_animata .figDr:nth-of-type(#{$nrimag * 2 - $index}){
+		animation-delay: #{3 * ($index - 1) / 2}s;
+	}
+	$index: $index + 2;
+}

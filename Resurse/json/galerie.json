@@ -1,95 +1,95 @@
 {
-	"cale_galerie":"/Resurse/images/galerie",
+	"cale_galerie":"/Resurse/images/produse",
 	"imagini": [
 		{
-			"cale_imagine":"briose-frisca.png",
+			"cale_imagine":"ac.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Brioșe"
+			"descriere":"Assassin's Creed"
 		},
 		{
-			"cale_imagine":"clatite.png",
+			"cale_imagine":"civ.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Clătite cu dulceață"
+			"descriere":"Civilization VI"
 		},
 		{
-			"cale_imagine":"gogosi.png",
+			"cale_imagine":"cs.jpg",
             "titlu":"",
             "timp":"20:00-10:00",
-			"descriere":"Gogoși glazurate"
+			"descriere":"CS:GO"
 		},
 		{
-			"cale_imagine":"tort-scortisoara.png",
+			"cale_imagine":"fifa.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Tort cu scorțisoară"
+			"descriere":"Fifa 2022"
 		},
 		{
-			"cale_imagine":"prajitura-ciocolata.png",
+			"cale_imagine":"gow.jpg",
             "titlu":"",
             "timp":"23:00-12:00",
-			"descriere":"Prăjitură cu ciocolată"
+			"descriere":"God of War"
 		},
 		{
-			"cale_imagine":"tarta-afine.png",
+			"cale_imagine":"gta.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Tartă cu afine"
+			"descriere":"GTA V"
 		},
 		{
-			"cale_imagine":"tort-trandafiri.png",
+			"cale_imagine":"itt.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Tort special"
+			"descriere":"It takes two"
 		},
         {
-			"cale_imagine":"prajitura-ciocolata.png",
+			"cale_imagine":"rss.jpg",
             "titlu":"",
             "timp":"8:00-12:00",
-			"descriere":"Prăjitură cu ciocolată"
+			"descriere":"Rainbow Six Siege"
 		},
         {
-			"cale_imagine":"prajitura-ciocolata.png",
-            "titlu":"",
-            "timp":"8:00-12:00",
-			"descriere":"Prăjitură cu ciocolată"
-		},
-        {
-			"cale_imagine":"prajitura-ciocolata.png",
-            "titlu":"",
-            "timp":"8:00-12:00",
-			"descriere":"Prăjitură cu ciocolată"
-		},
-        {
-			"cale_imagine":"briose-frisca.png",
+			"cale_imagine":"civ.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Brioșe"
+			"descriere":"Civilization VI"
 		},
-        {
-			"cale_imagine":"briose-frisca.png",
+		{
+			"cale_imagine":"civ.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Brioșe"
+			"descriere":"Civilization VI"
 		},
-        {
-			"cale_imagine":"briose-frisca.png",
+		{
+			"cale_imagine":"civ.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Brioșe"
+			"descriere":"Civilization VI"
 		},
         {
-			"cale_imagine":"briose-frisca.png",
+			"cale_imagine":"ac.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Brioșe"
+			"descriere":"Assassin's Creed"
 		},
         {
-			"cale_imagine":"briose-frisca.png",
+			"cale_imagine":"ac.jpg",
             "titlu":"",
             "timp":"8:00-23:00",
-			"descriere":"Brioșe"
+			"descriere":"Assassin's Creed"
+		},
+		{
+			"cale_imagine":"ac.jpg",
+            "titlu":"",
+            "timp":"8:00-23:00",
+			"descriere":"Assassin's Creed"
+		},
+        {
+			"cale_imagine":"ac.jpg",
+            "titlu":"",
+            "timp":"8:00-23:00",
+			"descriere":"Assassin's Creed"
 		}
 	]
 }

@@ -1,0 +1,12 @@
+<div id="galerie_animata">
+    <%  let x = 0;
+        for(let imag of locals.imagini){%>
+        <figure class="figDr">
+              <img class="imgDr" src="<%-imag.mare%>" alt="imagine-galerie">
+          </figure>
+        <figure class="figSt">
+            <img class="imgSt" src="<%-imag.mare%>" alt="imagine-galerie">
+        </figure>
+    <%if(++x == locals.nrImag) break;}%>
+
+</div>

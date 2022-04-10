@@ -3,8 +3,13 @@ const fs=require("fs");
 const { dirname } = require("path");
 const sharp=require("sharp");
 const {Client}=require("pg");
+const sass=require("sass");
+const ejs = require("ejs");
 
 var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
+var nrAleator=Math.ceil(Math.random()*5)*3;
+// var nrAleator=3;
+
 client.connect();
 app= express();
 
@@ -18,8 +23,6 @@ app.use("/*", function(req, res, next){
         res.locals.optiuniMeniu = rezMeniu.rows;
         next();
     });
-    
-
 })
 
 
@@ -31,7 +34,8 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
     //     if(!err)
         // res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
     // })
-    res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
+   
+    res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini, nrImag:nrAleator});
 })
 
 app.get("/produse", function(req, res){
@@ -53,6 +57,36 @@ app.get("/produs/:id", function(req, res){
         res.render("pagini/produs", {prod:rezQuerry.rows[0]});
     })
 })
+
+app.get("*/rest",function(req, res){
+    /* TO DO
+    citim in sirScss continutul fisierului galerie_animata.scss
+    setam culoare aleatoare din vectorul culori=["navy","black","purple","grey"]
+    in variabila rezScss compilam codul ejs din sirScss
+    scriu rezScss in galerie-animata.scss din folderul temp 
+    compilez scss cu sourceMap:true
+    scriu rezultatul in "temp/galerie-animata.css"
+    setez headerul Content-Type
+    trimit fisierul css
+    */
+    var sirScss=fs.readFileSync(__dirname+"/Resurse/Stil/galerie_animata.scss").toString("utf8");
+    rezScss=ejs.render(sirScss,{nr:nrAleator});
+    console.log(rezScss);
+    var caleScss=__dirname+"/Resurse/temp/galerie_animata.scss";
+    fs.writeFileSync(caleScss,rezScss);
+    try {
+        rezCompilare=sass.compile(caleScss,{sourceMap:true});
+        var caleCss=__dirname+"/Resurse/temp/galerie_animata.css";
+        fs.writeFileSync(caleCss,rezCompilare.css);
+        res.setHeader("Content-Type","text/css");
+        res.sendFile(caleCss);
+    }
+    catch (err){  
+        console.log(err);
+        res.send("Eroare");
+    }
+});
+
 
 app.get("/galerie", function(req, res){
     res.render("pagini/galStatica", {imagini:obImagini.imagini});
