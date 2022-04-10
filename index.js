@@ -34,7 +34,22 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
     //     if(!err)
         // res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
     // })
-   
+    var sirScss=fs.readFileSync(__dirname+"/Resurse/Stil/galerie_animata.scss").toString("utf8");
+    rezScss=ejs.render(sirScss,{nr:nrAleator});
+    console.log(rezScss);
+    var caleScss=__dirname+"/Resurse/temp/galerie_animata.scss";
+    fs.writeFileSync(caleScss,rezScss);
+    try {
+        rezCompilare=sass.compile(caleScss,{sourceMap:true});
+        var caleCss=__dirname+"/Resurse/temp/galerie_animata.css";
+        fs.writeFileSync(caleCss,rezCompilare.css);
+        // res.setHeader("Content-Type","text/css");
+        // res.sendFile(caleCss);
+    }
+    catch (err){  
+        console.log(err);
+        res.send("Eroare");
+    }
     res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini, nrImag:nrAleator});
 })
 

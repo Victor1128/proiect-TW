@@ -1,43 +1,49 @@
 #galerie_animata {
-  border: 5px solid transparent;
-  border-image: url("/Resurse/images/metal.jpg") 10% round;
-  position: relative;
-  overflow: hidden;
-  width: 300px;
-  height: 300px;
-  padding: 0;
-  margin: 10px;
-}
-#galerie_animata:hover .figDr {
-  animation-play-state: paused;
-}
-#galerie_animata:hover .figSt {
-  animation-play-state: paused;
-}
-#galerie_animata img {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-#galerie_animata .imgDr {
-  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
-}
-#galerie_animata .imgSt {
-  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-}
-#galerie_animata figure {
-  position: absolute;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-#galerie_animata .figSt {
-  animation: animatieGalerieSt 18s linear infinite;
-}
-#galerie_animata .figDr {
-  animation: animatieGalerieDr 18s linear infinite;
+  display: none;
 }
 
+@media screen and (min-width: 679px) {
+  #galerie_animata {
+    display: block;
+    border: 5px solid transparent;
+    border-image: url("/Resurse/images/metal.jpg") 10% round;
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    padding: 0;
+    margin: 10px;
+  }
+  #galerie_animata:hover .figDr {
+    animation-play-state: paused;
+  }
+  #galerie_animata:hover .figSt {
+    animation-play-state: paused;
+  }
+  #galerie_animata img {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  #galerie_animata .imgDr {
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  }
+  #galerie_animata .imgSt {
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  }
+  #galerie_animata figure {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  #galerie_animata .figSt {
+    animation: animatieGalerieSt 18s linear infinite;
+  }
+  #galerie_animata .figDr {
+    animation: animatieGalerieDr 18s linear infinite;
+  }
+}
 @keyframes animatieGalerieSt {
   0% {
     transform: translateX(0px);

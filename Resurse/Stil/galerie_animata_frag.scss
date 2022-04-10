@@ -1,45 +1,52 @@
 $nrimag: 3 !default;
 $finAnim: calc(1/$nrimag);
 #galerie_animata{
-	border: 5px solid transparent;
-	border-image: url("/Resurse/images/metal.jpg") 10% round ;
-	position: relative;
-	overflow: hidden;
-	width: 300px;
-	height: 300px;
-	padding: 0;
-	&:hover {
-		.figDr{
-			animation-play-state: paused;
+	display: none;
+}
+@media screen and  (min-width: 679px){
+	#galerie_animata{
+		display: block;
+		border: 5px solid transparent;
+		border-image: url("/Resurse/images/metal.jpg") 10% round ;
+		position: relative;
+		overflow: hidden;
+		width: 300px;
+		height: 300px;
+		padding: 0;
+		&:hover {
+			.figDr{
+				animation-play-state: paused;
+			}
+			.figSt{
+				animation-play-state: paused;
+			}
+		  }
+		img{
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+		.imgDr{
+			clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+		}
+		.imgSt{
+			clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+		}
+		figure{
+			position: absolute;
+			width: 100%;
+			padding: 0;
+			margin: 0;
 		}
 		.figSt{
-			animation-play-state: paused;
+			animation: animatieGalerieSt #{3 * $nrimag}s linear infinite; 
 		}
-	  }
-	img{
-		width: 100%;
-		padding: 0;
-		margin: 0;
+		.figDr{
+			animation: animatieGalerieDr #{3 * $nrimag}s linear infinite;
+		}
+		margin: 10px;
 	}
-	.imgDr{
-		clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
-	}
-	.imgSt{
-		clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-	}
-	figure{
-		position: absolute;
-		width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-	.figSt{
-		animation: animatieGalerieSt #{3 * $nrimag}s linear infinite; 
-	}
-	.figDr{
-		animation: animatieGalerieDr #{3 * $nrimag}s linear infinite;
-	}
-    margin: 10px;
+	
 }
 
 @keyframes animatieGalerieSt{
@@ -90,10 +97,10 @@ $index:1;
 
 @while $index < ($nrimag * 2) {
 	#galerie_animata .figSt:nth-of-type(#{$nrimag * 2 - $index + 1}){
-		animation-delay: #{3 * ($index - 1) / 2}s;
+		animation-delay: #{calc(3 * ($index - 1) / 2)}s;
 	}
 	#galerie_animata .figDr:nth-of-type(#{$nrimag * 2 - $index}){
-		animation-delay: #{3 * ($index - 1) / 2}s;
+		animation-delay: #{calc(3 * ($index - 1) / 2)}s;
 	}
 	$index: $index + 2;
 }
