@@ -5,6 +5,9 @@ const sharp=require("sharp");
 const {Client}=require("pg");
 const sass=require("sass");
 const ejs = require("ejs");
+const formidable= require('formidable');
+const crypto= require('crypto');
+const session= require('express-session');
 
 var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
 var nrAleator=Math.ceil(Math.random()*5)*3;
@@ -58,8 +61,12 @@ app.get("/produse", function(req, res){
 
     client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezCateg){
         client.query("select * from jocuri where"+cond_where, function(err, rezQuerry){
-            console.log("Am ajuns aici "+rezQuerry);
-            res.render("pagini/produse", {produse:rezQuerry.rows, optiuni:rezCateg.rows});
+            client.query("select * from unnest(enum_range(null::caracteristici_jocuri))", function(err, rezCar){
+                client.query("select * from unnest(enum_range(null::producatori))",function(err, rezProd){
+                    console.log("Am ajuns aici "+rezCar);
+                    res.render("pagini/produse", {produse:rezQuerry.rows, optiuni:rezCateg.rows, caract:rezCar.rows, prod:rezProd.rows});
+                });
+            });
         });
     });
         
@@ -110,6 +117,25 @@ app.get("/galerie", function(req, res){
 app.get("/eroare", function(req, res){
     randeazaEroare(res,1, "Titlu schimbat");
 });
+
+//-----------------------------utilizatori
+parolaServer = "tehniciweb";
+app.post("/inreg", function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        console.log(campuriText);
+        var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex');
+        var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' )`;
+        client.query(comandaInserare, function(err, rezInserare){
+            if(err) console.log("naspa "+err);
+            console.log("suntem aici, cumva");
+        });
+        res.send("OK");
+    });
+
+});
+
+
 
 app.get("/*.ejs", function(req, res){
     //res.sendFile(__dirname+"/index1.html");

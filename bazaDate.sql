@@ -1,8 +1,11 @@
 DROP TYPE IF EXISTS categ_jocuri;
 DROP TYPE IF EXISTS tipuri_jocuri;
+DROP TYPE IF EXISTS caracteristici_jocuri;
 
 CREATE TYPE categ_jocuri AS ENUM( 'noi', 'populare', 'ieftine', 'premiate');
-CREATE TYPE tipuri_jocuri AS ENUM('RPG', 'shooter', 'RTS', 'sport', 'curse', 'casual');
+CREATE TYPE tipuri_jocuri AS ENUM('RPG', 'shooter', 'RTS', 'sport', 'race', 'casual');
+CREATE TYPE caracteristici_jocuri AS ENUM('single', 'multi', 'dlc', 'story');
+CREATE TYPE producatori AS ENUM('EA Sports', 'Valve', 'Fireaxis', 'Rockstar Games', 'Ubisoft', 'SCE Santa Monica', 'Hazelight');
 
 
 CREATE TABLE IF NOT EXISTS jocuri (
