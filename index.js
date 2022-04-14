@@ -11,9 +11,9 @@ const session= require('express-session');
 
 // var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
 var client=new Client(
-    {user:"moneqxreoywchp", 
-    password:"9406fb9bfe595c49942083041626680b559597a90eef0c1743e71fdd112514b1",
-    database:"ddfrftd7icabvl", host:"ec2-52-73-155-171.compute-1.amazonaws.com", 
+    {user:"ixaooytijodbkq", 
+    password:"1afa79d5a119fbf94996873db4961a28e08691d43cb084a4b0dd11fea1fe8010",
+    database:"d9pie08spiu4te", host:"ec2-35-168-194-15.compute-1.amazonaws.com", 
     port:5432, 
     ssl: {	rejectUnauthorized: false}
     }
