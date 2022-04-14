@@ -9,7 +9,17 @@ const formidable= require('formidable');
 const crypto= require('crypto');
 const session= require('express-session');
 
-var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
+// var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
+var client=new Client(
+    {user:"moneqxreoywchp", 
+    password:"9406fb9bfe595c49942083041626680b559597a90eef0c1743e71fdd112514b1",
+    database:"ddfrftd7icabvl", host:"ec2-52-73-155-171.compute-1.amazonaws.com", 
+    port:5432, 
+    ssl: {	rejectUnauthorized: false}
+    }
+);
+
+
 var nrAleator=Math.ceil(Math.random()*5)*3;
 // var nrAleator=3;
 
