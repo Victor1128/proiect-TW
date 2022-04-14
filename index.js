@@ -32,7 +32,6 @@ app.use("/Resurse", express.static(__dirname+"/Resurse"))
 
 app.use("/*", function(req, res, next){
    client.query("select * from unnest(enum_range(null::categ_jocuri))", function(err, rezMeniu){
-        console.log(rezMeniu.rows);
         res.locals.optiuniMeniu = rezMeniu.rows;
         next();
     });
