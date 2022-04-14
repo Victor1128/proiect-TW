@@ -213,5 +213,8 @@ function randeazaEroare(res, identificator, titlu, text, imagine){
     else res.render("pagini/eroare_generala", {titlu:titlu, text:text, imagine:imagine});
 }
 
-app.listen(8080);
+// app.listen(8080);
+var s_port=process.env.PORT || 8080;
+app.listen(s_port)
+
 console.log("A pornit");
