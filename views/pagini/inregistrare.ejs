@@ -4,7 +4,7 @@
         <meta name="description" content="Cofetaria Dulcelind - înregistrare utilizatori.">
         <meta name="keywords" content="cofetarie, Dulcelind, inregistrare, utilizatori">
         <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css" />
-        <title>Cofetăria Dulcelind - înregistrare </title>
+        <title>Înregistrare </title>
         <%- include("../fragmente/head") %>     
         <script type="text/javascript" src=/resurse/js/inregistrare.js></script>
     </head>
@@ -14,10 +14,10 @@
     <main>
     <div class="afisaj">
         <h1>Inregistrare utilizator</h1>
-        
+        <% if(!locals.raspuns) { %>    
 	
 			<%-include("../fragmente/formular", {action: "/inreg"}) %>
-	
+        <%}%>
 	<% if(locals.raspuns) { %>
 	<%- locals.raspuns+"<br/>"%>
 	<% } %>

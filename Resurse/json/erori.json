@@ -4,15 +4,15 @@
         {
             "identificator":404,
             "status":true,
-            "titlu":"404 - N-am, bre!",
-            "text": "Nu-i pe serverul ăsta, sorry, caută în altă parte!",
+            "titlu":"404 - Pagina nu a fost găsită!",
+            "text": "Pagina pe care ai încercat să o găsești nu există :(",
             "imagine":"lupa.png"
         },
         {
             "identificator":403,
             "status":true,
-            "titlu":"403 - Da, tu ce cauți aici?!!",
-            "text": "Ai greșit ruta. Stânga-împrejur și pa!",
+            "titlu":"403 - Acces interzis!",
+            "text": "N-avem nimic interesant aici oricum...",
             "imagine":"interzis.png"
         },
         

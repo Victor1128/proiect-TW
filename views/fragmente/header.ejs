@@ -56,6 +56,43 @@
         <% } %>
         </ul>
       </li>
-      <li id="cont"><a  href="/inregistrare"><i class="fas fa-spinner fa-spin"></i> Ingregistrare</a></li>
+      <li id="cont">
+        <a <%if(!locals.utilizator) { %> href= "/inregistrare" <%}%>> <i class="fas fa-spinner fa-spin"></i>
+        <% if(locals.utilizator){%>
+          <%-locals.utilizator.prenume %> </a>
+          <ul>
+            <li>
+              <!-- <i class="fa-solid fa-arrow-right-long sageata s1"></i> -->
+              <a href="/profil">Profil</a>
+            </li>
+            <li>
+              <!-- <i class="fa-solid fa-arrow-right-long sageata s2"></i> -->
+              <a href="/logout">Log Out</a>
+            </li>
+          </ul>
+          <%} 
+          else {%>  Înregistrare </a><%}%>
+        
+      </li>
     </ul>
   </nav>
+  <% if(!locals.utilizator) {%>
+      <form id="form_inreg"  method="post" class="date"  action="/login"  enctype="multipart/form-data">
+        <p>
+            <label>
+                Username: <input type="text" name="username" id="inp-username" value="prof<%= Math.floor(Math.random()*100000) %>" required pattern="[A-Za-z0-9]+">
+            </label>
+        </p>
+        <p>
+            <label>
+                Parola: <input id="parl" type="password" required  name="parola" value="">
+            </label>
+        </p>
+        <p><input type="submit" value="Log in"></p>
+        </form>
+        <% } else{ %>
+          <div id="user">
+            <p title="<%-locals.utilizator.nume%> <%-locals.utilizator.prenume%>">User: <%-locals.utilizator.username %></p>
+            <button><a href="/logout">Log Out</a></button>
+          </div>
+          <%}%>

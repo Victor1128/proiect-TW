@@ -8,9 +8,11 @@ const ejs = require("ejs");
 const formidable= require('formidable');
 const crypto= require('crypto');
 const session= require('express-session');
+const nodemailer = require('nodemailer');
 
-// var client=new Client({user:"victor", password:"victor", database:"proiect", host:"localhost", port:5432});
-var client=new Client(
+
+if(process.env.SITE_ONLINE){
+    var client=new Client(
     {user:"ixaooytijodbkq", 
     password:"1afa79d5a119fbf94996873db4961a28e08691d43cb084a4b0dd11fea1fe8010",
     database:"d9pie08spiu4te", host:"ec2-35-168-194-15.compute-1.amazonaws.com", 
@@ -18,7 +20,46 @@ var client=new Client(
     ssl: {	rejectUnauthorized: false}
     }
 );
+}
+else
+    var client=new Client(
+        {
+            user:"victor", 
+            password:"victor", 
+            database:"proiect", 
+            host:"localhost", 
+            port:5432
+        });
 
+const obGlobal={
+    emailServer:"victorbadulescu11@gmail.com"
+};
+
+//-----------------------------mail
+
+async function trimiteMail(email, subiect, mesajText, mesajHtml, atasamente=[]){
+    var transp= nodemailer.createTransport({
+        service: "gmail",
+        secure: false,
+        auth:{//date login 
+            user:obGlobal.emailServer,
+            pass:"fwkbdgklppiccydt"
+        },
+        tls:{
+            rejectUnauthorized:false
+        }
+    });
+    //genereaza html
+    await transp.sendMail({
+        from:obGlobal.emailServer,
+        to:email,
+        subject:subiect,//"Te-ai inregistrat cu succes",
+        text:mesajText, //"Username-ul tau este "+username
+        html: mesajHtml,// `<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${username}.</p> <p><a href='http://${numeDomeniu}/cod/${username}/${token}'>Click aici pentru confirmare</a></p>`,
+        attachments: atasamente
+    })
+    console.log("trimis mail");
+}
 
 var nrAleator=Math.ceil(Math.random()*5)*3;
 // var nrAleator=3;
@@ -26,12 +67,19 @@ var nrAleator=Math.ceil(Math.random()*5)*3;
 client.connect();
 app= express();
 
+app.use(session({
+    secret: 'abcdefg',
+    resave: true,
+    saveUninitialized: false
+}));
+
 app.set("view engine","ejs");
 
-app.use("/Resurse", express.static(__dirname+"/Resurse"))
+app.use("/Resurse", express.static(__dirname+"/Resurse"));
 
 app.use("/*", function(req, res, next){
-   client.query("select * from unnest(enum_range(null::categ_jocuri))", function(err, rezMeniu){
+    res.locals.utilizator = req.session.utilizator;
+    client.query("select * from unnest(enum_range(null::categ_jocuri))", function(err, rezMeniu){
         res.locals.optiuniMeniu = rezMeniu.rows;
         next();
     });
@@ -133,16 +181,79 @@ app.post("/inreg", function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
         console.log(campuriText);
-        var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex');
-        var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' )`;
-        client.query(comandaInserare, function(err, rezInserare){
-            if(err) console.log("naspa "+err);
-            console.log("suntem aici, cumva");
-        });
-        res.send("OK");
+        var eroare="";
+        if(!campuriText.username)
+            eroare+="Username necompletat.<br>";
+        else{
+            queryUtilizator = `select nume from utilizatori where username = '${campuriText.username}'`;
+            client.query(queryUtilizator, function(err, rezUtilizatori){
+                if(rezUtilizatori.rows.length){
+                    eroare+="Username-ul este deja folosit.<br>";
+                }
+            })
+        }
+        if(!campuriText.email)
+            eroare+="Email necompletat.<br>";
+        else if(!campuriText.email.match(new RegExp("^[A-Za-z0-9_-]+@[a-z0-9]+.[a-z]{2,3}$")))
+            eroare+="Formatul email-ului nu este valid.<br>";
+        if(campuriText.parola!=campuriText.rparola) eroare+="Parolele nu corespund.<br>";
+        if(!campuriText.nume) eroare+="Nume necompletat.<br>";
+        if(!campuriText.prenume) eroare+="Prenume necompletat.<br>";
+
+        if(!eroare){
+            var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex');
+            var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' )`;
+            client.query(comandaInserare, function(err, rezInserare){
+                if(err) 
+                res.render("pagini/inregistrare", {err:"Eroare baza de date"});
+                else  {
+                    res.render("pagini/inregistrare", {raspuns:"Datele au fost introduse"});
+                    trimiteMail(campuriText.email, "Inregistrare reușită!","Mesajul text", `<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${campuriText.username}.</p>`)
+                }
+            });
+        
+        
+        }
+        else{
+            res.render("pagini/inregistrare", {err:eroare});
+        }
+
     });
 
 });
+
+app.post("/login", function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        console.log(campuriText);
+        var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex'); 
+        var querySelect = `select * from utilizatori where username = '${campuriText.username}' and parola = '${parolaCriptata}'`;
+        client.query(querySelect, function(err, rezSelect){
+            if(err) console.log("naspa "+err);
+            else{
+                if(rezSelect.rowCount==1){
+                    req.session.utilizator = {
+                        nume: rezSelect.rows[0].nume,
+                        prenume: rezSelect.rows[0].prenume,
+                        username: rezSelect.rows[0].username,
+                        email: rezSelect.rows[0].email,
+                        culoare_chat: rezSelect.rows[0].culoare_chat,
+                        rol: rezSelect.rows[0].rol 
+                    }
+                    res.redirect('/index');
+                } 
+                else res.redirect('/index');
+            }
+        })
+    })
+}) 
+
+app.get("/logout", function(req, res){
+    req.session.destroy();
+    res.locals.utilizator=null;
+    res.render("pagini/logout");
+})
+
 
 
 

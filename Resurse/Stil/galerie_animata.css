@@ -1,0 +1,4 @@
+@use '../Stil/galerie_animata_frag.scss' with (
+  $nrimag: <%- locals.nr %>
+);
+/*# sourceMappingURL=galerie_animata.css.map */
