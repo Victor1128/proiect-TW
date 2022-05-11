@@ -17,7 +17,7 @@
 
 		<table id="useri">
 		  <tr>
-			<th>id</th><th>Username</th><th>Nume</th><th>Prenume</th><th>Data</th><th>Rol</th>
+			<th>Id</th><th>Username</th><th>Nume</th><th>Prenume</th><th>Blocat</th><th>Blocare</th>
 		  </tr>
 
 		  <% for (var i = 0; i < useri.length; i++) { 
@@ -27,13 +27,19 @@
 				  <td><%= useri[i].id %></td>
 				  <td><%= useri[i].username %></td>
 				  <td><%= useri[i].nume %></td>
-				  <td><%= useri[i].email %></td>
-				  <%  
-					d=new Date(useri[i].data_adaugare)
-					sir_data=`${d.getDate()}/${d.getMonth()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
-				  %>
-				  <td><%=  sir_data %></td>
-				   <td><%=  useri[i].rol %></td>
+				  <td><%= useri[i].prenume %></td>
+				  <td><%= useri[i].blocat %></td>
+				  <td><form id="sterge" method="post" action="/blocheaza_utiliz">
+							<label>
+								<input type="hidden" name="id_utiliz" value="<%= useri[i].id %>">
+								<input type="hidden" name="mail_utiliz" value="<%= useri[i].email %>">
+								<input type="hidden" name="nume_utiliz" value="<%= useri[i].nume %>">
+								<input type="hidden" name="prenume_utiliz" value="<%= useri[i].prenume %>">
+							</label>
+							<input type="submit" value="Blocheaza/Deblocheaza">
+						</form>
+
+				  </td>
 				</tr> 
    
 				<% } %>			
