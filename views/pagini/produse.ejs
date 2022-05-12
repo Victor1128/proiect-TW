@@ -11,7 +11,7 @@
 </head>
 <body>
     <%- include("../fragmente/header.ejs");  %>
-    <main>
+    <main id="container-jocuri">
         <label> Nume: <textarea id="inp-nume" rows="1">Numele jocului</textarea></label><br/>
         <!--<label> Maxim scor: <input type="number" id="inp-scor" value="10000"></label>-->
         <label> Cuvant cheie: <input type="text" id="inp-cheie"></label> <br/>
@@ -61,6 +61,7 @@
         <button id="sortDescrescNume">Sorteaza descrescator dupa raportul scor/pret si nume</button><br/>
         <button id="sumaPret">Pret produse selectate</button>
         </p>
+    
         <section id="produse">
             <h2>Produse</h2>
             <div class="container-produse">

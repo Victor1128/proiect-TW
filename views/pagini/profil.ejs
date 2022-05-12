@@ -3,8 +3,6 @@
 	<head>
 		<title>Profil</title>
 		<%- include("../fragmente/head") %>
-        
-		<link rel="stylesheet" type="text/css" href="/resurse/css/contact.css" />
 		<script>
 
 			// populez inputurile din pagina de profil cu datele din tabel (incarcate prin EJS)
@@ -27,13 +25,30 @@
 			<%- include("../fragmente/header") %>
 		</header>
 		<main>
-		
-			<section id="profil">
-				<h2>Profil</h2>
-                <p>Mănânci prea multe prajituri și știi și tu asta!</p>
+			
+				<h2 style="text-align:center">Profil</h2>
 				<p><%= locals.raspuns %></p>
-			</section>
+			
+			<section id="profil">
+			<div id="profil-formular">
 			<%- include("../fragmente/formular",{action:"/profil"}) %>
+			</div>
+			<div id="profil-stergere">
+				<form action="/sterge_utiliz" enctype="multipart/form-data" method="post">
+					<label>
+						<input type="text" name="username" value="<%= locals.utilizator.username %>" hidden>
+					</label>
+					<label>
+						<input type="text" name="email" value="<%= locals.utilizator.email %>" hidden>
+					</label>
+					<label>
+						Parola: <input type="password" name="parola" required>
+					</label>
+					<input type="submit" value="Șterge cont">
+				</form>
+			</div>
+			</section>
+			<% if(locals.mesaj) {%> <%=locals.mesaj%> <%}%>
 		</main>
 		
 		<%- include("../fragmente/footer") %>

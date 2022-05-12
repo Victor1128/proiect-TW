@@ -163,7 +163,10 @@
       grid-template-columns: 25% 25% 25% 25%;
   grid-row-gap: .3rem;
   grid-column-gap: .2rem;
-      grid-template-areas: 'inceput inceput inceput inceput' 'calendar tabel tabel ads' 'content content content content' 'despre-site despre-site utilizatori-online despre-user';
+      grid-template-areas: 'inceput inceput inceput inceput'
+ 'calendar tabel tabel ads'
+ 'content content content content'
+ 'despre-site despre-site utilizatori-online despre-user';
 }
 
 .inceput {
@@ -226,7 +229,12 @@
   #main-container {
     -ms-grid-columns: auto auto;
         grid-template-columns: auto auto;
-        grid-template-areas: 'inceput inceput' 'calendar tabel'   'ads ads' 'content content' 'despre-site despre-site' 'utilizatori-online despre-user';
+        grid-template-areas: 'inceput inceput'
+ 'calendar tabel'  
+ 'ads ads'
+ 'content content'
+ 'despre-site despre-site'
+ 'utilizatori-online despre-user';
   }
 }
 
@@ -234,7 +242,14 @@
   #main-container {
     -ms-grid-columns: auto;
         grid-template-columns: auto;
-        grid-template-areas: 'inceput' 'calendar' 'tabel' 'ads' 'content' 'despre-site' 'utilizatori-online' 'despre-user';
+        grid-template-areas: 'inceput'
+ 'calendar'
+ 'tabel'
+ 'ads'
+ 'content'
+ 'despre-site'
+ 'utilizatori-online'
+ 'despre-user';
   }
 }
 
@@ -1043,5 +1058,51 @@ hr {
 footer {
   background-color: #61982f;
   padding: 10px;
+}
+
+#profil {
+  margin: 10px;
+  padding: 10px;
+}
+
+.afisaj {
+  margin: 10px;
+  padding: 10px;
+}
+
+#form_inreg {
+  margin: 10px;
+  padding: 10px;
+}
+
+#container-jocuri {
+  margin: 10px;
+  padding: 10px;
+}
+
+#user {
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+  display: grid;
+  grid-template-areas: 'a b' 'c b';
+}
+#user>p{
+  grid-area: a;
+  text-align: center;
+  font-size: larger;
+}
+#user>button{
+  grid-area: c;
+}
+#user>picture{
+  grid-area: b;
+  width: 100px;
+  height: 100px;
+}
+#imagine_user>img{
+  object-fit:cover;
+  width: 100%;
+  height: 100%;
 }
 /*# sourceMappingURL=stil.css.map */

@@ -172,14 +172,14 @@ app.all("/*",function(req,res,next){
 
 
 function stergeAccesariVechi(){
-    var queryDelete="delete from accesari where now()-data_accesare >= interval '15 minutes' ";
+    var queryDelete="delete from accesari where now()-data_accesare >= interval '1440 minutes' ";
     client.query(queryDelete, function(err, rezQuery){
         console.log(err);
     });
 }
 
 stergeAccesariVechi();
-setInterval(stergeAccesariVechi, 15*60*1000)
+setInterval(stergeAccesariVechi, 1*60*1000)
 
 app.use("/*", function(req, res, next){
     res.locals.utilizator = req.session.utilizator;
@@ -224,7 +224,7 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
         console.log(err);
         res.send("Eroare");
     }
-    queryAccesari = `select email, username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare < interval '15 minutes')`
+    queryAccesari = `select email, username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare < interval '10 minutes') and rol='admin'`
     useriOnline=[];
     client.query(queryAccesari, function(err, rezAccesari){
         if(err) console.log(err);
@@ -338,13 +338,14 @@ app.post("/inreg", function(req, res){
         if(!campuriText.username)
             eroare+="Username necompletat.<br>";
         else{
-            queryUtilizator = `select nume from utilizatori where username = '${campuriText.username}'`;
+            queryUtilizator = `select id from utilizatori where username = '${campuriText.username}'`;
             client.query(queryUtilizator, function(err, rezUtilizatori){
                 if(rezUtilizatori.rows.length){
-                    eroare+="Username-ul este deja folosit.<br>";
+                    eroare+="Username-ul este deja folosit.<br>"; //misterele creatiei...
                 }
             })
         }
+        console.log(eroare+'--------------------------------------------------')
         if(!campuriText.email || campuriText.email=='nume@example.com')
             eroare+="Email necompletat.<br>";
         else if(!campuriText.email.match(new RegExp("^[A-Za-z0-9_-]+@[a-z0-9]+.[a-z]{2,3}$")))
@@ -452,9 +453,19 @@ app.get("/useri", function(req, res){
 app.post('/sterge_utiliz', function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
-        query = `delete from utilizatori where id = ${campuriText.id_utiliz}`;
+        var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex'); 
+        query = `delete from utilizatori where username = '${campuriText.username}' and parola = '${criptareParola}'`;
         client.query(query, function(err, rezQuerry){
-            res.redirect('/useri');
+            if(err) res.render('pagini/profil', {mesaj:"Eroare la baza de date " + err});
+            else{
+                if (rezQuerry.rowCount==0){
+                    res.render("pagini/profil",{mesaj:"Stergerea nu s-a realizat. Verificati parola introdusa."});
+                    return;
+                }
+                trimiteMail(campuriText.email, "La revedere", "Ne pare rau ca ti-ai sters contul", "<p>Ne pare rau ca pleci :( </p>");
+                req.session.destroy();
+                res.redirect('/index');
+            }
         })
     });
 });
@@ -483,16 +494,85 @@ app.post('/blocheaza_utiliz', function(req, res){
     });
 });
 
-// app.post('/profil', function(req, res){
-//     var formular = new formidable.IncomingForm();
-//     formular.parse(req, function(err, campuriText, campuriFisier){
-//         client.query(`select * from utilizatori where username = ${campuriText.username}`, function(err, rezQuerry){
-//             if(rezQuerry.rowCount == 1){
-                
-//             }
-//         })
-//     });
-// })
+
+// ---------------- Update profil -----------------------------
+
+app.post("/profil", function(req, res){
+    console.log("profil");
+    if (!req.session.utilizator){
+        res.render("pagini/eroare_generala",{text:"Nu sunteti logat."});
+        return;
+    }
+    var formular= new formidable.IncomingForm();
+    
+    let caleUtiliz = null;
+    formular.on("field", function(nume,val){  // 1 
+            console.log(`--- ${nume}=${val}`);
+            if(nume=="username")
+                username=val;
+        });
+        formular.on("fileBegin", function(nume,fisier){ //2
+            console.log(`username = ${username}`)
+            console.log("fileBegin");
+            console.log(__dirname);
+            caleUtiliz=path.join(__dirname,"poze_uploadate",username);
+            console.log(caleUtiliz);
+            if(!fs.existsSync(caleUtiliz))
+                    fs.mkdirSync(caleUtiliz);
+            fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
+            console.log(nume, fisier);
+            console.log(nume, fisier.filepath);
+            if(fisier.originalFilename)
+                {
+                    caleUtiliz = path.join('poze_uploadate', username, fisier.originalFilename);
+                    caleUtiliz = '/'+caleUtiliz;
+                    caleUtiliz = caleUtiliz.replaceAll('\\', '/');
+                }
+            else caleUtiliz = '';
+        });
+        formular.on("file", function(nume,fisier){//3
+            console.log("file");
+            console.log(nume,fisier);
+        });    
+        
+    formular.parse(req,function(err, campuriText, campuriFile){
+        
+        var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex'); 
+
+        //TO DO query
+        var queryUpdate=`update utilizatori set nume='${campuriText.nume}', prenume='${campuriText.prenume}', email='${campuriText.email}', culoare_chat='${campuriText.culoare_chat}'`;
+        var condQuerry = ` where parola='${criptareParola}' and username = '${campuriText.username}'`;
+        if(caleUtiliz) queryUpdate+=`, poza='${caleUtiliz}'`;
+        queryUpdate+=condQuerry;
+        console.log(queryUpdate+'------------------------------------------------------------');
+        client.query(queryUpdate,  function(err, rez){
+            if(err){
+                console.log(err);
+                res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
+                return;
+            }
+            console.log(rez.rowCount);
+            if (rez.rowCount==0){
+                res.render("pagini/profil",{mesaj:"Update-ul nu s-a realizat. Verificati parola introdusa."});
+                return;
+            }
+            else{            
+                //actualizare sesiune
+                req.session.utilizator.nume= campuriText.nume;
+                req.session.utilizator.prenume= campuriText.prenume;
+                req.session.utilizator.email= campuriText.email;
+                req.session.utilizator.culoare_chat= campuriText.culoare_chat;
+            }
+
+            trimiteMail(campuriText.email, 'Modificarea detaliilor contului',  `Noile tale detalii sunt: Nume: ${campuriText.nume}, prenume: ${campuriText.prenume}, email: ${campuriText.email}, culoare chat: ${campuriText.culoare_chat}`, 
+            `<h1>Noile tale detalii sunt:</h1> <p>Nume: ${campuriText.nume}</p> <p>Prenume: ${campuriText.prenume}</p><p>Email: ${campuriText.email}</p><p>Culoare chat: ${campuriText.culoare_chat}</p>`);
+            res.render("pagini/profil",{mesaj:"Update-ul s-a realizat cu succes. Este posibil sa fie nevoie de un refresh pentru a vedea modificarile"});
+
+        });
+        
+
+    });
+});
 
 //TODO: trebuie completat post-ul de mai sus a.i. sa verifice daca utilizatorul a bagat parola buna si daca da sa ii fac update-urile
 

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS utilizatori(
 CREATE TABLE IF NOT EXISTS accesari (
    id serial PRIMARY KEY,
    ip VARCHAR(100) NOT NULL,
-   user_id INT NULL REFERENCES utilizatori(id),
+   user_id INT NULL REFERENCES utilizatori(id) on delete cascade,
    pagina VARCHAR(500) NOT NULL,
    data_accesare TIMESTAMP DEFAULT current_timestamp
 );
