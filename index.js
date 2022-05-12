@@ -10,6 +10,8 @@ const crypto= require('crypto');
 const session= require('express-session');
 const nodemailer = require('nodemailer');
 const helmet = require('helmet');
+const path = require('path');
+const { ClientRequest } = require("http");
 
 
 const obGlobal={
@@ -47,20 +49,23 @@ else{
 
 //-----------------------------mail
 
-v_intervale=[[48,57],[65,90],[97,122]]
-for(let interval of v_intervale){
-    for(let i=interval[0]; i<=interval[1]; i++)
-        obGlobal.sirAlphaNum+=String.fromCharCode(i)
-}
+v_intervale=[65,80];
+for(let i=v_intervale[0]; i<=v_intervale[1]; i++)
+    obGlobal.sirAlphaNum+=String.fromCharCode(i);
+
 
 console.log(obGlobal.sirAlphaNum);
 
-function genereazaToken(n){
+function genereazaToken2(n){
     let token=""
     for (let i=0;i<n; i++){
         token+=obGlobal.sirAlphaNum[Math.floor(Math.random()*obGlobal.sirAlphaNum.length)]
     }
     return token;
+}
+
+function genereazaToken1(n){
+    return Math.floor(Math.random()*n);
 }
 
 async function trimiteMail(email, subiect, mesajText, mesajHtml, atasamente=[]){
@@ -102,6 +107,7 @@ app.use(session({
 app.set("view engine","ejs");
 
 app.use("/Resurse", express.static(__dirname+"/Resurse"));
+app.use("/poze_uploadate", express.static(__dirname+"/poze_uploadate"));
 
 function getIp(req){//pentru Heroku
     var ip = req.headers["x-forwarded-for"];//ip-ul userului pentru care este forwardat mesajul
@@ -117,14 +123,63 @@ function getIp(req){//pentru Heroku
     }
 }
 
-function stergeAccesari(){
-    queryDelete = `delete from accesari where now()-data_accesare >= interval '5 minutes'`;
-    client.query(queryDelete, function (err, rez){
-        if(err) console.log(err);
+var ipuri_active={};
+
+
+app.all("/*",function(req,res,next){
+    let ipReq=getIp(req);
+    let ip_gasit=ipuri_active[ipReq+"|"+req.url];
+    timp_curent=new Date();
+    if(ip_gasit){
+    
+        if( (timp_curent-ip_gasit.data)< 5*1000) {//diferenta e in milisecunde; verific daca ultima accesare a fost pana in 10 secunde
+            if (ip_gasit.nr>10){//mai mult de 10 cereri 
+                res.send("<h1>Prea multe cereri intr-un interval scurt. Ia te rog sa fii cuminte, da?!</h1>");
+                ip_gasit.data=timp_curent
+                return;
+            }
+            else{  
+                
+                ip_gasit.data=timp_curent;
+                ip_gasit.nr++;
+            }
+        }
+        else{
+            //console.log("Resetez: ", req.ip+"|"+req.url, timp_curent-ip_gasit.data)
+            ip_gasit.data=timp_curent;
+            ip_gasit.nr=1;//a trecut suficient timp de la ultima cerere; resetez
+        }
+    }
+    else{
+        ipuri_active[ipReq+"|"+req.url]={nr:1, data:timp_curent};
+        //console.log("am adaugat ", req.ip+"|"+req.url);
+        //console.log(ipuri_active);        
+
+    }
+    let comanda_param= `insert into accesari(ip, user_id, pagina) values ($1::text, $2,  $3::text)`;
+    //console.log(comanda);
+    if (ipReq){
+        var id_utiliz=req.session.utilizator?req.session.utilizator.id:null;
+        //console.log("id_utiliz", id_utiliz);
+        client.query(comanda_param, [ipReq, id_utiliz, req.url], function(err, rez){
+            if(err) console.log(err);
+        });
+    }
+    next();   
+}); 
+
+
+
+
+function stergeAccesariVechi(){
+    var queryDelete="delete from accesari where now()-data_accesare >= interval '15 minutes' ";
+    client.query(queryDelete, function(err, rezQuery){
+        console.log(err);
     });
 }
 
-setInterval(stergeAccesari, 5*60*1000);
+stergeAccesariVechi();
+setInterval(stergeAccesariVechi, 15*60*1000)
 
 app.use("/*", function(req, res, next){
     res.locals.utilizator = req.session.utilizator;
@@ -153,11 +208,6 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
     //     if(!err)
         // res.render("pagini/index", {ip:req.ip, imagini:obImagini.imagini});
     // })
-    queryAccesari = `select nume, username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare < interval '5 minutes')`
-    client.query(queryAccesari, function(err, rezAccesari){
-        //mai ai putin de vazut din finalul laboratorului
-    })
-
     var sirScss=fs.readFileSync(__dirname+"/Resurse/Stil/galerie_animata.scss").toString("utf8");
     rezScss=ejs.render(sirScss,{nr:nrAleator});
     console.log(rezScss);
@@ -174,7 +224,14 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
         console.log(err);
         res.send("Eroare");
     }
-    res.render("pagini/index", {ip:getIp(req), imagini:obImagini.imagini, nrImag:nrAleator});
+    queryAccesari = `select email, username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare < interval '15 minutes')`
+    useriOnline=[];
+    client.query(queryAccesari, function(err, rezAccesari){
+        if(err) console.log(err);
+        else 
+            useriOnline = rezAccesari.rows;
+        res.render("pagini/index", {ip:getIp(req), imagini:obImagini.imagini, nrImag:nrAleator, useriOnline:useriOnline});
+    })
 })
 
 app.get("/produse", function(req, res){
@@ -243,8 +300,40 @@ app.get("/eroare", function(req, res){
 parolaServer = "tehniciweb";
 app.post("/inreg", function(req, res){
     var formular = new formidable.IncomingForm();
+    
+    let caleUtiliz = null;
+    formular.on("field", function(nume,val){  // 1 
+            console.log(`--- ${nume}=${val}`);
+            if(nume=="username")
+                username=val;
+        });
+        formular.on("fileBegin", function(nume,fisier){ //2
+            console.log(`username = ${username}`)
+            console.log("fileBegin");
+            console.log(__dirname);
+            caleUtiliz=path.join(__dirname,"poze_uploadate",username);
+            console.log(caleUtiliz);
+            if(!fs.existsSync(caleUtiliz))
+                    fs.mkdirSync(caleUtiliz);
+            fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
+            console.log(nume, fisier);
+            console.log(nume, fisier.filepath);
+            if(fisier.originalFilename)
+                {
+                    caleUtiliz = path.join('poze_uploadate', username, fisier.originalFilename);
+                    caleUtiliz = '/'+caleUtiliz;
+                    caleUtiliz = caleUtiliz.replaceAll('\\', '/');
+                }
+            else caleUtiliz = '';
+        });
+        formular.on("file", function(nume,fisier){//3
+            console.log("file");
+            console.log(nume,fisier);
+        });    
+        
     formular.parse(req, function(err, campuriText, campuriFisier){
-        console.log(campuriText);
+        console.log(`-------------------IN PARSE`);
+        console.log(caleUtiliz);
         var eroare="";
         if(!campuriText.username)
             eroare+="Username necompletat.<br>";
@@ -256,7 +345,7 @@ app.post("/inreg", function(req, res){
                 }
             })
         }
-        if(!campuriText.email)
+        if(!campuriText.email || campuriText.email=='nume@example.com')
             eroare+="Email necompletat.<br>";
         else if(!campuriText.email.match(new RegExp("^[A-Za-z0-9_-]+@[a-z0-9]+.[a-z]{2,3}$")))
             eroare+="Formatul email-ului nu este valid.<br>";
@@ -264,19 +353,25 @@ app.post("/inreg", function(req, res){
         if(!campuriText.nume) eroare+="Nume necompletat.<br>";
         if(!campuriText.prenume) eroare+="Prenume necompletat.<br>";
 
+        
         if(!eroare){
             var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex');
-            let token = genereazaToken(100);
-            var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod, blocat) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}', '${token}', false )`;
+            let token1 = genereazaToken1(10000000000);
+            let token2 = campuriText.nume+'-'+genereazaToken2(70);
+            var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod, blocat, poza) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}', '${token1+token2}', false, '${caleUtiliz}' )`;
             client.query(comandaInserare, function(err, rezInserare){
                 if(err) 
-                res.render("pagini/inregistrare", {err:"Eroare baza de date"});
+                {
+                    res.render("pagini/inregistrare", {err:"Eroare baza de date"});
+                    console.log('EROAREA LA BAZA DE DATE ESTE: ');
+                    console.log(err);
+                }
                 else  {
                     res.render("pagini/inregistrare", {raspuns:"Datele au fost introduse"});
-                    let linkConfirmare=`${obGlobal.protocol}${obGlobal.numeDomeniu}/cod/${campuriText.username}/${token}`;
-                            trimiteMail(campuriText.email, "Te-ai inregistrat", "text",`<h1>Salut!</h1>
-                                            <p style='color:blue'>Username-ul tau este ${campuriText.username}.</p>
-                                            <a href='${linkConfirmare}'>Link confirmare</a>`);
+                    let linkConfirmare=`${obGlobal.protocol}${obGlobal.numeDomeniu}/confirmare_inreg/${token1}/${campuriText.username.split('').reverse().join('')}/${token2}`;
+                            trimiteMail(campuriText.email, `Buna, ${campuriText.username}`, "Bine ai venit în comunitatea For the gamers",
+                                            `<span style='background-color:lightblue; font-size:larger'>Bine ai venit </span> <span>în comunitatea For the gamers!</span>
+                                            <p><a href='${linkConfirmare}'>Link confirmare</a></p>`);
                     // trimiteMail(campuriText.email, "Inregistrare reușită!","Mesajul text", `<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${campuriText.username}.</p>`)
                 }
             });
@@ -288,11 +383,11 @@ app.post("/inreg", function(req, res){
         }
 
     });
-
+    
 });
 
-app.get("/cod/:username/:token",function(req, res){
-    var comandaUpdate=`update utilizatori set confirmat_mail=true where username='${req.params.username}' and cod='${req.params.token}'`;
+app.get("/confirmare_inreg/:token1/:username/:token2",function(req, res){
+    var comandaUpdate=`update utilizatori set confirmat_mail=true where username='${req.params.username.split('').reverse().join('')}' and cod='${req.params.token1+req.params.token2}'`;
     client.query(comandaUpdate, function(err, rezUpdate){
         if(err){
             console.log(err);
@@ -328,7 +423,8 @@ app.post("/login", function(req, res){
                         email: rezSelect.rows[0].email,
                         culoare_chat: rezSelect.rows[0].culoare_chat,
                         rol: rezSelect.rows[0].rol,
-                        id: rezSelect.rows[0].id
+                        id: rezSelect.rows[0].id,
+                        poza: rezSelect.rows[0].poza
                     }
                     res.redirect('/index');
                 } 
@@ -485,3 +581,5 @@ var s_port=process.env.PORT || 8080;
 app.listen(s_port)
 
 console.log("A pornit");
+
+

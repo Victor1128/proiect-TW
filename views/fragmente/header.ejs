@@ -98,7 +98,8 @@
         </form>
         <% } else{ %>
           <div id="user">
-            <p title="<%-locals.utilizator.nume%> <%-locals.utilizator.prenume%>">User: <%-locals.utilizator.username %></p>
-            <button><a href="/logout">Log Out</a></button>
+            <p title="<%-locals.utilizator.prenume%> <%-locals.utilizator.nume%>">User: <%-locals.utilizator.username %></p>
+            <button id="buton_logout">Log Out</button>
+            <% if(locals.utilizator.poza) {%><picture id="imagine_user"><img src="<%=locals.utilizator.poza%>" alt="imagine utilizator"></picture><% } %>
           </div>
           <%}%>

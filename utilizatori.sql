@@ -1,7 +1,7 @@
 CREATE TYPE roluri AS ENUM('admin', 'moderator', 'comun');
 
 
-CREATE TABLE IF NOT EXISTS utilizatoriCurs (
+CREATE TABLE IF NOT EXISTS utilizatori(
    id serial PRIMARY KEY,
    username VARCHAR(50) UNIQUE NOT NULL,
    nume VARCHAR(100) NOT NULL,
@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS utilizatoriCurs (
    culoare_chat VARCHAR(50) NOT NULL,
    data_adaugare TIMESTAMP DEFAULT current_timestamp,
    cod character varying(200),
-   confirmat_mail boolean DEFAULT false
+   confirmat_mail boolean DEFAULT false,
+   blocat boolean DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS accesari (

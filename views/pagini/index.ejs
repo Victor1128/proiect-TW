@@ -180,12 +180,13 @@
       </div>
       <div class="user_online">
         <h2>Utilizatori Online</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
-
+        <% for(user of locals.useriOnline) {%>
+          <p><%= user.username %> (<a href="mailto:<%=user.email%>"><%=user.email%></a>)</p>
+          <%}%>
       </div>
       <div class="inf_user">
         <a id="info_user">
-        <h2>Informații despre utilizatori</h2>
+        <h2>Informații despre utilizator</h2>
           <p>IP-ul tău este <%= ip %></p>
       </div>
     </main>

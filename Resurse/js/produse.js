@@ -1,3 +1,5 @@
+const { localsName } = require("ejs");
+
 window.onload=function(){
     document.getElementById("inp-pret").onchange = function(){
         document.getElementById("infoRange").innerHTML = " ("+ this.value +")";
@@ -203,5 +205,22 @@ window.onload=function(){
             }, 2000);
         }
        
+    }
+
+    var checkboxuri = document.getElementsByClassName('select-cos');
+    for(let ch of checkboxuri){
+        ch.onchange = function(){
+            if(this.checked){
+                iduriProduse = localStorage.getItem('cos_virtual');
+                if(iduriProduse){
+                    iduriProduse = iduriProduse.split(',');
+                }
+                else{
+                    iduriProduse = [];
+                }
+                iduriProduse.push(this.value);
+                localStorage.setItem('cos_virtual', iduriProduse.join(','));
+            }
+        }
     }
 }

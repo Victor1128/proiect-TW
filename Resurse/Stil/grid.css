@@ -1,8 +1,8 @@
 #main-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto auto auto;
-      grid-template-columns: auto auto auto;
+  -ms-grid-columns: 25% 25% 25% 25%;
+      grid-template-columns: 25% 25% 25% 25%;
   grid-row-gap: .3rem;
   grid-column-gap: .2rem;
       grid-template-areas: 'inceput inceput inceput inceput' 'calendar tabel tabel ads' 'content content content content' 'despre-site despre-site utilizatori-online despre-user';
@@ -22,7 +22,7 @@
   grid-area: calendar;
 }
 
-.tabel {
+#tabel {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   -ms-grid-column-span: 2;
