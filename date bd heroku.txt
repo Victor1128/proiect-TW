@@ -1,0 +1,21 @@
+Creating app... done, ⬢ morning-meadow-31540
+https://morning-meadow-31540.herokuapp.com/ | https://git.heroku.com/morning-meadow-31540.git
+
+
+Host
+ec2-52-73-155-171.compute-1.amazonaws.com
+Database
+ddfrftd7icabvl
+User
+moneqxreoywchp
+Port
+5432
+Password
+9406fb9bfe595c49942083041626680b559597a90eef0c1743e71fdd112514b1
+
+heroku pg:info --app morning-meadow-31540
+
+
+postgresql-asymmetrical-38392
+
+heroku pg:psql postgresql-asymmetrical-38392 --app morning-meadow-31540 < utilizatori.sql

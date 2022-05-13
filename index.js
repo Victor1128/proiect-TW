@@ -298,7 +298,7 @@ app.post('/modifica-joc-intermediar', function(req, res){
             client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezTip){
                 client.query("select * from unnest(enum_range(null::categ_jocuri))", function(er, rezCateg){
                     client.query("select * from unnest(enum_range(null::caracteristici_jocuri))", function(er, rezCarac){
-                        res.render('pagini/modifica-joc', {joc:rezQuerry.rows[0], tipuri:rezTip.rows, caracteristici:rezCarac.rows, categorii:rezCateg.rows});
+                        res.render('pagini/modifica-joc', {joc:rezQuerry.rows[0], tipuri:rezTip.rows, caracteristici:rezCarac.rows, categorii:rezCateg.rows, dirname:__dirname});
                     });
                 });
             });
@@ -309,6 +309,141 @@ app.post('/modifica-joc-intermediar', function(req, res){
 app.get('/modifica-joc', function(req, res){
     if(req.session.utilizator && req.session.rol == 'admin');
     else randeazaEroare(res, 403);
+})
+
+app.post('/modificat', function(req, res){
+    var formular = new formidable.IncomingForm();
+    let numeJoc;
+    let caleUtiliz = null;
+    formular.on("field", function(nume,val){  // 1 
+            console.log(`--- ${nume}=${val}`);
+            if(nume=="nume")
+                numeJoc=val;
+        });
+        formular.on("fileBegin", function(nume,fisier){ //2
+            caleUtiliz=path.join(__dirname,"Resurse","images", "produse", fisier.originalFilename);
+            console.log(caleUtiliz);
+            fisier.filepath=caleUtiliz;
+            console.log(nume, fisier);
+            console.log(nume, fisier.filepath);
+            console.log("nu are sens");
+            if(fisier.originalFilename)
+                {
+                    caleUtiliz = fisier.originalFilename;
+                }
+            else caleUtiliz = '';
+        });
+        formular.on("file", function(nume,fisier){//3
+            console.log("file");
+            console.log(nume,fisier);
+        });    
+        
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        console.log(`-------------------IN PARSE`);
+        console.log(caleUtiliz);
+        console.log(campuriText.carac);
+        console.log(campuriText.data_lansare);
+            var query = `update jocuri set nume=$1::text, descriere = '${campuriText.descriere}', pret = '${campuriText.pret}', categorie = '${campuriText.categ}', scor = '${campuriText.scor}', pt_copii = '${campuriText.pt_copii}', producator = '${campuriText.producator}', tip_joc = '${campuriText.tip}'`;
+
+            if(caleUtiliz)
+                {
+                    query+=`, imagine = '${caleUtiliz}'`;
+                    console.log("in if");
+                }
+            query+=` where id = ${campuriText.id}`;
+            console.log(query);
+            client.query(query,[campuriText.nume], function(err, rezInserare){
+                if(err) 
+                {
+                    res.render("pagini/administrareProduse", {mesaj:"Eroare baza de date"+err});
+                    console.log('EROAREA LA BAZA DE DATE ESTE: ');
+                    console.log(err);
+                }
+                else  {
+                    res.redirect("/administrareProduse");
+                }
+            });
+
+    });
+    
+})
+
+app.post('/adauga-joc-intermediar', function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+            client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezTip){
+                client.query("select * from unnest(enum_range(null::categ_jocuri))", function(er, rezCateg){
+                    client.query("select * from unnest(enum_range(null::caracteristici_jocuri))", function(er, rezCarac){
+                        res.render('pagini/adauga-joc', {tipuri:rezTip.rows, caracteristici:rezCarac.rows, categorii:rezCateg.rows});
+                    });
+                });
+            });
+    });
+})
+app.get('/adauga-joc', function(req, res){
+    if(req.session.utilizator && req.session.utilizator.rol == 'admin');
+    else randeazaEroare(res, 403);
+})
+app.post('/adaugat', function(req, res){
+    var formular = new formidable.IncomingForm();
+    let numeJoc;
+    let caleUtiliz = null;
+    formular.on("field", function(nume,val){  // 1 
+            console.log(`--- ${nume}=${val}`);
+            if(nume=="nume")
+                numeJoc=val;
+        });
+        formular.on("fileBegin", function(nume,fisier){ //2
+            caleUtiliz=path.join(__dirname,"Resurse","images", "produse", fisier.originalFilename);
+            console.log(caleUtiliz);
+            fisier.filepath=caleUtiliz;
+            console.log(nume, fisier);
+            console.log(nume, fisier.filepath);
+            console.log("nu are sens");
+            if(fisier.originalFilename)
+                {
+                    caleUtiliz = fisier.originalFilename;
+                }
+            else caleUtiliz = '';
+        });
+        formular.on("file", function(nume,fisier){//3
+            console.log("file");
+            console.log(nume,fisier);
+        });    
+        
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        console.log(`-------------------IN PARSE`);
+        console.log(caleUtiliz);
+        console.log(campuriText.carac);
+        console.log(campuriText.data_lansare);
+        client.query(`select * from jocuri where nume = $1::text`, [campuriText.nume], function(err, rezQuerry){
+            if(rezQuerry.rowCount) res.render('pagini/adauga-joc', {eroare:`Jocul cu numele ${campuriText.nume} deja exista`});
+            else{
+                var query = `insert into jocuri(nume, descriere, pret, categorie, scor, pt_copii, producator, tip_joc) values($1::text,  '${campuriText.descriere}',  '${campuriText.pret}', '${campuriText.categ}', '${campuriText.scor}', '${campuriText.pt_copii}', '${campuriText.producator}', '${campuriText.tip}')`;
+            console.log(query);
+            console.log(campuriText.carac);
+            client.query(query,[campuriText.nume], function(err, rezInserare){
+                if(err) 
+                {
+                    res.render("pagini/adauga-joc", {eroare:"Eroare baza de date"+err});
+                    console.log('EROAREA LA BAZA DE DATE ESTE: ');
+                    console.log(err);
+                }
+                else  {       
+                    if(caleUtiliz)
+                    {
+                        client.query(`update jocuri set imagine = '${caleUtiliz}' where nume = $1::text`, [campuriText.nume], function(err, rezQuerry){
+                            if(err) res.render('pagini/adauga-joc', {eroare:'a fost o problema cu adaugarea imaginii'});
+                        })
+                    }
+                    res.redirect("/administrareProduse");
+                }
+            });
+
+            }
+        })
+            
+    });
 })
 
 app.get("*/rest",function(req, res){
@@ -662,6 +797,7 @@ app.get("/*", function(req, res){
 
 function creeazaImagini(){
     var buf=fs.readFileSync(__dirname+"/Resurse/json/galerie.json").toString("utf8");
+    // console.log('-------------------------'+buf);
     obImagini=JSON.parse(buf);
 
     for(let imag of obImagini.imagini){

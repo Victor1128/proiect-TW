@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificare joc</title>
+    <title>Adaugare joc</title>
     <%- include("../fragmente/head.ejs");  %>
 </head>
 <body>
@@ -16,68 +16,26 @@
             <h1>locals.eroare</h1>
 
         <%} else{%>
-        <h1>Pagina de modificare a jocului <%-locals.joc.nume%></h1>
-        <script>
-
-			// populez inputurile din pagina de profil cu datele din tabel (incarcate prin EJS)
-			window.addEventListener("DOMContentLoaded", function(){
-                console.log("<%-dirname%>/Resurse/images/produse/<%- locals.joc.imagine %>");
-				var optiuni=document.getElementById("sel_tip").options;
-				for (let opt of optiuni){
-                    console.log(opt.value);
-                    console.log("<%= locals.joc.tip_joc%>");
-					if (opt.value=="<%= locals.joc.tip_joc%>")
-						opt.selected=true;
-                }
-                optiuni=document.getElementById("sel_categ").options;
-				for (let opt of optiuni)
-					if (opt.value=="<%= locals.joc.categorie%>")
-						opt.selected=true 
-                // optiuni=document.getElementById("sel_carac").options;
-                // console.log("----------------------------carac")
-                // var caracteristici=[];
-				// for (let opt of optiuni)
-                // {console.log(opt.value);
-                //     console.log(locals.joc.caracteristici.length);
-                //     for(let i=0; i<locals.joc.caracteristici.length; i++){
-				// 	    if (opt.value==locals.joc.caracteristici[i])
-				// 		    {
-                //                 opt.selected=true; 
-                //                 break;
-                //             }                     
-                //         }
-                //  }
-                optiuni=document.getElementById("sel_copii").options;
-                for (let opt of optiuni){
-                    console.log(opt.value);
-                    console.log("<%= locals.joc.pt_copii%>");
-					if (opt.value=="<%= locals.joc.pt_copii%>")
-						opt.selected=true
-                } 
-			});
-		</script>
-        <form id="form_modificare"  method="post" action="/modificat"  enctype="multipart/form-data">
-                <label>
-                    <input type="text" name="id" value="<%-locals.joc.id%>" required hidden>
-                </label>
+        <h1>Pagina de adaugare a unui joc</h1>
+        <form id="form_adaugare"  method="post" action="/adaugat"  enctype="multipart/form-data">
             <p>
                 <label>
-                    Nume: <input type="text" name="nume" value="<%-locals.joc.nume%>" required>
+                    Nume: <input type="text" name="nume" required>
                 </label>
             </p>
             <p>
                 <label>
-                    Descriere: <input type="text" name="descriere" value="<%-locals.joc.descriere%>"  required>
+                    Descriere: <input type="text" name="descriere"   required>
                 </label>
             </p>
             <p>
                 <label>
-                    Pret: <input type="number" required  name="pret" value="<%- locals.joc.pret%>">
+                    Pret: <input type="number" required  name="pret" >
                 </label>
             </p>
             <p>
                 <label >
-                    Scor: <input type="number" required  name="scor" value="<%- locals.joc.scor%>">
+                    Scor: <input type="number" required  name="scor" >
                 </label>
             </p>
             <p>
@@ -109,7 +67,7 @@
             </p> -->
             <p>
                 <label>
-                    Producator: <input type="text" required  name="producator" value="<%- locals.joc.producator%>">
+                    Producator: <input type="text" required  name="producator" >
                 </label>
             </p>
             <p>
@@ -120,9 +78,6 @@
             <p>
                 <label>
                     Poza: 
-                    <figure class="imagine-produs">
-                        <img src="/Resurse/images/produse/<%- locals.joc.imagine %>" style="width:50%;height:auto;" alt="[imagine <%- locals.joc.nume %>]" />
-                    </figure>
                     <input type="file" name="imagine">
                 </label>			
             </p>
