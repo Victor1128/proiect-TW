@@ -31,9 +31,11 @@
 			
 			<section id="profil">
 			<div id="profil-formular">
+				<h2>Schimbarea datelor contului</h2>
 			<%- include("../fragmente/formular",{action:"/profil"}) %>
 			</div>
 			<div id="profil-stergere">
+				<h2>Ștergerea contului</h2>
 				<form action="/sterge_utiliz" enctype="multipart/form-data" method="post">
 					<label>
 						<input type="text" name="username" value="<%= locals.utilizator.username %>" hidden>

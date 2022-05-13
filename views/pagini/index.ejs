@@ -180,9 +180,11 @@
       </div>
       <div class="user_online">
         <h2>Utilizatori Online</h2>
+        <ul>
         <% for(user of locals.useriOnline) {%>
-          <p><%= user.username %> (<a href="mailto:<%=user.email%>"><%=user.email%></a>)</p>
+          <li><%= user.username %> (<a href="mailto:<%=user.email%>"><%=user.email%></a>)</li>
           <%}%>
+        </ul>
       </div>
       <div class="inf_user">
         <a id="info_user">

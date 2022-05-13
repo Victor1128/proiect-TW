@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrare</title>
+    <link rel="stylesheet" href="/Resurse/Stil/adminProd.css" type="text/css">
+    <%- include("../fragmente/head.ejs");  %>
+</head>
+<body>
+    <header>
+        <%- include("../fragmente/header.ejs");  %> 
+    </header>
+    <main>
+        <h1 style="text-align: center;">Administrare produse</h1>
+        <div id="admin-intro">
+            <p id="admin-mesaj"><%if(locals.mesaj){%>
+                <%-locals.mesaj%>
+                <%}%>
+            </p>
+            <p id="admin-add"><button class="b1"><i class="fa-solid fa-plus"></i></button></p>
+
+        </div>
+        <div class="container-produse">
+            <% for( let prod of locals.produse) { %>
+                <article class="produs" class="<%-prod.tip_joc%>">
+                    <div class="nume"><h2><a class="link-nume" href="/produs/<%-prod.id %>" ><span class="val-nume"><%-prod.nume%></span></a></h2></div>
+                    <div class="descriere">
+                        <p class = "val-descriere"><%- prod.descriere %></p>
+                    </div>
+                    <div class="butoaneAdmin">
+                        <p><form method="post" id="admin-b2" action="/modifica-joc-intermediar">
+                            <input type="text" name="id" value="<%- prod.id%>" hidden>
+                            <input type="text" name="nume" value="<%- prod.nume%>" hidden>
+                            <button class="b2" type="submit"><i class="fa-solid fa-wrench"></i></button>
+                        </form></p>
+                        <p><form method="post" id="admin-b3" action="/sterge-prod">
+                            <input type="text" name="id" value="<%-prod.id%>" hidden>
+                            <button class="b3" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                        </form></p>
+                    </div>
+                    <div class="info-prod">
+                        <p class="pret">Pret: <span class="val-pret"><%- prod.pret%></span></p>
+                        <p class="scor">Scor: <span class="val-scor"><%- prod.scor%></span></p>
+                        <p class="producator">Producator: <span class="val-producator"><%- prod.producator%></span></p>
+                        <p class="caracteristici">Caracteristici: <span class="val-caracteristici">
+                            <% for(car of prod.caracteristici){%>
+                                <%-car%> 
+                            <%}%>
+                        </span></p>
+                        <p class="data">Data lansării: <span class = "val-data">
+                            <%-prod.data_lansare.toLocaleDateString('ro-RO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })%> 
+                        </span></p>
+                        <p class="copii">
+                            Acest joc 
+                             <span>
+                                 <% if(!prod.pt_copii){%>
+                                    <span class="nu">nu</span>
+                                <%}%>
+                            </span>
+                            este adecvat si pentru copii!
+                            </p>
+                    </div>
+                    <p class="tip">Tip de joc: <span class="val-tip"><%- prod.tip_joc%></span></p>
+                    <figure class="imagine-produs">
+                        <a href="/produs/<%-prod.id %>" ><img src="/Resurse/images/produse/<%- prod.imagine %>" style="width:50%;height:auto;" alt="[imagine <%- prod.nume %>]" /></a>
+                    </figure>
+                    <label class="selecteaza-cos" for="select-cos">
+                        Selectează:<br/>
+                        <input type="checkbox" name="select-cos" class="select-cos" id="select-cos" value="<%-prod.id %>" autocomplete="off">
+                    </label>
+                </article>
+            <% }%>
+        </div>
+    </main>
+    <footer>
+        <%- include("../fragmente/footer.ejs");  %> 
+    </footer>
+</body>
+</html>

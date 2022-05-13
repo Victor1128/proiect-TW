@@ -12,6 +12,7 @@ const nodemailer = require('nodemailer');
 const helmet = require('helmet');
 const path = require('path');
 const { ClientRequest } = require("http");
+const { query } = require("express");
 
 
 const obGlobal={
@@ -224,7 +225,10 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
         console.log(err);
         res.send("Eroare");
     }
-    queryAccesari = `select email, username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare < interval '10 minutes') and rol='admin'`
+    queryAccesari = `select distinct username, email, min(acc.data_accesare) from utilizatori as u
+                        inner join accesari as acc on acc.user_id = u.id where now() - data_accesare < interval '10 minutes' and rol='admin'
+                        group by username, email
+                        order by min(acc.data_accesare), username`
     useriOnline=[];
     client.query(queryAccesari, function(err, rezAccesari){
         if(err) console.log(err);
@@ -233,6 +237,8 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
         res.render("pagini/index", {ip:getIp(req), imagini:obImagini.imagini, nrImag:nrAleator, useriOnline:useriOnline});
     })
 })
+
+
 
 app.get("/produse", function(req, res){
     var cond_where = req.query.categorie ? ` categorie= '${req.query.categorie}'` : " 1=1"
@@ -256,6 +262,53 @@ app.get("/produs/:id", function(req, res){
         console.log("Am ajuns aici 2"+rezQuerry);
         res.render("pagini/produs", {prod:rezQuerry.rows[0]});
     })
+})
+
+app.get("/administrareProduse", function(req, res){
+    if(req.session.utilizator && req.session.utilizator.rol=='admin')
+    {
+        var query = 'select * from jocuri';
+        client.query(query, function(err, rezQuerry){
+            if(err) randeazaEroare(res, 403, 'Eroare baza de date', err);
+            res.render('pagini/administrareProduse', {produse:rezQuerry.rows})
+        })
+    }
+    else  randeazaEroare(res, 403);
+})
+
+app.post('/sterge-prod', function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        console.log(`-------------------IN PARSE`);
+        var query = `delete from jocuri where id = ${campuriText.id}`;
+        client.query(query, function(err, rezQuerry){
+            if(err) res.redirect('/administrareProduse');
+            res.redirect('/administrareProduse');
+        })
+    });
+})
+
+app.post('/modifica-joc-intermediar', function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        var query = `select * from jocuri where id = ${campuriText.id}`;
+        client.query(query, function(err, rezQuerry){
+            if(err) res.render('pagini/modifica-joc', {eroare: `eroare la baza de date: ${err}`});
+            if(rezQuerry.rowCount!=1) res.render('pagini/modifica-joc', {eroare: `eroare la interogare. Jocuri gasire: ${rezQuerry.rowCount}`});
+            client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezTip){
+                client.query("select * from unnest(enum_range(null::categ_jocuri))", function(er, rezCateg){
+                    client.query("select * from unnest(enum_range(null::caracteristici_jocuri))", function(er, rezCarac){
+                        res.render('pagini/modifica-joc', {joc:rezQuerry.rows[0], tipuri:rezTip.rows, caracteristici:rezCarac.rows, categorii:rezCateg.rows});
+                    });
+                });
+            });
+        })
+    });
+})
+
+app.get('/modifica-joc', function(req, res){
+    if(req.session.utilizator && req.session.rol == 'admin');
+    else randeazaEroare(res, 403);
 })
 
 app.get("*/rest",function(req, res){

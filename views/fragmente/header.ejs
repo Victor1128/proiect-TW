@@ -54,6 +54,9 @@
           <% for (let opt of locals.optiuniMeniu) { %>
             <li><i class="fa-solid fa-arrow-right-long sageata s1"></i><a href="/produse?categorie=<%-opt.unnest%>"> <%- opt.unnest %> </a></li>
         <% } %>
+        <% if(locals.utilizator && locals.utilizator.rol == 'admin') {%>
+            <li><i class="fa-solid fa-arrow-right-long sageata s1"></i><a href="/administrareProduse">Administrare</a></li>
+          <%}%>
         </ul>
       </li>
       <li id="cont">

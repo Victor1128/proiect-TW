@@ -1,0 +1,97 @@
+.produs{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    'nume nume'
+    'imagine-produs butoane'
+    'imagine-produs tip'
+    'info descriere'
+    'info select'
+    ;
+    grid-gap: 1rem;
+}
+main{
+    padding: 5px;
+}
+button{
+    cursor:pointer;
+}
+#admin-intro{
+    display: grid;
+    grid-template-areas: 'a b';
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+
+}
+#admin-mesaj{
+    grid-area: a;
+}
+#admin-add{
+    grid-area: b;
+    text-align: center;
+}
+.butoaneAdmin{
+    grid-area: butoane;
+    text-align: center;
+}
+.b1{
+   font-size: 30px;
+    color: green;
+    border: 3px solid green;
+    border-radius: 5px;
+}
+.b2{
+    font-size: 24px;
+    color: rgb(189, 178, 28);
+    border: 3px solid rgb(189, 178, 28);
+    border-radius: 5px;
+}
+.b3{
+    font-size: 27px;
+    color: red;
+    border: 3px solid red;
+    border-radius: 5px;
+}
+
+.imagine-produs{
+    grid-area: imagine-produs;
+    width: 100%;
+    margin: 0;
+}
+.tip{
+    grid-area: tip;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info-prod{
+    grid-area: info;
+    color:#a1e049;
+}
+.descriere{
+    grid-area: descriere;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nume{
+    grid-area: nume;
+    text-align: center;
+    text-decoration: none;
+    
+}
+.link-nume{
+    color: white;
+}
+.selecteaza-cos{
+    grid-area: select;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.val-pret, .val-scor, .val-producator, .val-caracteristici, .val-data, .copii{
+    color: white;
+}
+.nu{
+    color: red;
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificare joc</title>
+    <%- include("../fragmente/head.ejs");  %>
+</head>
+<body>
+    <header>
+        <%- include("../fragmente/header.ejs");  %> 
+    </header>
+    <main>
+        <% if(locals.eroare){%>
+            <h1>locals.eroare</h1>
+
+        <%} else{%>
+        <h1>Pagina de modificare a jocului <%-locals.joc.nume%></h1>
+        <script>
+
+			// populez inputurile din pagina de profil cu datele din tabel (incarcate prin EJS)
+			window.addEventListener("DOMContentLoaded", function(){
+				// document.getElementById("inp-username").value="<%= locals.utilizator.username %>";
+				// document.getElementById("inp-username").readOnly=true;
+				// document.getElementById("inp-nume").value="<%= locals.utilizator.nume %>";
+				// document.getElementById("inp-prenume").value="<%= locals.utilizator.prenume %>";
+				// document.getElementById("inp-email").value="<%= locals.utilizator.email %>";
+				// document.getElementById("p-reintrod").remove();
+				var optiuni=document.getElementById("sel-tip").options;
+				for (let opt of optiuni)
+					if (opt.value=="<%= locals.joc.tip_joc%>")
+						opt.selected=true;
+                optiuni=document.getElementById("sel-categ").options;
+				for (let opt of optiuni)
+					if (opt.value=="<%= locals.joc.categorie%>")
+						opt.selected=true 
+                optiuni=document.getElementById("sel-carac").options;
+                console.log("----------------------------carac")
+				for (let opt of optiuni)
+                {console.log(opt.value);
+                    console.log("<%locals.joc.caracteristici[0]%>");
+					    if (opt.value=="<%locals.joc.caracteristici%>")
+						    {
+                                opt.selected=true; 
+                                break;
+                            }                     
+                 }
+                optiuni=document.getElementById("sel-copii").options;
+                for (let opt of optiuni)
+					if (opt.value=="<%= locals.joc.pt_copii%>")
+						opt.selected=true 
+			});
+		</script>
+        <form id="form_modificare"  method="post" action="/modificat"  enctype="multipart/form-data">
+            <p>
+                <label>
+                    Nume: <input type="text" name="nume" value="<%-locals.joc.nume%>" required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Descriere: <input type="text" name="descriere" value="<%-locals.joc.descriere%>"  required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Pret: <input type="number" required  name="pret" value="<%- locals.joc.pret%>">
+                </label>
+            </p>
+            <p>
+                <label >
+                    Scor: <input type="number" required  name="scor" value="<%- locals.joc.scor%>">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Tip:  <select name="tip" id="sel-tip">
+                        <%for(let tip of locals.tipuri){%>
+                        <option value="<%-tip.unnest%>"><%-tip.unnest%></option>
+                        <%}%>
+                        </select>
+                    </label>
+            </p>
+            <p>
+                <label>
+                    Categorie:  <select name="categ" id="sel-categ">
+                        <%for(let categ of locals.categorii){%>
+                        <option value="<%-categ.unnest%>"><%-categ.unnest%></option>
+                        <%}%>
+                        </select>
+                    </label>
+            </p>
+            <p>
+                <label>
+                    Caracteristici:  <select name="carac" id="sel-carac" multiple>
+                        <%for(let carac of locals.caracteristici){%>
+                        <option value="<%-carac.unnest%>"><%-carac.unnest%></option>
+                        <%}%>
+                        </select>
+                    </label>
+            </p>
+            <p>
+                <label>
+                    Producator: <input type="text" required  name="producator" value="<%- locals.joc.producator%>">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Pentru copii: <select name="pt_copii" id="sel_copii"><option value="true">Da</option><option value="false">Nu</option></select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Poza: 
+                    <figure class="imagine-produs">
+                        <img src="/Resurse/images/produse/<%- locals.joc.imagine %>" style="width:50%;height:auto;" alt="[imagine <%- locals.joc.nume %>]" />
+                    </figure>
+                    <input type="file" name="imagine">
+                </label>			
+            </p>
+            <p>
+                <label>
+                    Data lansare: <input type="date" required  name="data" value="<%- locals.joc.data_lansare.toLocaleDateString("ro-Ro").replaceAll('.','-').split("-").reverse().join("-")%>">
+                </label>
+            </p>
+            <p>		
+                <input type="submit" value="Trimite">
+                <input type="reset" value="Reseteaza">
+            </p>
+        </form>
+        <%}%>
+    </main>
+    <footer>
+        <%- include("../fragmente/footer.ejs");  %> 
+    </footer>
+</body>
+</html>
