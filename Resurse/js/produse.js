@@ -1,4 +1,4 @@
-const { localsName } = require("ejs");
+// const { localsName } = require("ejs");
 
 window.onload=function(){
     document.getElementById("inp-pret").onchange = function(){
@@ -182,45 +182,45 @@ window.onload=function(){
         sorteaza(-1);
     }
 
-    document.getElementById("sumaPret").onclick=function(){
-        if(! document.getElementById("divsuma")){
-            let suma=0;
-            var articole = document.getElementsByClassName("produs");
-            for(let art of articole){
-                if(art.style.display!="none" 
-                && art.getElementsByClassName("select-cos")[0].checked
-                )
-                    suma+=parseInt(art.getElementsByClassName("val-pret")[0].innerHTML);
-            }
-            var divSuma = document.createElement("div");
-            divSuma.id="divsuma";
-            divSuma.innerHTML = "<p>Suma totală jocuri selectate: "+ suma + "</p>";
-            var sectiune = document.getElementById("produse");
-            sectiune.parentElement.insertBefore(divSuma, sectiune);
-            setTimeout(function(){
-                let div=document.getElementById("divsuma");
-                if(div){
-                    div.remove();
-                }
-            }, 2000);
-        }
+    // document.getElementById("sumaPret").onclick=function(){
+    //     if(! document.getElementById("divsuma")){
+    //         let suma=0;
+    //         var articole = document.getElementsByClassName("produs");
+    //         for(let art of articole){
+    //             if(art.style.display!="none" 
+    //             && art.getElementsByClassName("select-cos")[0].checked
+    //             )
+    //                 suma+=parseInt(art.getElementsByClassName("val-pret")[0].innerHTML);
+    //         }
+    //         var divSuma = document.createElement("div");
+    //         divSuma.id="divsuma";
+    //         divSuma.innerHTML = "<p>Suma totală jocuri selectate: "+ suma + "</p>";
+    //         var sectiune = document.getElementById("produse");
+    //         sectiune.parentElement.insertBefore(divSuma, sectiune);
+    //         setTimeout(function(){
+    //             let div=document.getElementById("divsuma");
+    //             if(div){
+    //                 div.remove();
+    //             }
+    //         }, 2000);
+    //     }
        
-    }
+    // }
 
-    var checkboxuri = document.getElementsByClassName('select-cos');
-    for(let ch of checkboxuri){
-        ch.onchange = function(){
-            if(this.checked){
-                iduriProduse = localStorage.getItem('cos_virtual');
-                if(iduriProduse){
-                    iduriProduse = iduriProduse.split(',');
-                }
-                else{
-                    iduriProduse = [];
-                }
-                iduriProduse.push(this.value);
-                localStorage.setItem('cos_virtual', iduriProduse.join(','));
-            }
-        }
-    }
+    // var checkboxuri = document.getElementsByClassName('select-cos');
+    // for(let ch of checkboxuri){
+    //     ch.onchange = function(){
+    //         if(this.checked){
+    //             iduriProduse = localStorage.getItem('cos_virtual');
+    //             if(iduriProduse){
+    //                 iduriProduse = iduriProduse.split(',');
+    //             }
+    //             else{
+    //                 iduriProduse = [];
+    //             }
+    //             iduriProduse.push(this.value);
+    //             localStorage.setItem('cos_virtual', iduriProduse.join(','));
+    //         }
+    //     }
+    // }
 }
