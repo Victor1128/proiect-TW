@@ -46,6 +46,28 @@
 					</label>
 					<input type="submit" value="Șterge cont">
 				</form>
+				<h2>Modificarea Parolei</h2>
+				<form action="/modifica_parola" enctype="multipart/form-data" method="post">
+					<label>
+						<input type="text" name="username" value="<%= locals.utilizator.username %>" hidden>
+					</label>
+					<label>
+						<input type="text" name="email" value="<%= locals.utilizator.email %>" hidden>
+					</label>
+					<p><label>
+						Parola actuală: <input type="password" name="parola_actuala" required>
+					</label>
+					</p>
+					<p><label>
+						Parola nouă: <input type="password" name="parola" required>
+					</label>
+					</p>
+					<p><label>
+						Confirmă parola nouă: <input type="password" name="parola_confirmare" required>
+					</label>
+					</p>
+					<input type="submit" value="Modifica parola">
+				</form>
 			</div>
 			</section>
 			<% if(locals.mesaj) {%> <%=locals.mesaj%> <%}%>

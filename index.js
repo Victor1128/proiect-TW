@@ -658,6 +658,7 @@ app.post('/sterge_utiliz', function(req, res){
     });
 });
 
+
 app.post('/blocheaza_utiliz', function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
@@ -763,6 +764,31 @@ app.post("/profil", function(req, res){
 });
 
 //TODO: trebuie completat post-ul de mai sus a.i. sa verifice daca utilizatorul a bagat parola buna si daca da sa ii fac update-urile
+
+
+app.post('/modifica_parola', function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        var parolaActuala=crypto.scryptSync(campuriText.parola_actuala,parolaServer, 64).toString('hex'); 
+        var parolaNoua=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
+        var parolaConfirm=crypto.scryptSync(campuriText.parola_confirmare,parolaServer, 64).toString('hex');  
+        if(parolaNoua!=parolaConfirm || parolaNoua.length==0)
+            res.render('pagini/profil', {mesaj:"Parolele nu se potrivesc"});
+        var query = `update utilizatori set parola = '${parolaNoua}' where username = '${campuriText.username}' and parola = '${parolaActuala}'`;
+        console.log(query);
+        client.query(query, function(err, rezQuerry){
+            if(err) res.render('pagini/profil', {mesaj:"Eroare la baza de date " + err});
+            else{
+                if (rezQuerry.rowCount==0){
+                    res.render("pagini/profil",{mesaj:"Modificarea nu s-a realizat. Verificati parola cureanta."});
+                    return;
+                }
+                trimiteMail(campuriText.email, "Parola schimbata", "Parola a fost schimbata", `<h2>Parola contului ${campuriText.username} a fost schimbată</h2>`);
+                res.render('pagini/profil', {mesaj:"Parola schimbata cu succes!"});
+            }
+        })
+    });
+})
 
 
 
