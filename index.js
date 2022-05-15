@@ -25,7 +25,7 @@ const obGlobal={
 
 if(process.env.SITE_ONLINE){
     obGlobal.protocol="https://"
-    obGlobal.numeDomeniu="morning-meadow-31540.herokuapp.com"
+    obGlobal.numeDomeniu="fortehgamers11.herokuapp.com"
     var client=new Client(
         {user:"ixaooytijodbkq", 
         password:"1afa79d5a119fbf94996873db4961a28e08691d43cb084a4b0dd11fea1fe8010",
