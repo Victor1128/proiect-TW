@@ -503,12 +503,12 @@ app.post("/inreg", function(req, res){
             console.log(caleUtiliz);
             if(!fs.existsSync(caleUtiliz))
                     fs.mkdirSync(caleUtiliz);
-            fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
+            fisier.filepath=path.join(caleUtiliz,'poza.png');
             console.log(nume, fisier);
             console.log(nume, fisier.filepath);
             if(fisier.originalFilename)
                 {
-                    caleUtiliz = path.join('poze_uploadate', username, fisier.originalFilename);
+                    caleUtiliz = path.join('poze_uploadate', username, 'poza.png'); 
                     caleUtiliz = '/'+caleUtiliz;
                     caleUtiliz = caleUtiliz.replaceAll('\\', '/');
                 }
@@ -708,12 +708,12 @@ app.post("/profil", function(req, res){
             console.log(caleUtiliz);
             if(!fs.existsSync(caleUtiliz))
                     fs.mkdirSync(caleUtiliz);
-            fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
+            fisier.filepath=path.join(caleUtiliz,'poza.png');
             console.log(nume, fisier);
             console.log(nume, fisier.filepath);
             if(fisier.originalFilename)
                 {
-                    caleUtiliz = path.join('poze_uploadate', username, fisier.originalFilename);
+                    caleUtiliz = path.join('poze_uploadate', username, 'poza.png');
                     caleUtiliz = '/'+caleUtiliz;
                     caleUtiliz = caleUtiliz.replaceAll('\\', '/');
                 }
@@ -755,7 +755,7 @@ app.post("/profil", function(req, res){
 
             trimiteMail(campuriText.email, 'Modificarea detaliilor contului',  `Noile tale detalii sunt: Nume: ${campuriText.nume}, prenume: ${campuriText.prenume}, email: ${campuriText.email}, culoare chat: ${campuriText.culoare_chat}`, 
             `<h1>Noile tale detalii sunt:</h1> <p>Nume: ${campuriText.nume}</p> <p>Prenume: ${campuriText.prenume}</p><p>Email: ${campuriText.email}</p><p>Culoare chat: ${campuriText.culoare_chat}</p>`);
-            res.render("pagini/profil",{mesaj:"Update-ul s-a realizat cu succes. Este posibil sa fie nevoie de un refresh pentru a vedea modificarile"});
+            res.render("pagini/profil",{mesaj:"Update-ul s-a realizat cu succes. Este posibil sa fie nevoie de un log out - log in pentru a vedea modificarile"});
 
         });
         

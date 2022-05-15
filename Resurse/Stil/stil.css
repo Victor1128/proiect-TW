@@ -768,7 +768,6 @@ body {
   padding: 0;
   margin: 0;
 }
-
 a {
   text-decoration: none;
 }
@@ -1102,6 +1101,7 @@ footer {
   width: 300px;
   display: grid;
   grid-template-areas: 'a b' 'c b';
+  grid-gap: 5px;
 }
 #user>p{
   grid-area: a;
