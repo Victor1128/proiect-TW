@@ -526,6 +526,9 @@ app.post("/inreg", function(req, res){
         if(!campuriText.username)
             eroare+="Username necompletat.<br>";
         else{
+            if(!campuriText.username.match(new RegExp("^[A-Za-z0-9]+$")))
+                eroare+='Username-ul poate contine doar litere mari si mici si cifre.<br>';
+            else{
             queryUtilizator = `select id from utilizatori where username = '${campuriText.username}'`;
             client.query(queryUtilizator, function(err, rezUtilizatori){
                 if(rezUtilizatori.rows.length){
@@ -533,11 +536,13 @@ app.post("/inreg", function(req, res){
                 }
             })
         }
+        }
         console.log(eroare+'--------------------------------------------------')
         if(!campuriText.email || campuriText.email=='nume@example.com')
             eroare+="Email necompletat.<br>";
         else if(!campuriText.email.match(new RegExp("^[A-Za-z0-9_-]+@[a-z0-9]+.[a-z]{2,3}$")))
             eroare+="Formatul email-ului nu este valid.<br>";
+        if(campuriText.parola.length<4) eroare += 'Parola trebuie sa contina minimum 4 caractere. <br>';
         if(campuriText.parola!=campuriText.rparola) eroare+="Parolele nu corespund.<br>";
         if(!campuriText.nume) eroare+="Nume necompletat.<br>";
         if(!campuriText.prenume) eroare+="Prenume necompletat.<br>";

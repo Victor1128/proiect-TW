@@ -1094,6 +1094,33 @@ footer {
 #profil-formular{
   grid-area: a;
 }
+#container-termeni{
+  padding: 3%;
+  text-align: justify;
+}
+#container-termeni>p>a{
+  color: aqua;
+  text-decoration: underline;
+  
+}
+#termeni{
+  display: grid;
+  grid-template-areas: 'a b';
+}
+#termeni>a{
+  color:white;
+  font-size: larger;
+  text-decoration: underline;
+}
+#a-conf{
+  text-align: center;
+  grid-area: b;
+
+}
+#a-termeni{
+  text-align: center;
+  grid-area: a;
+}
 
 #user {
   margin: 10px;
