@@ -1,7 +1,7 @@
 window.addEventListener("load",function(){
 // 	var myHeaders = new Headers();
 // myHeaders.append();
-	var prod_sel=localStorage.getItem("produse_selectate")
+	var prod_sel=localStorage.getItem("cos_virtual")
 
 
 	if (prod_sel){ //p.then(f1).then(f2).then(f3)
@@ -28,11 +28,11 @@ window.addEventListener("load",function(){
 				divCos.classList.add("cos-virtual")
 				let divImagine=document.createElement("div");
 				let imag=document.createElement("img");
-				imag.src="/resurse/imagini/produse/"+prod.imagine;
+				imag.src="/Resurse/images/produse/"+prod.imagine;
 				divImagine.appendChild(imag);
 				divCos.appendChild(divImagine);
 				let divInfo=document.createElement("div");
-				divInfo.innerHTML=`<p><b>${prod.nume}</b></p><p>Pret: ${prod.pret}</p><p>Gramaj: ${prod.gramaj}</p>`;
+				divInfo.innerHTML=`<p><b>${prod.nume}</b></p><p>Pret: ${prod.pret}</p><p>Gramaj: ${prod.scor}</p>`;
 				divCos.appendChild(divInfo);
 				document.getElementsByTagName("main")[0].insertBefore(divCos, document.getElementById("cumpara"));
 			}

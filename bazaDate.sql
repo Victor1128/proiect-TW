@@ -1,6 +1,7 @@
 DROP TYPE IF EXISTS categ_jocuri;
 DROP TYPE IF EXISTS tipuri_jocuri;
 DROP TYPE IF EXISTS caracteristici_jocuri;
+DROP TYPE IF EXISTS producatori;
 
 CREATE TYPE categ_jocuri AS ENUM( 'noi', 'populare', 'ieftine', 'premiate');
 CREATE TYPE tipuri_jocuri AS ENUM('RPG', 'shooter', 'RTS', 'sport', 'race', 'casual');
@@ -15,7 +16,7 @@ CREATE TABLE IF NOT EXISTS jocuri (
    pret NUMERIC(8,2) NOT NULL,
    scor INT NOT NULL CHECK (scor>=0),   
    tip_joc tipuri_jocuri DEFAULT 'RPG',
-   producator VARCHAR(50), NOT NULL,
+   producator VARCHAR(50) NOT NULL,
    categorie categ_jocuri DEFAULT 'populare',
    caracteristici VARCHAR [], --multiplayer,singleplayer, controller, inapp, achievments etc.
    pt_copii BOOLEAN NOT NULL DEFAULT TRUE,
@@ -28,17 +29,18 @@ INSERT into jocuri (nume,descriere,pret, scor,tip_joc, producator, categorie, ca
 
 ('Counter Strike Global Offensive', 'Joc shooter!', 0 , 83, 'shooter','Valve' ,'ieftine', '{"multi"}', False, 'cs.jpg'),
 
-('Civilization VI', 'Joc de strategie!', 60 , 88,'RTS', 'Fireaxis', '{"single","multi","dlc"}', True,'civ.jpg'),
+('Civilization VI', 'Joc de strategie!', 60 , 88,'RTS', 'Fireaxis','populare', '{"single","multi","dlc"}', True,'civ.jpg'),
 
 ('GTA V', 'Nu ii trebuie descriere :)!', 15, 96, 'shooter', 'Rockstar Games','populare', '{"single", "multi", "story"}', False, 'gta.jpg'),
 
-('Rainbow Six Siege', 'Joc shooter mai tactic decat CS!', 20, 79,'populare' , 'Ubisoft','shooter', {'multi'}, False, 'rss.jpg'),
+('Rainbow Six Siege', 'Joc shooter mai tactic decat CS!', 20, 79,'shooter', 'Ubisoft','populare', '{"multi"}', False, 'rss.jpg'),
 
-('Assassin''s Creed Odyssey', 'Joc RPG in Grecia Antica!', 60, 86,'populare' , 'Ubisoft','RPG','{"story", "single"}', False, 'ac.jpg'),
+('Assassin''s Creed Odyssey', 'Joc RPG in Grecia Antica!', 60, 86, 'RPG', 'Ubisoft','populare','{"story", "single"}', False, 'ac.jpg'),
 
-('God of War', 'Joc RPG premiat!', 50, 94, 'premiate',  'SCE Santa Monica','RPG', '{"single", "story"}', False, 'gow.jpg'),
+('God of War', 'Joc RPG premiat!', 50, 94, 'RPG',  'SCE Santa Monica','premiate', '{"single", "story"}', False, 'gow.jpg'),
 
-('It takes two', 'Joc co-op pentru intreaga familie', 40, 88, 'premiate',  'Hazelight','casual', '{"multi", "puzzle"}', True, 'itt.jpg');
+('It takes two', 'Joc co-op pentru intreaga familie', 40, 88, 'casual',  'Hazelight','premiate', '{"multi", "puzzle"}', True, 'itt.jpg');
+
 
 
 
