@@ -68,6 +68,22 @@ function genereazaToken2(n){
 function genereazaToken1(n){
     return Math.floor(Math.random()*n);
 }
+// function mailAvertizare(){
+//     client.query('select * from utilizatori where confirmat_mail = false', function(err, rezQuerry){
+//         if(err) console.log("5555555555555555555555555555555555\n Eroare baza de date la mail avertizare " + err);
+//         else{
+//             console.log("5555555555555555555555555555555555")
+//             for(let rand of rezQuerry.rows){
+//                 console.log(rand.data_adaugare);
+//                 var data = Date();
+//                 console.log(data.addHours(2));
+//             }
+//         }
+//     })
+// }
+
+
+// mailAvertizare();
 
 async function trimiteMail(email, subiect, mesajText, mesajHtml, atasamente=[]){
     var transp= nodemailer.createTransport({
@@ -241,10 +257,20 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
 
 
 app.get("/produse", function(req, res){
-    var cond_where = req.query.categorie ? ` categorie= '${req.query.categorie}'` : " 1=1"
-
+    var cond_where;
+    if(req.query.categorie)
+        cond_where = ` categorie= $1`;
+    else {
+        req.query.categorie='1'
+        cond_where = ' $1';
+    }
+    console.log("-----------------------------------",cond_where);
+    console.log(req.query.categorie);
+    var query = "select * from jocuri where" + cond_where;
+    console.log(query);
     client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezCateg){
-        client.query("select * from jocuri where"+cond_where, function(err, rezQuerry){
+        client.query(query, [req.query.categorie], function(err, rezQuerry){
+            if(err) console.log("EROAREEEEE " + err)
             client.query("select * from unnest(enum_range(null::caracteristici_jocuri))", function(err, rezCar){
                 client.query("select * from unnest(enum_range(null::producatori))",function(err, rezProd){
                     console.log("Am ajuns aici "+rezCar);
@@ -258,7 +284,7 @@ app.get("/produse", function(req, res){
 
 app.get("/produs/:id", function(req, res){
     console.log("PRODUS:", req.url);
-    client.query(`select * from jocuri where id= ${req.params.id}`, function(err, rezQuerry){
+    client.query(`select * from jocuri where id= $1`, [req.params.id], function(err, rezQuerry){
         console.log("Am ajuns aici 2"+rezQuerry);
         res.render("pagini/produs", {prod:rezQuerry.rows[0]});
     })
@@ -280,8 +306,8 @@ app.post('/sterge-prod', function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
         console.log(`-------------------IN PARSE`);
-        var query = `delete from jocuri where id = ${campuriText.id}`;
-        client.query(query, function(err, rezQuerry){
+        var query = `delete from jocuri where id = $1`;
+        client.query(query,[campuriText.id], function(err, rezQuerry){
             if(err) res.redirect('/administrareProduse');
             res.redirect('/administrareProduse');
         })
@@ -291,8 +317,8 @@ app.post('/sterge-prod', function(req, res){
 app.post('/modifica-joc-intermediar', function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
-        var query = `select * from jocuri where id = ${campuriText.id}`;
-        client.query(query, function(err, rezQuerry){
+        var query = `select * from jocuri where id = $1`;
+        client.query(query,[campuriText.id], function(err, rezQuerry){
             if(err) res.render('pagini/modifica-joc', {eroare: `eroare la baza de date: ${err}`});
             if(rezQuerry.rowCount!=1) res.render('pagini/modifica-joc', {eroare: `eroare la interogare. Jocuri gasire: ${rezQuerry.rowCount}`});
             client.query("select * from unnest(enum_range(null::tipuri_jocuri))", function(er, rezTip){
@@ -343,16 +369,19 @@ app.post('/modificat', function(req, res){
         console.log(caleUtiliz);
         console.log(campuriText.carac);
         console.log(campuriText.data_lansare);
-            var query = `update jocuri set nume=$1::text, descriere = '${campuriText.descriere}', pret = '${campuriText.pret}', categorie = '${campuriText.categ}', scor = '${campuriText.scor}', pt_copii = '${campuriText.pt_copii}', producator = '${campuriText.producator}', tip_joc = '${campuriText.tip}'`;
+        var multime =[campuriText.nume, campuriText.descriere, campuriText.pret, campuriText.categ, campuriText.scor, campuriText.pt_copii, campuriText.producator, campuriText.tip];
+            var query = `update jocuri set nume=$1::text, descriere = $2::text, pret = $3, categorie = $4, scor = $5, pt_copii = $6, producator = $7, tip_joc = $8`;
 
             if(caleUtiliz)
                 {
-                    query+=`, imagine = '${caleUtiliz}'`;
+                    query+=`, imagine = $9`;
+                    multime.push(caleUtiliz);
                     console.log("in if");
                 }
-            query+=` where id = ${campuriText.id}`;
+            query+=` where id = $10`;
+            multime.push(campuriText.id)
             console.log(query);
-            client.query(query,[campuriText.nume], function(err, rezInserare){
+            client.query(query,multime, function(err, rezInserare){
                 if(err) 
                 {
                     res.render("pagini/administrareProduse", {mesaj:"Eroare baza de date"+err});
@@ -419,10 +448,11 @@ app.post('/adaugat', function(req, res){
         client.query(`select * from jocuri where nume = $1::text`, [campuriText.nume], function(err, rezQuerry){
             if(rezQuerry.rowCount) res.render('pagini/adauga-joc', {eroare:`Jocul cu numele ${campuriText.nume} deja exista`});
             else{
-                var query = `insert into jocuri(nume, descriere, pret, categorie, scor, pt_copii, producator, tip_joc) values($1::text,  '${campuriText.descriere}',  '${campuriText.pret}', '${campuriText.categ}', '${campuriText.scor}', '${campuriText.pt_copii}', '${campuriText.producator}', '${campuriText.tip}')`;
+                var multime =[campuriText.nume, campuriText.descriere, campuriText.pret, campuriText.categ, campuriText.scor, campuriText.pt_copii, campuriText.producator, campuriText.tip];
+                var query = `insert into jocuri(nume, descriere, pret, categorie, scor, pt_copii, producator, tip_joc) values($1::text, $2::text, $3, $4, $5, $6, $7, $8)`;
             console.log(query);
             console.log(campuriText.carac);
-            client.query(query,[campuriText.nume], function(err, rezInserare){
+            client.query(query, multime, function(err, rezInserare){
                 if(err) 
                 {
                     res.render("pagini/adauga-joc", {eroare:"Eroare baza de date"+err});
@@ -432,7 +462,7 @@ app.post('/adaugat', function(req, res){
                 else  {       
                     if(caleUtiliz)
                     {
-                        client.query(`update jocuri set imagine = '${caleUtiliz}' where nume = $1::text`, [campuriText.nume], function(err, rezQuerry){
+                        client.query(`update jocuri set imagine = $1 where nume = $2::text`, [caleUtiliz,campuriText.nume], function(err, rezQuerry){
                             if(err) res.render('pagini/adauga-joc', {eroare:'a fost o problema cu adaugarea imaginii'});
                         })
                     }
@@ -529,8 +559,8 @@ app.post("/inreg", function(req, res){
             if(!campuriText.username.match(new RegExp("^[A-Za-z0-9]+$")))
                 eroare+='Username-ul poate contine doar litere mari si mici si cifre.<br>';
             else{
-            queryUtilizator = `select id from utilizatori where username = '${campuriText.username}'`;
-            client.query(queryUtilizator, function(err, rezUtilizatori){
+            queryUtilizator = `select id from utilizatori where username = $1::text`;
+            client.query(queryUtilizator,[campuriText.username], function(err, rezUtilizatori){
                 if(rezUtilizatori.rows.length){
                     eroare+="Username-ul este deja folosit.<br>"; //misterele creatiei...
                 }
@@ -552,8 +582,8 @@ app.post("/inreg", function(req, res){
             var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex');
             let token1 = genereazaToken1(10000000000);
             let token2 = campuriText.nume+'-'+genereazaToken2(70);
-            var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod, blocat, poza) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}', '${token1+token2}', false, '${caleUtiliz}' )`;
-            client.query(comandaInserare, function(err, rezInserare){
+            var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod, blocat, poza) values ($1::text, $2::text, $3::text, $4, $5, $6, $7, false, $8 )`;
+            client.query(comandaInserare,[campuriText.username, campuriText.nume, campuriText.prenume, parolaCriptata, campuriText.email,campuriText.culoare_chat, token1+token2, caleUtiliz], function(err, rezInserare){
                 if(err) 
                 {
                     res.render("pagini/inregistrare", {err:"Eroare baza de date"});
@@ -581,8 +611,8 @@ app.post("/inreg", function(req, res){
 });
 
 app.get("/confirmare_inreg/:token1/:username/:token2",function(req, res){
-    var comandaUpdate=`update utilizatori set confirmat_mail=true where username='${req.params.username.split('').reverse().join('')}' and cod='${req.params.token1+req.params.token2}'`;
-    client.query(comandaUpdate, function(err, rezUpdate){
+    var comandaUpdate=`update utilizatori set confirmat_mail=true where username=$1 and cod=$2`;
+    client.query(comandaUpdate,[req.params.username.split('').reverse().join(''), req.params.token1+req.params.token2], function(err, rezUpdate){
         if(err){
             console.log(err);
             randeazaEroare(res, 2);
@@ -647,13 +677,12 @@ app.post('/sterge_utiliz', function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
         var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex'); 
-        query = `delete from utilizatori where username = '${campuriText.username}' and parola = '${criptareParola}'`;
-        client.query(query, function(err, rezQuerry){
+        var query = `delete from utilizatori where username = $1 and parola = $2`;
+        client.query(query,[campuriText.username, criptareParola], function(err, rezQuerry){
             if(err) res.render('pagini/profil', {mesaj:"Eroare la baza de date " + err});
             else{
                 if (rezQuerry.rowCount==0){
                     res.render("pagini/profil",{mesaj:"Stergerea nu s-a realizat. Verificati parola introdusa."});
-                    return;
                 }
                 trimiteMail(campuriText.email, "La revedere", "Ne pare rau ca ti-ai sters contul", "<p>Ne pare rau ca pleci :( </p>");
                 req.session.destroy();
@@ -667,20 +696,20 @@ app.post('/sterge_utiliz', function(req, res){
 app.post('/blocheaza_utiliz', function(req, res){
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
-        client.query(`select blocat from utilizatori where id = ${campuriText.id_utiliz}`, function(err, rezQuerry){
+        client.query(`select blocat from utilizatori where id = $1`,[campuriText.id_utiliz], function(err, rezQuerry){
             console.log("\n\n\n\n\n\nAsta e rezultatul la blocare!!!");
             console.log(rezQuerry.rows[0].blocat);
             // res.send(rezQuerry);
             if(!rezQuerry.rows[0].blocat)
-            {query = `update utilizatori set blocat=true where id = ${campuriText.id_utiliz}`;
+            {var query = `update utilizatori set blocat=true where id = $1`;
             trimiteMail(campuriText.mail_utiliz, "Ai fost blocat!", `N-ai fost cuminte, ${campuriText.prenume_utiliz} ${campuriText.nume_utiliz}, așa că te-am blocat`, `<h1 style='color:red'>N-ai fost cuminte, ${campuriText.prenume_utiliz} ${campuriText.nume_utiliz}, așa că te-am blocat</h1>`);
-            client.query(query, function(err, rezQuerry){
+            client.query(query,[campuriText.id_utiliz], function(err, rezQuerry){
                 res.redirect('/useri');
             })
         }else{
-            query = `update utilizatori set blocat=false where id = ${campuriText.id_utiliz}`;
+            query = `update utilizatori set blocat=false where id = $1`;
             trimiteMail(campuriText.mail_utiliz, "Ai fost deblocat!", `Ai fost cuminte, ${campuriText.prenume_utiliz} ${campuriText.nume_utiliz}, așa că te-am deblocat`, `<h1 style='color:green'>Ai fost cuminte, ${campuriText.prenume_utiliz} ${campuriText.nume_utiliz}, așa că te-am deblocat</h1>`);
-            client.query(query, function(err, rezQuerry){
+            client.query(query,[campuriText.id_utiliz], function(err, rezQuerry){
                 res.redirect('/useri');
             })
         }
@@ -734,12 +763,12 @@ app.post("/profil", function(req, res){
         var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex'); 
 
         //TO DO query
-        var queryUpdate=`update utilizatori set nume='${campuriText.nume}', prenume='${campuriText.prenume}', email='${campuriText.email}', culoare_chat='${campuriText.culoare_chat}'`;
+        var queryUpdate=`update utilizatori set nume=$1, prenume=$2, email=$3, culoare_chat=$4`;
         var condQuerry = ` where parola='${criptareParola}' and username = '${campuriText.username}'`;
         if(caleUtiliz) queryUpdate+=`, poza='${caleUtiliz}'`;
         queryUpdate+=condQuerry;
         console.log(queryUpdate+'------------------------------------------------------------');
-        client.query(queryUpdate,  function(err, rez){
+        client.query(queryUpdate,[campuriText.nume,campuriText.prenume,campuriText.email,campuriText.culoare_chat],  function(err, rez){
             if(err){
                 console.log(err);
                 res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
@@ -779,9 +808,9 @@ app.post('/modifica_parola', function(req, res){
         var parolaConfirm=crypto.scryptSync(campuriText.parola_confirmare,parolaServer, 64).toString('hex');  
         if(parolaNoua!=parolaConfirm || parolaNoua.length==0)
             res.render('pagini/profil', {mesaj:"Parolele nu se potrivesc"});
-        var query = `update utilizatori set parola = '${parolaNoua}' where username = '${campuriText.username}' and parola = '${parolaActuala}'`;
+        var query = `update utilizatori set parola = $1 where username = $2 and parola = $3`;
         console.log(query);
-        client.query(query, function(err, rezQuerry){
+        client.query(query,[parolaNoua, campuriText.username,parolaActuala], function(err, rezQuerry){
             if(err) res.render('pagini/profil', {mesaj:"Eroare la baza de date " + err});
             else{
                 if (rezQuerry.rowCount==0){
