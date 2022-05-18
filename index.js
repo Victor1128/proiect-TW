@@ -829,7 +829,7 @@ app.post('/modifica_parola', function(req, res){
 
 //------------------------------------------------------cos-------------------------------------------
 app.post('/produse_cos', function(req, res){
-    let querySelect = `select nume, descriere, pret, scor, imagine from jocuri where id in (${req.body.ids_prod.join(',')})`;
+    let querySelect = `select nume, descriere, pret, pt_copii, imagine from jocuri where id in (${req.body.ids_prod.join(',')})`;
     if(req.body.ids_prod.length){
         
         client.query(querySelect, function(err, rezQuerry){

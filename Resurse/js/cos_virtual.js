@@ -25,14 +25,22 @@ window.addEventListener("load",function(){
 			console.log(objson);
 			for (let prod of objson){
 				let divCos=document.createElement("div");
-				divCos.classList.add("cos-virtual")
+				divCos.classList.add("cos-virtual");
+				let titluNume = document.createElement('h1');
+				titluNume.innerHTML = `${prod.nume}`;
+				divCos.appendChild(titluNume);
 				let divImagine=document.createElement("div");
+				divImagine.classList.add("cos-imagine");
 				let imag=document.createElement("img");
 				imag.src="/Resurse/images/produse/"+prod.imagine;
 				divImagine.appendChild(imag);
 				divCos.appendChild(divImagine);
 				let divInfo=document.createElement("div");
-				divInfo.innerHTML=`<p><b>${prod.nume}</b></p><p>Pret: ${prod.pret}</p><p>Gramaj: ${prod.scor}</p>`;
+				divInfo.classList.add('cos-info');
+				let pt_copii = '';
+				if(!prod.pt_copii)
+					pt_copii = 'NU ';
+				divInfo.innerHTML=`<p style = 'color:#a1e049;'>Pret: ${prod.pret}&euro;</p><p>Acest joc <snap style = 'color:red'>${pt_copii}</snap><snap>este adecvat si pentru copii!</snap></p>`;
 				divCos.appendChild(divInfo);
 				document.getElementsByTagName("main")[0].insertBefore(divCos, document.getElementById("cumpara"));
 			}

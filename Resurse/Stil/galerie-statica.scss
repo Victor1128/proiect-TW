@@ -4,11 +4,13 @@
     img{
         width: 100%;
         padding: 0;
+        z-index: 5;
     }
     figure{
         padding: 0;
         margin: 0;
         transition: all 1.25s linear;
+        z-index: 5;
         &:hover{
 
             transform: scale(130%) translateY(-19px);
@@ -72,10 +74,12 @@
         img{
             width: 100%;
             padding: 0;
+            z-index: 5;
         }
         figure{
             padding: 0;
             margin: 0;
+            z-index: 5;
         }
         figcaption{
             text-align: center;
