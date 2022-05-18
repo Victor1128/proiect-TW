@@ -70,6 +70,20 @@ function genereazaToken2(n){
 function genereazaToken1(n){
     return Math.floor(Math.random()*n);
 }
+
+cale_qr="./Resurse/images/qrcode";
+if (fs.existsSync(cale_qr))
+  fs.rmSync(cale_qr, {force:true, recursive:true});
+fs.mkdirSync(cale_qr);
+client.query("select id from jocuri", function(err, rez){
+    for(let prod of rez.rows){
+        let cale_prod="/Resurse/produs/"+prod.id;
+        //console.log(cale_prod);
+        QRCode.toFile(cale_qr+"/"+prod.id+".png",cale_prod);
+    }
+});
+
+
 // function mailAvertizare(){
 //     client.query('select * from utilizatori where confirmat_mail = false', function(err, rezQuerry){
 //         if(err) console.log("5555555555555555555555555555555555\n Eroare baza de date la mail avertizare " + err);
@@ -840,6 +854,88 @@ app.post('/produse_cos', function(req, res){
     }
     else res.send([]);
 })
+
+
+
+
+/*
+Daca aveti probleme cu crearea facturii si va da o eroare legata de pachetul puppeteer (este folsit de html-pdf-node pentru a crea pdf-uri) realizati urmatoarele:
+1) Instalam plug-in-ul heroku-builds cu comanda:
+ heroku plugins:install heroku-builds
+2) Stergeti cache-ul de la buildul anterior cu 
+ heroku builds:cache:purge -a [nume aplicatie]
+3) adaugati in setarile pentru aplicatie, la buildpacks https://github.com/jontewks/puppeteer-heroku-buildpack cu comanda:
+heroku buildpacks:add --index 1 https://github.com/jontewks/puppeteer-heroku-buildpack -a [nume aplicatie]
+
+*/
+
+async function trimitefactura(username, email,numefis){
+	var transp= nodemailer.createTransport({
+		service: "gmail",
+		secure: false,
+		auth:{//date login 
+			user:obGlobal.emailServer,
+			//pass:"tehniciweb"
+            pass:"fwkbdgklppiccydt"
+		},
+		tls:{
+			rejectUnauthorized:false
+		}
+	});
+	//genereaza html
+	await transp.sendMail({
+		from:obGlobal.emailServer,
+		to:email,
+		subject:"Factură",
+		text:"Stimate "+username+", aveți atașată factura",
+		html:"<h1>Salut!</h1><p>Stimate "+username+", aveți atașată factura</p>",
+        attachments: [
+            {   // utf-8 string as an attachment
+                filename: 'factura.pdf',
+                content: fs.readFileSync(numefis)
+            }
+        ]
+	})
+	console.log("trimis mail");
+}
+
+
+
+
+
+app.post("/cumpara",function(req, res){
+    if(!req.session.utilizator){
+        res.write("Nu puteti cumpara daca nu sunteti logat!");res.end();
+        return;
+    }
+    //TO DO verificare id-uri pentru query-ul la baza de date
+    var query = `select id, nume, pret, scor, tip_joc,producator, categorie, imagine from jocuri where id in (${req.body.ids_prod.join(',')})`
+    console.log(query);
+    client.query(query, function(err,rez){
+        //console.log(err, rez);
+        //console.log(rez.rows);
+        
+        let rezFactura=ejs.render(fs.readFileSync("views/pagini/factura.ejs").toString("utf8"),{utilizator:req.session.utilizator,produse:rez.rows, protocol:obGlobal.protocol, domeniu:obGlobal.numeDomeniu});
+        //console.log(rezFactura);
+        let options = { format: 'A4', args: ['--no-sandbox', '--disable-extensions',  '--disable-setuid-sandbox'] };
+
+        let file = { content: juice(rezFactura, {inlinePseudoElements:true}) };
+       
+        html_to_pdf.generatePdf(file, options).then(function(pdf) {
+            if(!fs.existsSync("./temp"))
+                fs.mkdirSync("./temp");
+            var numefis="./temp/test"+(new Date()).getTime()+".pdf";
+            fs.writeFileSync(numefis,pdf);
+            trimitefactura(req.session.utilizator.username, req.session.utilizator.email, numefis);
+            res.write("Totu bine!");res.end();
+        });
+       
+        
+       
+    });
+
+    
+});
 
 
 

@@ -52,7 +52,7 @@ window.addEventListener("load",function(){
 
 
 		document.getElementById("cumpara").onclick=function(){
-			var vect_ids=localStorage.getItem("produse_selectate").split(",");
+			var vect_ids=localStorage.getItem("cos_virtual").split(",");
 			fetch("/cumpara", {		
 	
 				method: "POST",
@@ -75,7 +75,7 @@ window.addEventListener("load",function(){
 				document.getElementsByTagName("main")[0].innerHTML="";
 				document.getElementsByTagName("main")[0].appendChild(p)
 				if(!raspunsText.includes("nu sunteti logat"))
-					localStorage.removeItem("produse_selectate");
+					localStorage.removeItem("cos_virtual");
 		   
 			}
 			).catch(function(err){console.log(err)});
