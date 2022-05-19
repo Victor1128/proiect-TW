@@ -77,7 +77,7 @@ if (fs.existsSync(cale_qr))
 fs.mkdirSync(cale_qr);
 client.query("select id from jocuri", function(err, rez){
     for(let prod of rez.rows){
-        let cale_prod="/Resurse/produs/"+prod.id;
+        let cale_prod=obGlobal.protocol+obGlobal.numeDomeniu+"/produs/"+prod.id;
         //console.log(cale_prod);
         QRCode.toFile(cale_qr+"/"+prod.id+".png",cale_prod);
     }
@@ -869,35 +869,35 @@ heroku buildpacks:add --index 1 https://github.com/jontewks/puppeteer-heroku-bui
 
 */
 
-async function trimitefactura(username, email,numefis){
-	var transp= nodemailer.createTransport({
-		service: "gmail",
-		secure: false,
-		auth:{//date login 
-			user:obGlobal.emailServer,
-			//pass:"tehniciweb"
-            pass:"fwkbdgklppiccydt"
-		},
-		tls:{
-			rejectUnauthorized:false
-		}
-	});
-	//genereaza html
-	await transp.sendMail({
-		from:obGlobal.emailServer,
-		to:email,
-		subject:"Factură",
-		text:"Stimate "+username+", aveți atașată factura",
-		html:"<h1>Salut!</h1><p>Stimate "+username+", aveți atașată factura</p>",
-        attachments: [
-            {   // utf-8 string as an attachment
-                filename: 'factura.pdf',
-                content: fs.readFileSync(numefis)
-            }
-        ]
-	})
-	console.log("trimis mail");
-}
+// async function trimitefactura(username, email,numefis){
+// 	var transp= nodemailer.createTransport({
+// 		service: "gmail",
+// 		secure: false,
+// 		auth:{//date login 
+// 			user:obGlobal.emailServer,
+// 			//pass:"tehniciweb"
+//             pass:"fwkbdgklppiccydt"
+// 		},
+// 		tls:{
+// 			rejectUnauthorized:false
+// 		}
+// 	});
+// 	//genereaza html
+// 	await transp.sendMail({
+// 		from:obGlobal.emailServer,
+// 		to:email,
+// 		subject:"Factură",
+// 		text:"Stimate "+username+", aveți atașată factura",
+// 		html:"<h1>Salut!</h1><p>Stimate "+username+", aveți atașată factura</p>",
+//         attachments: [
+//             {   // utf-8 string as an attachment
+//                 filename: 'factura.pdf',
+//                 content: fs.readFileSync(numefis)
+//             }
+//         ]
+// 	})
+// 	console.log("trimis mail");
+// }
 
 
 
@@ -926,7 +926,8 @@ app.post("/cumpara",function(req, res){
                 fs.mkdirSync("./temp");
             var numefis="./temp/test"+(new Date()).getTime()+".pdf";
             fs.writeFileSync(numefis,pdf);
-            trimitefactura(req.session.utilizator.username, req.session.utilizator.email, numefis);
+            // trimitefactura(req.session.utilizator.username, req.session.utilizator.email, numefis);
+            trimiteMail(req.session.utilizator.email, "Factura", "Factura", `<h2>Stimate ${req.session.utilizator.username}, </h2><p>Aveti factura atasata</p>`, [{filename:'factura.pdf', content: fs.readFileSync(numefis)}]);
             res.write("Totu bine!");res.end();
         });
        
