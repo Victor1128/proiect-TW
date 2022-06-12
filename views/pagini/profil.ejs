@@ -72,6 +72,17 @@
 			</section>
 			<% if(locals.mesaj) {%> <%=locals.mesaj%> <%}%>
 		</main>
+
+		<script>
+			let cookie = getCookie('produs');
+			if(cookie){
+				let main = document.getElementsByTagName('main')[0];
+				let divJoc = document.createElement('div');
+				cookie = cookie.split('||');
+				divJoc.innerHTML = `<p>Ultimul tau joc accesat este: <a style = 'color:lightgreen; text-decoration:underline' href = '${cookie[1]}'> ${cookie[0]}</a></p>`;
+				main.appendChild(divJoc);
+			}
+		</script>
 		
 		<%- include("../fragmente/footer") %>
 		

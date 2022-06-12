@@ -15,11 +15,14 @@
 				text-align: center;
 			}
 
-			p{color:red};
-			td::before{
+			p{color:red;}
+			/* #tabl tr{} */
+
+
+			#tabl tr td:first-child::before{
+				content: counter(cnt);
 				counter-increment: cnt;
-				content:"Produsul " counter(cnt);
-				display: block;
+				/* display: block; */
 			}
 			/* td::before{
 				content:"Produsul " counter(cnt);
@@ -33,7 +36,7 @@
 	<body>
 		<h1>Factură For the Gamers</h1>
 		<% d = new Date()%>
-		<p>Stimate domn/stimată doamnă <%-locals.utilizator.nume %> <%-locals.utilizator.prenume%>, aveți aici lista de produse achiziționate in data de <%-d %>.</p> 
+		<p>Stimate domn/stimată doamnă <%-locals.utilizator.nume %> <%-locals.utilizator.prenume%>, aveți aici lista de produse achiziționate in data de <%-d.toLocaleDateString('ro-RO') %>.</p> 
 		<table id="tabl">
 			<thead>
 				<tr>
@@ -63,7 +66,7 @@
                         <td><%-  prod.nume %></td>
                         <td><%-  prod.pret %>&euro;</td>
 						<td><%- cantitate %></td>
-                        <td><img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/produse/<%-prod.imagine %>"> </td>
+                        <td><img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/produse/<%-prod.imagine %>" alt="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/produse/<%-prod.imagine %>" /> </td>
                     </tr>
                 <% } %>
 			</tbody>
@@ -73,6 +76,6 @@
 				</tr>
 			</tfoot>
 		</table>
-		<img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/qrcode/produse.png" alt="QRcode produse">
+		<img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/qrcode/produse.png" alt="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/qrcode/produse.png" />
 	</body>
 </html>

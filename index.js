@@ -18,14 +18,29 @@ const html_to_pdf = require('html-pdf-node');
 const juice = require('juice');
 var QRCode = require('qrcode');
 const https = require("https");
+const mongodb=require('mongodb');
+const { rejects } = require("assert");
+const { createUnzip } = require("zlib");
+
+
+var url = "mongodb://localhost:27017";
 
 const obGlobal={
     emailServer:"victorbadulescu11@gmail.com",
     port:8080,
     sirAlphaNum:"",
     protocol:null,
-    numeDomeniu:null
+    numeDomeniu:null,
+    clientMongo:mongodb.MongoClient,
+    bdMongo:null
 };
+
+obGlobal.clientMongo.connect(url, function(err, bd) {
+    if (err) console.log(err);
+    else{
+        obGlobal.bdMongo = bd.db("proiect");
+    }
+});
 
 if(process.env.SITE_ONLINE){
     obGlobal.protocol="https://"
@@ -40,7 +55,7 @@ if(process.env.SITE_ONLINE){
 );
 }
 else{
-    obGlobal.protocol="http://"
+    obGlobal.protocol="https://"
     obGlobal.numeDomeniu="localhost:8080"
     var client=new Client(
         {
@@ -993,7 +1008,27 @@ heroku buildpacks:add --index 1 https://github.com/jontewks/puppeteer-heroku-bui
 // }
 
 
+app.get('/factura', function(req, res){
+    client.query('select * from jocuri where id in (1,2,3)', function(err, rez){
+        let rezFactura=ejs.render(fs.readFileSync("views/pagini/factura.ejs").toString("utf8"),{utilizator:req.session.utilizator,produse:rez.rows,prod_cant:'1,2,3', protocol:obGlobal.protocol, domeniu:obGlobal.numeDomeniu});
+        //console.log(rezFactura);
+        let options = { format: 'A4'};
 
+        let file = { content: juice(rezFactura) };
+       
+        html_to_pdf.generatePdf(file, options).then(function(pdf) {
+            if(!fs.existsSync("./temp"))
+                fs.mkdirSync("./temp");
+            var numefis="./temp/test"+(new Date()).getTime()+".pdf";
+            fs.writeFileSync(numefis,pdf);
+            // trimitefactura(req.session.utilizator.username, req.session.utilizator.email, numefis);
+            trimiteMail(req.session.utilizator.email, "Factura", "Factura", `<h2>Stimate ${req.session.utilizator.username}, </h2><p>Aveti factura atasata</p>`, [{filename:'factura.pdf', content: fs.readFileSync(numefis)}]);
+            res.render('pagini/factura', { utilizator:req.session.utilizator,produse:rez.rows,prod_cant:'1,2,3', protocol:obGlobal.protocol, domeniu:obGlobal.numeDomeniu});
+
+        });
+    });
+   
+})
 
 
 app.post("/cumpara",function(req, res){
@@ -1037,7 +1072,29 @@ app.post("/cumpara",function(req, res){
             trimiteMail(req.session.utilizator.email, "Factura", "Factura", `<h2>Stimate ${req.session.utilizator.username}, </h2><p>Aveti factura atasata</p>`, [{filename:'factura.pdf', content: fs.readFileSync(numefis)}]);
             res.write("Totu bine!");res.end();
         });
-       
+        let produse = []
+        for(let prod of rez.rows)
+        {
+            for(let i = 1; i<req.body.prod_cant.length;i+=2)
+                if(parseInt(req.body.prod_cant[i]) == parseInt(prod.id))
+                    {
+                        produse.push({nume:prod.nume, pret:prod.pret, cantitate:parseInt(req.body.prod_cant[i-1])});
+                        break;
+                    }
+        }
+
+        let factura= { data: new Date(), nume: req.session.utilizator.nume, prenume:req.session.utilizator.prenume, produse:produse};
+            obGlobal.bdMongo.collection("facturi").insertOne(factura, function(err, res) {
+                if (err) console.log(err);
+                else{
+                    console.log("Am inserat factura in mongodb");
+                    //doar de debug:
+                    obGlobal.bdMongo.collection("facturi").find({}).toArray(function(err, result) {
+                        if (err) console.log(err);
+                        else console.log(result);
+                      });
+                }
+              });
         
        
     });
@@ -1045,7 +1102,27 @@ app.post("/cumpara",function(req, res){
     
 });
 
-
+app.get('/facturi', function(req, res){
+    if(req.session.utilizator && req.session.utilizator.rol == 'admin'){
+        obGlobal.bdMongo.collection("facturi").find({}).toArray(function(err, result) {
+            if (err) console.log(err);
+            else res.render('pagini/facturi', {facturi: result.sort(
+                function(a,b){
+                    if(a.data.toLocaleDateString('ro-RO') == b.data.toLocaleDateString('ro-RO'))
+                    {
+                        if(a.nume == b.nume)
+                            return a.prenume.localeCompare(b.prenume);
+                        else return a.nume.localeCompare(b.nume);
+                    }
+                    return a.data - b.data;
+                }
+            )});
+          });
+    }
+    else{
+        randeazaEroare(res, 403);
+    }
+})
 
 
 app.get("/*.ejs", function(req, res){

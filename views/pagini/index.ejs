@@ -46,7 +46,7 @@
         <h2>Calendar</h2>
         <section id="fig2" class="fg-img">
           <h2>Calendar</h2>
-          <p>Observatie: afiseaza doar luna curentă (evenimentele sunt random)</p>
+          <!-- <p>Observatie: afiseaza doar luna curentă (evenimentele sunt random)</p> -->
           <div id="calendar">
               <div>L</div>
               <div>Ma</div>
@@ -94,7 +94,6 @@
           sirData=dataServer.getHours()+":"+dataServer.getMinutes()+":"+dataServer.getSeconds()
 
           %>
-          <p>Pe localhost vor fi identice; se va observa diferența pe Heroku</p>
           <p>Ora server:<span id="data_server"><%= sirData %></span></p>
           <p>Ora client:<span id="data_client"></span></p>
           <script>

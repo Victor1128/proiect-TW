@@ -1,53 +1,49 @@
-/*
-Functii preluate de pe 
-https://www.w3schools.com/js/js_cookies.asp
-si modificate */
 
-
-function setCookie(cname, cvalue, timp_expirare, path="/") {//timp_expirare masurat in milisecunde
-    d = new Date();
-    d.setTime(d.getTime() + timp_expirare);
-    let stringCookie=`${cname}=${cvalue}; expires=${d.toUTCString()}; path=${path}`;
-    console.log(stringCookie);
-    document.cookie = stringCookie;
-    console.log(d.toUTCString());
-  }
-  
-  function getCookie(nume) {//returneaza valoarea cookie-ului cu numele cname
-    var ca = document.cookie.split(';');//vectorul de stringuri de forma nume_cookie=valoare_cookie
-    for(let c of ca) {
-      c = c.trim();//elementul curent
-      if(c.startsWith(nume+'=')){
-        return c.substring(nume.length+1);
-      }
-    }
-  }
-  
-  function checkBanner() {
-    if ( getCookie("acceptat_banner")) { //sirul vid e evaluat la fals intr-o expresie booleana
-      document.getElementById("banner").style.display="none";
-    } else {
-
-        document.getElementById("banner").style.display="block";
-       
-        document.getElementById("ok_cookies").onclick=function(){
-          console.log(getCookie("acceptat_banner"));
-            document.getElementById("banner").style.display = "none";
-            setCookie("acceptat_banner", "true", 5000);
-            //setCookie("test", "ceva", 5000);
-            // document.getElementById("banner").style.display="none";
-          }
-      
-    }
-  } 
-
-function deleteCookie(nume){//presupunem path =/
-   setCookie(nume, "", 0);
+function setCookie(nume, val, timpExp, path="/"){
+  //timpExp timp in milisecunde in care va expira cookie-ul
+  d=new Date();
+  d.setTime(d.getTime()+timpExp);
+  console.log("Va expira:", d.toUTCString());
+  document.cookie=`${nume}=${val}; expires=${d.toUTCString()}; path=${path}`;
 }
 
+function getCookie(nume){
+  var vectCookies=document.cookie.split(";");
+  for (let c of vectCookies){
+      c=c.trim();
+      if(c.startsWith(nume+"=")){
+          return c.substring(nume.length+1)
+      }
+  }
+  return 0;
+}
+
+function deleteCookie(nume){
+  setCookie(nume, "", 0);
+
+}
+/*
+functie de verificare a faptului ca exista cookie-ul "acceptat_banner", 
+caz in care ascundem bannerul. Altfel, daca nu exista cookie-ul afisam 
+bannerul si setam o functie la click pe buton prin care adaugam cookie-ul (care va expira dupa 5 secunde).*/
+
+function checkBanner(){
+  if(getCookie("acceptat_banner")){
+      document.getElementById("banner2").style.display="none";
+  }
+  else{
+      document.getElementById("banner2").style.display="flex";
+      document.getElementById("ok_cookies").onclick=function(){
+          setCookie("acceptat_banner", "true", 24*60*60*1000);
+          // setCookie("acceptat_banner", "true", 5*1000);
+          document.getElementById("banner2").style.display="none";
+      }
+  }
+}
 
 window.addEventListener("DOMContentLoaded", function(){
   checkBanner();
-  console.log("aici");
-
 })
+
+
+

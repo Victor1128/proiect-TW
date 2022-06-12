@@ -1,3 +1,4 @@
+
 window.addEventListener("load",function(){
 // 	var myHeaders = new Headers();
 // myHeaders.append();
@@ -58,32 +59,45 @@ window.addEventListener("load",function(){
 				divCos.appendChild(divInfo);
 				let divButon = document.createElement('div');
 				// divButon.innerHTML = `<form  method = 'post' action="/sterge_cos"><input name = 'id' value = '${prod.id}' hidden ><button style = "color:red; font-size:27px;" class="b3" type="submit"><i class="fa-solid fa-trash-can"></i></button></form>`
-				divButon.innerHTML = `<button style = "color:red; font-size:27px;" class="b3" value = '${prod.id}'><i class="fa-solid fa-trash-can"></i></button>`
+				divButon.innerHTML = `<button style = "color:red; font-size:27px;" class = 'stergere' value = '${prod.id}'><i class="fa-solid fa-trash-can"></i></button>`
 				// divButon.innerHTML = `<input type='checkbox' value = '${prod.id}' class = "b3">`
 				divCos.appendChild(divButon);
 				document.getElementsByTagName("main")[0].insertBefore(divCos, document.getElementById("cumpara"));
 			}
-	
-		}
+
+			var butoane = document.getElementsByClassName("stergere");
+			console.log("este inainte de burtone", butoane);
+			for(let buton of butoane){
+				console.log("in forul de butoame");
+					buton.onclick = function(){
+						// alert("ho ho ho");
+						console.log("a mers butoinul");
+						for(let i = 1; i<prod_sel.length;i+=2)
+						{
+							if(parseInt(prod_sel[i]) == parseInt(buton.value))
+								prod_sel.splice(i-1, 2);
+						}
+						localStorage.removeItem("cos_virtual");
+						localStorage.setItem('cos_virtual', prod_sel.join(','));
+						window.location.href = '/cos-virtual';
+					}
+			}
+			
+				}
 		).catch(function(err){console.log(err)});
 
-
-		var butoane = document.getElementsByClassName("b3");
-		console.log("este inainte de burtone", butoane);
-		for(let buton of butoane){
-				buton.onclick = function(){
-					// alert("ho ho ho");
-					console.log("a mers butoinul");
-					for(let i = 1; i<prod_sel.length;i+=2)
-					{
-						if(parseInt(prod_sel[i]) == parseInt(buton.value))
-							prod_sel.splice(i-1, 2);
-					}
-					localStorage.removeItem("cos_virtual");
-					localStorage.setItem('cos_virtual', prod_sel.join(','));
-					window.location.href('/cos-virtual');
-				}
-		}
+		
+		// document.getElementById('b14').onclick = function(){
+		// 	console.log("a mers butoinul");
+		// 			for(let i = 1; i<prod_sel.length;i+=2)
+		// 			{
+		// 				if(parseInt(prod_sel[i]) == parseInt(buton.value))
+		// 					prod_sel.splice(i-1, 2);
+		// 			}
+		// 			localStorage.removeItem("cos_virtual");
+		// 			localStorage.setItem('cos_virtual', prod_sel.join(','));
+		// 			window.location.href('/cos-virtual');
+		// }
 
 		document.getElementById("cumpara").onclick=function(){
 			fetch("/cumpara", {		

@@ -156,6 +156,24 @@
   }
 }
 
+@keyframes banner {
+    0%{
+      transform: translateX(-100%);
+      background-color: #86c232;
+      border-color: #474b4f;
+    }
+    50%{
+      background-color: #474b4f;
+      border-color: #86c232;
+      transform: translateX(-50%);
+    }
+    100%{
+      background-color: #86c232;
+      border-color: #474b4f;
+      transform: translateX(0%);
+    }
+}
+
 #main-container {
   display: -ms-grid;
   display: grid;
@@ -1036,8 +1054,25 @@ li > figure picture img {
   transition: all .5s;
 }
 
-#banner {
+#banner2 {
+  position: fixed;
+  display: flex;
+  bottom: 10px;
+  left: 0;
+  background-color: #86c232;
+  width: 99.5%;
+  height: 70%;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  border: 5px solid #474b4f;
+}
+@media screen and (min-width: 1008px){
+  #banner2{
+    animation: banner 5s linear;
+
+  }
 }
 
 hr {

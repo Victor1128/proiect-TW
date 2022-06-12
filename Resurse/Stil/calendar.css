@@ -6,6 +6,8 @@
 }
 #calendar div:nth-child(n+8).zi{
     border:1px solid grey;
+}
+#calendar div{
     text-align: center;
 }
 

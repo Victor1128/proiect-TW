@@ -12,7 +12,7 @@
     <section>
         <h2>Pagină produs</h2>
             <article id="art-produs">
-                <h3><span class="nume"><%- locals.prod.nume %></span></h3>
+                <h3><span class="nume"><%- locals.prod.nume %></span> <span id="id" hidden><%-locals.prod.id%></span></h3>
                 <p>Pret: <span class="pret"><%- locals.prod.pret %> &euro;</span></p>
                 <p>Descriere: <span class="descriere"><%- locals.prod.descriere %> </span></p>
                 <p>Caracteristici: <span class="ingrediente"><%- locals.prod.caracteristici %> </span></p>
@@ -25,7 +25,12 @@
                     <img  src="/Resurse/images/produse/<%- locals.prod.imagine %>" alt="[imagine <%- locals.prod.nume %>]" />
                 </figure>    
             </article>
-        
+        <script>
+            if(getCookie('produs')){
+                deleteCookie('produs');
+            }
+            setCookie('produs', [document.getElementsByClassName('nume')[0].innerHTML, '/produs/' + document.getElementById('id').innerHTML].join('||'), 2*60*60*1000 );
+        </script>
     </section>
     <%- include("../fragmente/footer.ejs");  %>
 </body>
