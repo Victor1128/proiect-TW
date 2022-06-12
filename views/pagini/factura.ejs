@@ -10,50 +10,69 @@
 			#tabl{
 				border-collapse:collapse;
 			}
-			tr{
-				counter-increment: cnt;
-			}
 			#tabl td, #tabl th{
 				border:1px solid black;
+				text-align: center;
 			}
 
 			p{color:red};
-			#tabl::after{
-				content:"Numar produse" counter(cnt);
+			td::before{
+				counter-increment: cnt;
+				content:"Produsul " counter(cnt);
 				display: block;
+			}
+			/* td::before{
+				content:"Produsul " counter(cnt);
+				display: block;
+			} */
+			td>img{
+				width: 300px;
 			}
 		</style>
 	</head>
 	<body>
 		<h1>Factură For the Gamers</h1>
-		<p>Stimate domn/stimată doamnă <%-locals.utilizator.nume %>, aveți aici lista de produse achiziționate.</p> 
+		<% d = new Date()%>
+		<p>Stimate domn/stimată doamnă <%-locals.utilizator.nume %> <%-locals.utilizator.prenume%>, aveți aici lista de produse achiziționate in data de <%-d %>.</p> 
 		<table id="tabl">
 			<thead>
 				<tr>
+					<th>Numar</th>
 					<th>Produs</th>
 					<th>Preț</th>
-					<th>QR</th>
+					<th>Cantitate</th>
+					<th>Imagine</th>
 				</tr>
 			</thead>
 			
 			<tbody>
                 <% 
 				var suma=0;
+				prod_cant = locals.prod_cant.split(',');
 				for (let prod of locals.produse) {
-					suma+=parseFloat(prod.pret);
+					var cantitate = 1;
+					for(let i = 1; i<prod_cant.length; i+=2)
+						if(parseInt(prod_cant[i]) == parseInt(prod.id))
+							cantitate = parseInt(prod_cant[i-1]);
+					// if(parseInt(prod_cant[1]) == parseInt(prod.id))
+					// cantitate = parseInt(prod_cant[0]);
+					suma+=(parseFloat(prod.pret)*cantitate);
 					 %>
                     <tr>
+						<td class="numar" ></td>
                         <td><%-  prod.nume %></td>
                         <td><%-  prod.pret %>&euro;</td>
-                        <td><img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/qrcode/<%-  prod.id %>.png"></td>
+						<td><%- cantitate %></td>
+                        <td><img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/produse/<%-prod.imagine %>"> </td>
                     </tr>
                 <% } %>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="3">Total: <%- suma %>&euro;</td>
+					<td colspan="5">Total: <%- suma %>&euro;</td>
 				</tr>
 			</tfoot>
 		</table>
+		<img src="<%- locals.protocol%><%- locals.domeniu %>/Resurse/images/qrcode/produse.png" alt="QRcode produse">
 	</body>
 </html>

@@ -14,8 +14,10 @@
     "path": "^0.12.7",
     "pg": "^8.7.3",
     "qrcode": "^1.5.0",
+    "request": "^2.88.2",
     "sass": "^1.51.0",
-    "sharp": "^0.30.4"
+    "sharp": "^0.30.4",
+    "xml-js": "^1.6.11"
   },
   "name": "proiect",
   "description": "🔗 [Drive curs](https://drive.google.com/drive/u/0/folders/1h059-AbXRFfmXbPUemzj2OrOHeWU3w_E)",

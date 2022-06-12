@@ -5,14 +5,17 @@
     'nume nume'
     'imagine-produs tip'
     'info descriere'
-    'info select'
+    'info cos'
     ;
     grid-gap: 1rem;
 }
 main{
     padding: 5px;
 }
-
+.div-cos{
+    grid-area: cos;
+    text-align: center;
+}
 .imagine-produs{
     grid-area: imagine-produs;
     width: 100%;
@@ -43,8 +46,11 @@ main{
 .link-nume{
     color: white;
 }
+.cantitate-cos{
+    width: 3em;
+}
 .selecteaza-cos{
-    grid-area: select;
+    /* grid-area: select; */
     display: flex;
     justify-content: center;
     align-items: center;

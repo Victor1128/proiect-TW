@@ -2,17 +2,21 @@
 
 window.addEventListener('load', function(){
     function getIduriProduse(){
-        iduriProduse = localStorage.getItem('cos_virtual');
-        if(iduriProduse){
-            iduriProduse = iduriProduse.split(',');
+        cosVirtual = localStorage.getItem('cos_virtual');
+        if(cosVirtual){
+            cosVirtual = cosVirtual.split(',');
         }
         else{
-            iduriProduse = [];
+            cosVirtual = [];
         }
-        for(let id_p of iduriProduse){
-            var ch = document.querySelector(`[value='${id_p}'].select-cos`);
+        for(let i = 1;i<cosVirtual.length;i+=2){
+            var ch = document.querySelector(`[value='${cosVirtual[i]}'].select-cos`);
             if(ch){
                 ch.checked=true;
+                for (let div of document.getElementsByClassName('div-cos')){
+                    if(div.getElementsByClassName('select-cos')[0].value == cosVirtual[i])
+                        div.getElementsByClassName('cantitate-cos')[0].value = cosVirtual[i-1];
+                }
             }
         }
     }
@@ -215,7 +219,7 @@ window.addEventListener('load', function(){
                 if(art.style.display!="none" 
                 && art.getElementsByClassName("select-cos")[0].checked
                 )
-                    suma+=parseInt(art.getElementsByClassName("val-pret")[0].innerHTML);
+                    suma+=(parseInt(art.getElementsByClassName("val-pret")[0].innerHTML) * parseInt(art.getElementsByClassName('cantitate-cos')[0].value));
             }
             var divSuma = document.createElement("div");
             divSuma.id="divsuma";
@@ -244,13 +248,29 @@ window.addEventListener('load', function(){
             }
 
             if(this.checked){
-               
+                let divuri = document.getElementsByClassName('div-cos');
+                for(let div of divuri){
+                    console.log(div.getElementsByClassName('select-cos')[0].value, this.value);
+                    if(div.getElementsByClassName('select-cos')[0].value == this.value){
+                        console.log(div.getElementsByClassName('cantitate-cos')[0].value);
+                        iduriProduse.push(div.getElementsByClassName('cantitate-cos')[0].value);
+                    }
+                }
                 iduriProduse.push(this.value);
             }
             else{
-                var poz = iduriProduse.indexOf(this.value);
-                if(poz!=-1)
-                    iduriProduse.splice(poz, 1);
+                // var poz = iduriProduse.indexOf(this.value);
+                // if(poz!=-1)
+                //     iduriProduse.splice(poz, 1);
+                var poz;
+                for(poz = 1; poz<iduriProduse.length; poz+=2){
+                    if(iduriProduse[poz] == this.value)
+                    {
+                        iduriProduse.splice(poz-1,2);
+                        break;
+                    }
+                        
+                }
             }
             localStorage.setItem('cos_virtual', iduriProduse.join(','));
         }

@@ -5,7 +5,15 @@ window.addEventListener("load",function(){
 
 
 	if (prod_sel){ //p.then(f1).then(f2).then(f3)
-		var vect_ids=prod_sel.split(",");
+		// var vect_ids=prod_sel.split(",");
+		var vect_ids = []
+		var vect_cant = []
+		prod_sel = prod_sel.split(',');
+		for(let i = 0; i<prod_sel.length; i++){
+			if(i%2==0)
+				vect_cant.push(prod_sel[i])
+			else vect_ids.push(prod_sel[i])
+		}
 		fetch("/produse_cos", {		
 
 			method: "POST",
@@ -21,7 +29,6 @@ window.addEventListener("load",function(){
 		})
 		.then(function(rasp){ console.log(rasp); x=rasp.json(); console.log(x); return x})
 		.then(function(objson) {
-	
 			console.log(objson);
 			for (let prod of objson){
 				let divCos=document.createElement("div");
@@ -40,8 +47,20 @@ window.addEventListener("load",function(){
 				let pt_copii = '';
 				if(!prod.pt_copii)
 					pt_copii = 'NU ';
-				divInfo.innerHTML=`<p style = 'color:#a1e049;'>Pret: ${prod.pret}&euro;</p><p>Acest joc <snap style = 'color:red'>${pt_copii}</snap><snap>este adecvat si pentru copii!</snap></p>`;
+				let cantitate;
+				for(let i = 0;i<prod_sel.length; i++)
+					if(vect_ids[i] == prod.id)
+						{
+							cantitate = vect_cant[i];
+							break;
+						}
+				divInfo.innerHTML=`<p style = 'color:#a1e049;'>Pret: ${prod.pret}&euro;</p><p>Cantitate: ${cantitate}</p><p>Acest joc <snap style = 'color:red'>${pt_copii}</snap><snap>este adecvat si pentru copii!</snap></p>`;
 				divCos.appendChild(divInfo);
+				let divButon = document.createElement('div');
+				// divButon.innerHTML = `<form  method = 'post' action="/sterge_cos"><input name = 'id' value = '${prod.id}' hidden ><button style = "color:red; font-size:27px;" class="b3" type="submit"><i class="fa-solid fa-trash-can"></i></button></form>`
+				divButon.innerHTML = `<button style = "color:red; font-size:27px;" class="b3" value = '${prod.id}'><i class="fa-solid fa-trash-can"></i></button>`
+				// divButon.innerHTML = `<input type='checkbox' value = '${prod.id}' class = "b3">`
+				divCos.appendChild(divButon);
 				document.getElementsByTagName("main")[0].insertBefore(divCos, document.getElementById("cumpara"));
 			}
 	
@@ -49,10 +68,24 @@ window.addEventListener("load",function(){
 		).catch(function(err){console.log(err)});
 
 
-
+		var butoane = document.getElementsByClassName("b3");
+		console.log("este inainte de burtone", butoane);
+		for(let buton of butoane){
+				buton.onclick = function(){
+					// alert("ho ho ho");
+					console.log("a mers butoinul");
+					for(let i = 1; i<prod_sel.length;i+=2)
+					{
+						if(parseInt(prod_sel[i]) == parseInt(buton.value))
+							prod_sel.splice(i-1, 2);
+					}
+					localStorage.removeItem("cos_virtual");
+					localStorage.setItem('cos_virtual', prod_sel.join(','));
+					window.location.href('/cos-virtual');
+				}
+		}
 
 		document.getElementById("cumpara").onclick=function(){
-			var vect_ids=localStorage.getItem("cos_virtual").split(",");
 			fetch("/cumpara", {		
 	
 				method: "POST",
@@ -62,6 +95,7 @@ window.addEventListener("load",function(){
 				cache: 'default',
 				body: JSON.stringify({
 					ids_prod: vect_ids,
+					prod_cant: prod_sel,
 					a:10
 				})
 			})
@@ -80,6 +114,7 @@ window.addEventListener("load",function(){
 			}
 			).catch(function(err){console.log(err)});
 		}
+		
 	}
 	else{
 		document.getElementsByTagName("main")[0].innerHTML="<p>Nu aveti nimic in cos!</p>";

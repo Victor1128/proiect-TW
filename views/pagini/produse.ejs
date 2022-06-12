@@ -100,10 +100,16 @@
                         <figure class="imagine-produs">
                             <a href="/produs/<%-prod.id %>" ><img src="/Resurse/images/produse/<%- prod.imagine %>" style="width:50%;height:auto;" alt="[imagine <%- prod.nume %>]" /></a>
                         </figure>
+                        <div class="div-cos">
                         <label class="selecteaza-cos" for="select-cos">
                             Selectează:<br/>
                             <input type="checkbox" name="select-cos" class="select-cos" value="<%-prod.id %>" autocomplete="off">
                         </label>
+                        <label for="cantitate-cos">
+                            Cantitate:
+                            <input type="number" name="cantitate-cos" class="cantitate-cos" min="1" value="1" step="1">
+                        </label>
+                        </div>
                     </article>
                 <% }%>
             </div>

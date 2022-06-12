@@ -10,12 +10,14 @@ const crypto= require('crypto');
 const session= require('express-session');
 const nodemailer = require('nodemailer');
 const helmet = require('helmet');
+const request = require('request');
 const path = require('path');
 const { ClientRequest } = require("http");
 const { query } = require("express");
 const html_to_pdf = require('html-pdf-node');
 const juice = require('juice');
 var QRCode = require('qrcode');
+const https = require("https");
 
 const obGlobal={
     emailServer:"victorbadulescu11@gmail.com",
@@ -75,13 +77,9 @@ cale_qr="./Resurse/images/qrcode";
 if (fs.existsSync(cale_qr))
   fs.rmSync(cale_qr, {force:true, recursive:true});
 fs.mkdirSync(cale_qr);
-client.query("select id from jocuri", function(err, rez){
-    for(let prod of rez.rows){
-        let cale_prod=obGlobal.protocol+obGlobal.numeDomeniu+"/produs/"+prod.id;
+let cale_prod=obGlobal.protocol+obGlobal.numeDomeniu+"/produse";
         //console.log(cale_prod);
-        QRCode.toFile(cale_qr+"/"+prod.id+".png",cale_prod);
-    }
-});
+        QRCode.toFile(cale_qr+"/produse.png",cale_prod);
 
 
 // function mailAvertizare(){
@@ -267,8 +265,77 @@ app.get(["/", "/index", "/home", "/acasa"], function(req, res){
         if(err) console.log(err);
         else 
             useriOnline = rezAccesari.rows;
-        res.render("pagini/index", {ip:getIp(req), imagini:obImagini.imagini, nrImag:nrAleator, useriOnline:useriOnline});
-    })
+            var evenimente=[]
+            var locatie="";
+            
+            request('https://secure.geobytes.com/GetCityDetails?key=7c756203dbb38590a66e01a5a3e1ad96&fqcn=109.99.96.15', //se inlocuieste cu req.ip; se testeaza doar pe Heroku
+                function (error, response, body) {
+                if(error) {console.error('error:', error)}
+                else{
+                    var obiectLocatie=JSON.parse(body);
+                    //console.log(obiectLocatie);
+                    locatie=obiectLocatie.geobytescountry+" "+obiectLocatie.geobytesregion
+                }
+    
+                //generare evenimente random pentru calendar 
+                
+                var texteEvenimente=[ "Festivitate", "1 + 1 gratis", "Aniversare"];
+
+                //prima zi de luni
+                var d = new Date();
+                d.setDate(1);
+                while(d.getDay()!==1) d.setDate(d.getDate()+1);
+                evenimente.push({data:d, text:"Reduceri de inceput"});
+
+                //ultimele 2 weekenduri:
+                d = new Date();
+                anCurent = d.getFullYear();
+                zilePosibile = [31,28,31,30,31,30,31,31,30,31,30,31];
+                if(anCurent%400==0 || (anCurent%4==0 && anCurent%100!=0))
+                    zilePosibile[1] = 29;
+                let nrzile = zilePosibile[d.getMonth()];
+                d.setDate(nrzile);
+                let cnt = 0;
+                console.log("DATE:");
+                while(cnt<2){
+                    console.log(d.getDay(), d.getDate());
+                    if(d.getDay() == 0){
+                        console.log(evenimente);
+                        let d2 = new Date(d);
+                        evenimente.push({data: d2, text: "Promotie de weekend"});
+                        d3 = new Date(d2);
+                        d3.setDate(d3.getDate()-1)
+                        evenimente.push({data: d3, text: "Promotie de weekend"});
+                        cnt++;
+                        console.log(evenimente);
+                    }
+                    d.setDate(d.getDate()-1);
+                }
+
+                dataCurenta=new Date();
+                for(i=0;i<texteEvenimente.length;i++){
+                    d = new Date(dataCurenta.getFullYear(), dataCurenta.getMonth(), Math.ceil(Math.random()*27) );
+                    let check  = evenimente.find(function(elem){return elem.data == d});
+                    if(!check)
+                        evenimente.push({data: new Date(dataCurenta.getFullYear(), dataCurenta.getMonth(), Math.ceil(Math.random()*27) ), text:texteEvenimente[i]});
+                }
+
+                
+
+                console.log(evenimente)
+                console.log("inainte",req.session.mesajLogin);
+                // res.render("pagini/index", {evenimente: evenimente, locatie:locatie,utiliz_online: rezultat.rows, ip:getIp(req),imagini:obGlobal.obImagini.imagini, cale:obGlobal.obImagini.cale_galerie});
+                res.render("pagini/index", {ip:getIp(req), imagini:obImagini.imagini, nrImag:nrAleator, useriOnline:useriOnline, locatie:locatie, evenimente:evenimente});
+                //req.session.mesajLogin="abc";
+                req.session.a="ceva";
+                
+                console.log("dupa",req.session.mesajLogin);
+                
+                });
+                
+            //res.render("pagini/index", {evenimente: evenimente, locatie:locatie,utiliz_online: rezultat.rows, ip:req.ip,imagini:obGlobal.obImagini.imagini, cale:obGlobal.obImagini.cale_galerie, mesajLogin:req.session.mesajLogin});
+                 
+        });
 })
 
 
@@ -539,8 +606,12 @@ app.post("/inreg", function(req, res){
     let caleUtiliz = null;
     formular.on("field", function(nume,val){  // 1 
             console.log(`--- ${nume}=${val}`);
-            if(nume=="username")
-                username=val;
+            if(nume=="username"){
+                if(val.match(new RegExp("^[A-Za-z0-9]+$")))
+                    username=val;
+                else username = gunoi;
+            }
+               
         });
         formular.on("fileBegin", function(nume,fisier){ //2
             console.log(`username = ${username}`)
@@ -748,8 +819,13 @@ app.post("/profil", function(req, res){
     let caleUtiliz = null;
     formular.on("field", function(nume,val){  // 1 
             console.log(`--- ${nume}=${val}`);
-            if(nume=="username")
-                username=val;
+            if(nume=="username"){
+                if(val.match(new RegExp("^[A-Za-z0-9]+$")))
+                    username=val;
+                else username = gunoi;
+            }
+                
+            
         });
         formular.on("fileBegin", function(nume,fisier){ //2
             console.log(`username = ${username}`)
@@ -843,7 +919,7 @@ app.post('/modifica_parola', function(req, res){
 
 //------------------------------------------------------cos-------------------------------------------
 app.post('/produse_cos', function(req, res){
-    let querySelect = `select nume, descriere, pret, pt_copii, imagine from jocuri where id in (${req.body.ids_prod.join(',')})`;
+    let querySelect = `select id, nume, descriere, pret, pt_copii, imagine from jocuri where id in (${req.body.ids_prod.join(',')})`;
     if(req.body.ids_prod.length){
         
         client.query(querySelect, function(err, rezQuerry){
@@ -855,7 +931,24 @@ app.post('/produse_cos', function(req, res){
     else res.send([]);
 })
 
-
+app.post('/sterge_cos', function(req, res){
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+       cos = localStorage.getItem('cos_virtual');
+       if(cos){
+        cos = cos.split(',');
+        for(let i = 1; i<cos.length;i+=2){
+            if(campuriText.id == cos[i])
+                {
+                    cos.splice(i-1, 2);
+                    break;
+                }
+        }
+       }
+    });
+    localStorage.setItem('cos_virtual', cos.join(','));
+    res.redirect('cos-virtual');
+})
 
 
 /*
@@ -908,14 +1001,28 @@ app.post("/cumpara",function(req, res){
         res.write("Nu puteti cumpara daca nu sunteti logat!");res.end();
         return;
     }
+    prod_cant = req.body.prod_cant;
+    for(let i = 0; i<req.body.prod_cant.length;i+=2){
+        if(parseInt(prod_cant[i])<=0){
+            res.write("Cantitatea pentru unul din produse este mai mica decat 1!");
+            res.end();
+            return;
+        }
+        if(parseFloat(prod_cant[i])!=parseInt(prod_cant[i])){
+            res.write("Cantitatea trebuie sa fie un numar natural!");
+            res.end();
+            return;
+        }
+    }
     //TO DO verificare id-uri pentru query-ul la baza de date
     var query = `select id, nume, pret, scor, tip_joc,producator, categorie, imagine from jocuri where id in (${req.body.ids_prod.join(',')})`
     console.log(query);
     client.query(query, function(err,rez){
         //console.log(err, rez);
         //console.log(rez.rows);
-        
-        let rezFactura=ejs.render(fs.readFileSync("views/pagini/factura.ejs").toString("utf8"),{utilizator:req.session.utilizator,produse:rez.rows, protocol:obGlobal.protocol, domeniu:obGlobal.numeDomeniu});
+        console.log(parseInt(req.body.prod_cant[1])==parseInt(rez.rows[0].id));
+        console.log(req.body.prod_cant.length)
+        let rezFactura=ejs.render(fs.readFileSync("views/pagini/factura.ejs").toString("utf8"),{utilizator:req.session.utilizator,produse:rez.rows,prod_cant:req.body.prod_cant.join(','), protocol:obGlobal.protocol, domeniu:obGlobal.numeDomeniu});
         //console.log(rezFactura);
         let options = { format: 'A4', args: ['--no-sandbox', '--disable-extensions',  '--disable-setuid-sandbox'] };
 
@@ -1020,8 +1127,15 @@ function randeazaEroare(res, identificator, titlu, text, imagine){
 
 // app.listen(8080);
 var s_port=process.env.PORT || 8080;
-app.listen(s_port)
+// app.listen(s_port)
 
-console.log("A pornit");
+const options = {
+    key: fs.readFileSync("server.key"),
+    cert: fs.readFileSync("server.cert"),
+  };
+https.createServer(options, app).listen(s_port, function (req, res) {
+    console.log("Server started at port "+s_port);
+  });
+// console.log("A pornit");
 
 

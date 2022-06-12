@@ -4,6 +4,8 @@
     <title>For the gamers</title>
     <meta name="description" content="Site de cumparat jocuri">
     <link rel="stylesheet" href="/Resurse/temp/galerie_animata.css" type="text/css"/>
+    <link rel="stylesheet" href="/Resurse/temp/grid.css" type="text/css"/>
+    <link rel="stylesheet" href="/Resurse/Stil/calendar.css" type="text/css"/>
     <%- include("../fragmente/head.ejs");  %> 
   </head>
   <body>
@@ -42,7 +44,88 @@
       </section>
       <div class="calendar">
         <h2>Calendar</h2>
-       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum lorem ac libero maximus mattis. Donec pulvinar mattis nisl vitae luctus. Integer et volutpat nunc, in dapibus lectus. Suspendisse metus lorem, dapibus pulvinar varius non, placerat eget ipsum. Aliquam aliquet accumsan sapien eget sagittis. Sed finibus pretium eros. Integer urna elit, rutrum at sapien quis, iaculis tristique ligula. Integer sodales eget nulla ullamcorper condimentum. Duis ullamcorper fringilla erat vel laoreet. Fusce semper nisl at arcu viverra aliquam. In hac habitasse platea dictumst. Praesent tempor sapien tellus, id pulvinar sem consectetur eu. Vivamus et porttitor risus.</p>
+        <section id="fig2" class="fg-img">
+          <h2>Calendar</h2>
+          <p>Observatie: afiseaza doar luna curentă (evenimentele sunt random)</p>
+          <div id="calendar">
+              <div>L</div>
+              <div>Ma</div>
+              <div>Mi</div>
+              <div>J</div>
+              <div>V</div>
+              <div>S</div>
+              <div>D</div>
+          <% 
+          nrZile=[31,28,31,30,31,30,31,31,30,31,30,31];
+          
+          d=new Date(); //observatie: este data serverului nu a clinetului; codul ejs fiind compilat pe server
+          anCurent=d.getFullYear();
+          lunaCurenta=d.getMonth();
+          if(anCurent%400==0 || (anCurent%4==0 && anCurent%100!=0)) nrZile[1]=29;
+          let nrZileCalendar=nrZile[lunaCurenta]
+          primaZiLuna=new Date(anCurent, lunaCurenta, 1);
+          ultimaZiLuna=new Date(anCurent, lunaCurenta, nrZileCalendar);
+          ziSaptPrimaZiLuna=(primaZiLuna.getDay()-1+7)%7;
+          ziSaptUltimaZiLuna=(ultimaZiLuna.getDay()-1+7)%7;
+          for (let i=0;i<ziSaptPrimaZiLuna;i++){
+           %>
+           <div></div> 
+           <% } 
+
+           
+           for (let i=1;i<=nrZileCalendar;i++){
+              var obiectEvenimente=null;
+                  if(locals.evenimente)
+                       obiectEvenimente=locals.evenimente.find(function(elem){ return elem.data.getDate()==i})
+               if(obiectEvenimente)
+               {
+               %>
+               <div class="zi eveniment" title="<%= obiectEvenimente.text %>"><%= i %></div> 
+               <%
+               }
+               else{
+              %>
+              <div class="zi"><%= i %></div> 
+              <% } 
+          } %>
+          </div>
+          <%
+          dataServer=new Date();
+          sirData=dataServer.getHours()+":"+dataServer.getMinutes()+":"+dataServer.getSeconds()
+
+          %>
+          <p>Pe localhost vor fi identice; se va observa diferența pe Heroku</p>
+          <p>Ora server:<span id="data_server"><%= sirData %></span></p>
+          <p>Ora client:<span id="data_client"></span></p>
+          <script>
+              function zero(nr){
+                  if (nr<10) return "0"+nr;
+                  return nr;
+              }
+              
+              d=new Date()
+              document.getElementById("data_client").innerHTML=zero(d.getHours())+":"+zero(d.getMinutes())+":"+zero(d.getSeconds());
+
+              function actualizeazaElemData(id_div){
+                  var data_div=document.getElementById(id_div);
+                  if (data_div.innerHTML!="")
+                  {
+                      var timp=data_div.innerHTML.split(":")
+                      var dt=new Date(2000,1,15, timp[0],timp[1], timp[2] );//nu conteaza data (am pus valori random pentru an, luna si zi) ci timpul
+                  }
+                  else
+                      var dt=new Date();
+                  dt.setSeconds(dt.getSeconds()+1)
+                  data_div.innerHTML=zero(dt.getHours())+":"+zero(dt.getMinutes())+":"+zero(dt.getSeconds());
+              }
+              function actualizeazaData(){
+                  actualizeazaElemData("data_client");
+                  actualizeazaElemData("data_server");
+              }
+              actualizeazaData()
+              setInterval(actualizeazaData,1000)
+          </script>
+      </section>
       </div>
       <div id="tabel">
         <h2>Tabel</h2>
@@ -190,6 +273,7 @@
         <a id="info_user">
         <h2>Informații despre utilizator</h2>
           <p>IP-ul tău este <%= ip %></p>
+          <p>Locatia ta este <%= locatie%></p>
       </div>
     </main>
     <hr>
